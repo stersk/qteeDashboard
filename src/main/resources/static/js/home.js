@@ -1,29 +1,65 @@
-var $table = $('#fresh-table');
+var table;
+var alertBtn;
+var selections = [];
 
-$(function () {
-  $table.bootstrapTable({
-    classes: 'table table-hover table-striped',
-    toolbar: '.toolbar',
+$(document).ready(function() {
+    //table = $('#fresh-table');
+    table = $('#table');
+    alertBtn = $('#alertBtn');
 
-    search: true,
-    showRefresh: true,
-    showToggle: true,
-    showColumns: true,
-    pagination: true,
-    striped: true,
-    sortable: true,
-    pageSize: 8,
-    pageList: [8, 10, 25, 50, 100],
+    alertBtn.click(function () {
+        alert('You pressed on Alert')
+    });
 
-    formatShowingRows: function (pageFrom, pageTo, totalRows) {
-      return ''
-    },
-    formatRecordsPerPage: function (pageNumber) {
-      return pageNumber + ' rows visible'
-    }
-  })
+    initTable();
+})
 
-  $alertBtn.click(function () {
-    alert('You pressed on Alert')
-  })
-});
+function initTable() {
+    table.bootstrapTable('destroy').bootstrapTable({
+      height: 550,
+      columns: [
+          [{
+            field: 'state',
+            checkbox: true,
+            rowspan: 2,
+            align: 'center',
+            valign: 'middle'
+          }, {
+            title: 'Item ID',
+            field: 'id',
+            rowspan: 2,
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+          }, {
+            title: 'Item Detail',
+            colspan: 3,
+            align: 'center'
+          }],
+          [{
+            field: 'name',
+            title: 'Item Name',
+            sortable: true,
+            align: 'center'
+          }, {
+            field: 'price',
+            title: 'Item Price',
+            sortable: true,
+            align: 'center'
+          }, {
+            field: 'operate',
+            title: 'Item Operate',
+            align: 'center',
+            clickToSelect: false,
+            events: window.operateEvents
+          }]
+        ]
+    })
+}
+
+function responseHandler(res) {
+    $.each(res.rows, function (i, row) {
+      row.state = $.inArray(row.id, selections) !== -1
+    })
+    return res
+}

@@ -1,0 +1,6 @@
+#main-panel {
+    width: 100%
+}
+.main-panel > .content {
+    padding-top: 120px;
+}
