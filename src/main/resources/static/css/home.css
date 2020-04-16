@@ -1,6 +1,9 @@
 #main-panel {
     width: 100%
 }
+#username {
+    text-transform: none;
+}
 .main-panel > .content {
     padding-top: 120px;
 }
