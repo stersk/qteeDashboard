@@ -1,6 +1,5 @@
 package org.qtee.dashboard.configuration;
 
-import org.qtee.dashboard.controller.web.RegistrationForm;
 import org.qtee.dashboard.data.UserRepository;
 import org.qtee.dashboard.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -64,8 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder encoder() {
-        //TODO change to another encoder
-        return new StandardPasswordEncoder("qteeSecretSalt09");
+        return new BCryptPasswordEncoder(5);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private void initAdminAccount() {
         User existingUser = repository.findByUsername("admin");
         if (existingUser == null) {
-            existingUser = new User("admin", encoder().encode("1829"), "Головний адміністратор", "", 1, true);
+            existingUser = new User("admin", encoder().encode("1829"), 1,  true, "Головний адміністратор", "", null);
             repository.save(existingUser);
         }
     }

@@ -27,14 +27,23 @@ public class User implements UserDetails {
 
     private final String username;
     private final String password;
-    private final String fullname;
-    private final String phoneNumber;
     private final Integer role;
     private final Boolean enabled;
+
+    @Column(name = "fullname")
+    private final String fullName;
+
+    @Column(name = "phone")
+    private final String phoneNumber;
+
+    @ManyToOne(targetEntity = Account.class)
+    @JoinColumn(name = "account_id")
+    private final Account account;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == 1) {
+            // TODO make role as string in Entity
             return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
         } else {
             return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
