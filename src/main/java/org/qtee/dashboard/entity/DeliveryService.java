@@ -6,9 +6,20 @@ public enum DeliveryService {
     public static String getLogoPath(DeliveryService deliveryService) {
         switch (deliveryService) {
             case NOWA_POSHTA:
-                return "/images/deliveryService/1.png";
+                return "/images/NovaPoshta.png";
             case UKRPOSHTA:
-                return "/images/deliveryService/2.png";
+                return "/images/Ukrposhta.png";
+            default:
+                return "";
+        }
+    }
+
+    public static String getName(DeliveryService deliveryService) {
+        switch (deliveryService) {
+            case NOWA_POSHTA:
+                return "Нова Пошта";
+            case UKRPOSHTA:
+                return "Укрпошта";
             default:
                 return "";
         }

@@ -18,41 +18,50 @@ function initTable() {
     table.bootstrapTable('destroy').bootstrapTable({
       height: 550,
       columns: [
-          [{
-            field: 'state',
-            checkbox: true,
-            rowspan: 2,
-            align: 'center',
-            valign: 'middle'
-          }, {
-            title: 'Item ID',
-            field: 'id',
-            rowspan: 2,
-            align: 'center',
+         [{
+           title: '',
+           field: 'deliveryService',
+           align: 'center',
+           formatter: 'deliveryServiceFormatter',
+           sortable: true
+         },{
+            field: 'date',
+            title: 'Дата',
+            align: 'left',
             valign: 'middle',
+            sortable: true,
+            visible: true,
+            switchable: true
+          },{
+            field: 'id',
+            title: 'Id',
+            align: 'left',
+            valign: 'middle',
+            visible: false,
+            switchable: false,
             sortable: true
           }, {
-            title: 'Item Detail',
-            colspan: 3,
-            align: 'center'
-          }],
-          [{
-            field: 'name',
-            title: 'Item Name',
+            field: 'customer',
+            title: 'Клієнт',
             sortable: true,
-            align: 'center'
+            align: 'left'
           }, {
-            field: 'price',
-            title: 'Item Price',
+            field: 'phone',
+            title: 'Телефон',
+            align: 'left',
+            clickToSelect: false
+          }, {
+            field: 'address',
+            title: 'Адреса доставки',
             sortable: true,
-            align: 'center'
+            align: 'left'
           }, {
-            field: 'operate',
-            title: 'Item Operate',
-            align: 'center',
-            clickToSelect: false,
-            events: window.operateEvents
-          }]
+            title: 'Сумма',
+            field: 'sum',
+            align: 'left',
+            valign: 'middle',
+            sortable: true
+          ]
         ]
     })
 }
@@ -62,4 +71,10 @@ function responseHandler(res) {
       row.state = $.inArray(row.id, selections) !== -1
     })
     return res
+}
+
+function deliveryServiceFormatter(value, row, index, field) {
+    return [
+      '<img class="fit-picture" width="20" height="20" src="' + value + '">',
+    ].join('')
 }
