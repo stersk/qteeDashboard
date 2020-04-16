@@ -17,8 +17,9 @@ $(document).ready(function() {
 function initTable() {
     table.bootstrapTable('destroy').bootstrapTable({
       height: 550,
+      locale: 'uk-UA',
       columns: [
-         [{
+         {
            title: '',
            field: 'deliveryService',
            align: 'center',
@@ -49,6 +50,7 @@ function initTable() {
             field: 'phone',
             title: 'Телефон',
             align: 'left',
+            sortable: true,
             clickToSelect: false
           }, {
             field: 'address',
@@ -61,7 +63,7 @@ function initTable() {
             align: 'left',
             valign: 'middle',
             sortable: true
-          ]
+          }
         ]
     })
 }
