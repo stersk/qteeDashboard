@@ -1,14 +1,15 @@
 package org.qtee.dashboard.controller.rest;
 
+import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
+import org.qtee.dashboard.service.AccountService;
 import org.qtee.dashboard.service.ShipmentService;
 import org.qtee.dashboard.tao.ShipmentForBootstrapTableTAO;
+import org.qtee.dashboard.tao.ShipmentFrom1CTAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 public class ShipmentRestController {
     @Autowired
     private ShipmentService shipmentService;
+
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping(path="/ping")
     public ResponseEntity<String> ping(Principal principal) {
@@ -37,5 +41,21 @@ public class ShipmentRestController {
         List<ShipmentForBootstrapTableTAO> response = shipmentList.stream().map(ShipmentForBootstrapTableTAO::new).collect(Collectors.toList());
 
         return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @PostMapping(path="/saveShipments")
+    public ResponseEntity<String> saveShipments(@RequestBody List<ShipmentFrom1CTAO> data) {
+        // TODO make apropriate account setting after REST authorization
+        // temporary hardcode account
+        Account account = accountService.getAccountById(1l);
+
+        for (ShipmentFrom1CTAO shipmentTao: data) {
+            Shipment shipment = shipmentTao.toShipment();
+            shipment.setAccount(account);
+
+            shipmentService.save(shipment);
+        }
+
+        return new ResponseEntity("{}", HttpStatus.OK);
     }
 }

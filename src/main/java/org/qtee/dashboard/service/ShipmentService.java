@@ -15,4 +15,8 @@ public class ShipmentService {
     public List<Shipment> getAll () {
         return shipmentRepository.findAll();
     }
+
+    public void save(Shipment shipment) {
+        shipmentRepository.saveAndFlush(shipment);
+    }
 }

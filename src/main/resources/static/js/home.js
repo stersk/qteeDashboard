@@ -26,6 +26,14 @@ function initTable() {
            formatter: 'deliveryServiceFormatter',
            sortable: true
          },{
+           field: 'declarationNumber',
+           title: 'Номер',
+           align: 'left',
+           valign: 'middle',
+           sortable: true,
+           visible: true,
+           switchable: true
+         },{
             field: 'date',
             title: 'Дата',
             align: 'left',

@@ -25,6 +25,9 @@ public class Shipment {
     private String phone;
     private String address;
 
+    @Column(name = "declaration_number")
+    private String declarationNumber;
+
     @Column(name = "delivery_service")
     private DeliveryService deliveryService;
 }

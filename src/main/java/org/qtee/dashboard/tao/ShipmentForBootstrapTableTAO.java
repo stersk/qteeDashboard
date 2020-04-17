@@ -15,6 +15,7 @@ public class ShipmentForBootstrapTableTAO {
     private final String deliveryService;
     private final String deliveryServiceName;
     private final String phone;
+    private final String declarationNumber;
     private final float sum;
     private final String customer;
     private final String address;
@@ -29,5 +30,6 @@ public class ShipmentForBootstrapTableTAO {
         this.sum = (float) shipment.getSum() / 100;
         this.customer = shipment.getCustomer();
         this.address = shipment.getAddress();
+        this.declarationNumber = shipment.getDeclarationNumber();
     }
 }

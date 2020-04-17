@@ -52,9 +52,11 @@ public class SecurityConfigWeb extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
 
                 // Make H2-Console non-secured; for debug purposes
+                //TODO make REST authorization and remove them from ignoringAntMachers
+                // Also temporary left REST-services unsecured
                 .and()
                 .csrf()
-                .ignoringAntMatchers("/h2-console/**")
+                .ignoringAntMatchers("/h2-console/**", "/services/**")
 
                 // Allow pages to be loaded in frames from the same origin; needed for H2-Console
                 .and()

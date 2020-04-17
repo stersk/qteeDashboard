@@ -1,10 +1,8 @@
 package org.qtee.dashboard.configuration;
 
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Order(2)
 public class SecurityConfigRest extends WebSecurityConfigurerAdapter {
     //TODO Rest endpoints are insecure for now.
     //     Need to setup multiple security configurations
