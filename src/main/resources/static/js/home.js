@@ -5,11 +5,6 @@ var selections = [];
 $(document).ready(function() {
     //table = $('#fresh-table');
     table = $('#table');
-    alertBtn = $('#alertBtn');
-
-    alertBtn.click(function () {
-        alert('You pressed on Alert')
-    });
 
     initTable();
 })
@@ -23,6 +18,7 @@ function initTable() {
            title: '',
            field: 'deliveryService',
            align: 'center',
+           valign: 'middle',
            formatter: 'deliveryServiceFormatter',
            sortable: true
          },{
@@ -74,6 +70,10 @@ function initTable() {
           }
         ]
     })
+
+    var dropdownElement = $('.fixed-table-toolbar button.dropdown-toggle', table).first();
+    dropdownElement.attr('data-offset', '100');
+    dropdownElement.dropdown('update');
 }
 
 function responseHandler(res) {

@@ -1,6 +1,7 @@
 package org.qtee.dashboard.service;
 
 import org.qtee.dashboard.data.ShipmentRepository;
+import org.qtee.dashboard.data.projection.ShipmentDayStat;
 import org.qtee.dashboard.entity.Shipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,10 @@ public class ShipmentService {
 
     public List<Shipment> getAll () {
         return shipmentRepository.findAll();
+    }
+
+    public List<ShipmentDayStat> getDayStats() {
+        return shipmentRepository.getStatisticsByDays();
     }
 
     public void save(Shipment shipment) {

@@ -1,5 +1,6 @@
 package org.qtee.dashboard.controller.rest;
 
+import org.qtee.dashboard.data.projection.ShipmentDayStat;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
 import org.qtee.dashboard.service.AccountService;
@@ -43,9 +44,16 @@ public class ShipmentRestController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @GetMapping(path="/get-day-stats")
+    public ResponseEntity<List<ShipmentDayStat>> getDayStats(Principal principal) {
+        List<ShipmentDayStat> response = shipmentService.getDayStats();
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @PostMapping(path="/saveShipments")
     public ResponseEntity<String> saveShipments(@RequestBody List<ShipmentFrom1CTAO> data) {
-        // TODO make apropriate account setting after REST authorization
+        // TODO make appropriate account setting after REST authorization
         // temporary hardcode account
         Account account = accountService.getAccountById(1l);
 

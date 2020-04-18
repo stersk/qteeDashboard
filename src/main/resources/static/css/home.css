@@ -10,3 +10,29 @@
 input.dropdown-item {
     color: #888 !important;
 }
+
+.dropdown span.caret,
+.dropdown-toggle span.caret{
+    visibility: hidden;
+}
+div.search {
+    padding-top: 15px;
+}
+
+.dropdown-item.active {
+    background-color: #979797;
+    color: #fff !important;
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #979797;
+    border-color: #979797;
+}
+.page-link,
+.page-link:hover {
+    color: #2c2c2c;
+}
+.bootstrap-table .btn.dropdown-toggle {
+    margin-left: 0px;
+}

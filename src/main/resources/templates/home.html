@@ -11,7 +11,7 @@
     <!--     Fonts and icons     -->
     <link rel="icon" th:href="@{/favicon.ico}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
 
     <!-- Material Kit CSS -->
     <link th:href="@{/styles/bootstrap.min.css}" rel="stylesheet">
@@ -30,7 +30,7 @@
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/locale/bootstrap-table-uk-UA.min.js}"></script>
 
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-<!--    <script th:src="@{/js/plugins/now-ui-dashboard.min.js}" type="text/javascript"></script>-->
+    <script th:src="@{/js/plugins/now-ui-dashboard.min.js}" type="text/javascript"></script>
 
     <script th:src="@{/js/home.js}" type="text/javascript"></script>
 </head>
@@ -255,7 +255,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title"> Simple Table</h4>
+                            <h4 class="card-title"> Відгрузки </h4>
                         </div>
                         <div class="card-body">
                              <!--
@@ -263,10 +263,12 @@
                                Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
                              -->
                                 <div id="toolbar">
+                                    <!--
                                     <button id="remove" class="btn btn-danger" disabled>
                                         <i class="glyphicon glyphicon-remove"></i> Delete
                                     </button>
                                     <button id="alertBtn" class="btn btn-default">Alert</button>
+                                    -->
                                 </div>
                                 <table
                                         id="table"
