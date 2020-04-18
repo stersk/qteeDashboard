@@ -2,12 +2,16 @@ var table;
 var alertBtn;
 var selections = [];
 
+
+
 $(document).ready(function () {
     //table = $('#fresh-table');
     table = $('#table');
 
     initTable();
     initStatChart();
+
+    updateStatChartData();
 })
 
 function initTable() {
@@ -88,36 +92,36 @@ function initStatChart() {
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
 
-    var myChart = new Chart(ctx, {
-             type: 'bar',
-                data: {
-                  labels: ["1900", "1950", "1999", "2050"],
-                  datasets: [{
-                      label: "Сума",
-                      yAxisID: "sum",
-                      type: "line",
-                      borderColor: chartColor,
-                      pointBorderColor: chartColor,
-                      pointBackgroundColor: "#1e3d60",
-                      pointHoverBackgroundColor: "#1e3d60",
-                      pointHoverBorderColor: chartColor,
-                      pointBorderWidth: 1,
-                      pointHoverRadius: 7,
-                      pointHoverBorderWidth: 2,
-                      pointRadius: 5,
-                      fill: true,
-                      backgroundColor: gradientFill,
-                      borderWidth: 2,
-                      data: [408,547,675,734]
-                    }, {
-                      label: "Кількість",
-                      yAxisID: "count",
-                      type: "bar",
-                      backgroundColor: "rgba(0,0,0,0.2)",
-                      data: [408,547,675,734],
-                    }
-                  ]
-                },
+    window.shipmentDayStatChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: [],
+              datasets: [{
+                  label: "Сума",
+                  yAxisID: "sum",
+                  type: "line",
+                  borderColor: chartColor,
+                  pointBorderColor: chartColor,
+                  pointBackgroundColor: "#1e3d60",
+                  pointHoverBackgroundColor: "#1e3d60",
+                  pointHoverBorderColor: chartColor,
+                  pointBorderWidth: 1,
+                  pointHoverRadius: 7,
+                  pointHoverBorderWidth: 2,
+                  pointRadius: 5,
+                  fill: true,
+                  backgroundColor: gradientFill,
+                  borderWidth: 2,
+                  data: []
+                }, {
+                  label: "Кількість",
+                  yAxisID: "count",
+                  type: "bar",
+                  backgroundColor: "rgba(0,0,0,0.2)",
+                  data: [],
+                }
+              ]
+            },
             options: {
                 layout: {
                     padding: {
@@ -196,6 +200,37 @@ function initStatChart() {
                 }
             }
         });
+}
+
+function updateStatChartData(){
+    var dayLabels = window.shipmentDayStatChart.data.labels;
+    var sumData = window.shipmentDayStatChart.data.datasets[0].data;
+    var countData = window.shipmentDayStatChart.data.datasets[1].data;
+
+   $.ajax({
+       url: "/services/shipment/get-day-stats",
+       type: "get",
+       data: {
+       },
+       success: function (response) {
+           dayLabels.splice(0,dayLabels.length);
+           sumData.splice(0,sumData.length);
+           countData.splice(0,countData.length);
+
+           const options = {day: 'numeric', month: 'long', year: 'numeric'};
+
+           response.forEach(function(item) {
+             dayLabels.push(new Date(item.day).toLocaleDateString('uk-UA', options));
+             sumData.push(item.sum / 100);
+             countData.push(item.count);
+           });
+
+           window.shipmentDayStatChart.update();
+       },
+       error: function (xhr) {
+           //Do Something to handle error
+       }
+   });
 }
 
 function responseHandler(res) {

@@ -4,9 +4,6 @@
 #username {
     text-transform: none;
 }
-.main-panel > .content {
-    padding-top: 120px;
-}
 input.dropdown-item {
     color: #888 !important;
 }
