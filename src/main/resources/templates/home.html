@@ -17,6 +17,7 @@
     <link th:href="@{/styles/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/styles/now-ui-dashboard.min.css}" rel="stylesheet">
     <link th:href="@{/styles/bootstrap-table.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/Chart.css}" rel="stylesheet">
 
     <link th:href="@{/css/home.css}" rel="stylesheet">
 
@@ -28,6 +29,7 @@
     <script type="text/javascript" th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/locale/bootstrap-table-uk-UA.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/Chart.bundle.min.js}"></script>
 
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/js/plugins/now-ui-dashboard.min.js}" type="text/javascript"></script>
@@ -195,6 +197,10 @@
                 </div>
             </div>
         </nav>
+        <div class="panel-header panel-header-lg">
+            <canvas id="shipmentDayStatChart"></canvas>
+        </div>
+
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
