@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,16 +40,28 @@ public class ShipmentRestController {
     }
 
     @GetMapping(path="/get-all")
-    public ResponseEntity<List<ShipmentForBootstrapTableTAO>> getAll(Principal principal) {
-        List<Shipment> shipmentList = shipmentService.getAll();
+    public ResponseEntity<List<ShipmentForBootstrapTableTAO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .withZone(ZoneId.of("UTC"));
+
+        LocalDateTime startDate = LocalDateTime.parse(from, formatter);
+        LocalDateTime endDate = LocalDateTime.parse(to, formatter);
+
+        List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate);
         List<ShipmentForBootstrapTableTAO> response = shipmentList.stream().map(ShipmentForBootstrapTableTAO::new).collect(Collectors.toList());
 
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping(path="/get-day-stats")
-    public ResponseEntity<List<ShipmentDayStat>> getDayStats(Principal principal) {
-        List<ShipmentDayStat> response = shipmentService.getDayStats();
+    public ResponseEntity<List<ShipmentDayStat>> getDayStats(Principal principal, @RequestParam String from, @RequestParam String to) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .withZone(ZoneId.of("UTC"));
+
+        LocalDateTime startDate = LocalDateTime.parse(from, formatter);
+        LocalDateTime endDate = LocalDateTime.parse(to, formatter);
+
+        List<ShipmentDayStat> response = shipmentService.getDayStats(startDate, endDate);
 
         return new ResponseEntity(response, HttpStatus.OK);
     }

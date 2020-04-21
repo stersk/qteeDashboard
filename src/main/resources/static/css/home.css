@@ -15,12 +15,10 @@ input.dropdown-item {
 div.search {
     padding-top: 15px;
 }
-
 .dropdown-item.active {
     background-color: #979797;
     color: #fff !important;
 }
-
 .page-item.active .page-link {
     color: #fff;
     background-color: #979797;
@@ -32,4 +30,29 @@ div.search {
 }
 .bootstrap-table .btn.dropdown-toggle {
     margin-left: 0px;
+}
+#toolbar .input-daterange.datepicker{
+    margin-top: 10px;
+}
+#toolbar .input-group-addon{
+    display: flex;
+    align-items: center;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+#startDate {
+    border-right-color: rgb(227, 227, 227);
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+#startDate:focus{
+    border-right-color: rgb(249, 99, 50);
+}
+#endDate {
+    border-left-color: rgb(227, 227, 227);
+    border-left-style: solid;
+    border-left-width: 1px;
+}
+#endDate:focus{
+    border-left-color: rgb(249, 99, 50);
 }

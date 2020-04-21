@@ -5,14 +5,51 @@ var selections = [];
 
 
 $(document).ready(function () {
-    //table = $('#fresh-table');
     table = $('#table');
 
+    initDatePicker();
     initTable();
     initStatChart();
 
     updateStatChartData();
 })
+
+function initTablePerfectScrollbar{
+    isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+    if (isWindows) {
+       // if we are on windows OS we activate the perfectScrollbar function
+       var psTable = new PerfectScrollbar('.bootstrap-table .fixed-table-body');
+    }
+}
+
+function initDatePicker() {
+    var endDate = new Date();
+    var startDate = new Date();
+
+    startDate.setDate(endDate.getDate() - 7);
+
+    $('.datepicker').datepicker({
+        format: 'dd.mm.yyyy',
+        language: 'uk'
+    });
+
+    $('#startDate').datepicker('update', startDate);
+    $('#endDate').datepicker('update', endDate);
+
+    $('#startDate').datepicker().on('changeDate', function (ev) {
+        refreshData();
+    });
+
+    $('#endDate').datepicker().on('changeDate', function (ev) {
+        refreshData();
+    });
+}
+
+function refreshData() {
+    updateStatChartData();
+    table.bootstrapTable('refresh');
+}
 
 function initTable() {
     table.bootstrapTable('destroy').bootstrapTable({
@@ -210,8 +247,7 @@ function updateStatChartData(){
    $.ajax({
        url: "/services/shipment/get-day-stats",
        type: "get",
-       data: {
-       },
+       data: tableDataQueryParams({}),
        success: function (response) {
            dayLabels.splice(0,dayLabels.length);
            sumData.splice(0,sumData.length);
@@ -244,4 +280,11 @@ function deliveryServiceFormatter(value, row, index, field) {
     return [
         '<img class="fit-picture" width="20" height="20" src="' + value + '">',
     ].join('')
+}
+
+function tableDataQueryParams(params) {
+    params.from = $('#startDate').datepicker('getDate').toISOString();
+    params.to = $('#endDate').datepicker('getDate').toISOString();
+
+    return params
 }

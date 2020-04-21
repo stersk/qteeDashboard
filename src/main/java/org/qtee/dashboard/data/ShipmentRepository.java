@@ -4,7 +4,9 @@ import org.qtee.dashboard.data.projection.ShipmentDayStat;
 import org.qtee.dashboard.entity.Shipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,8 +18,12 @@ public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
                     "    sum(1) as count " +
                     "FROM " +
                     "    shipments " +
+                    "WHERE" +
+                    "    date BETWEEN :from AND :to " +
                     "GROUP BY " +
                     "    date_trunc('day',date)" +
                     "ORDER BY day")
-    List<ShipmentDayStat> getStatisticsByDays();
+    List<ShipmentDayStat> getStatisticsByDays(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
+
+    List<Shipment> findShipmentsByDateBetween(LocalDateTime from, LocalDateTime to);
 }
