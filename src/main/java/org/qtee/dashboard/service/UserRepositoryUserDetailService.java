@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserRepositoryUserDetailService implements UserDetailsService {
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
 
     @Autowired
     public UserRepositoryUserDetailService(UserRepository userRepo) {
@@ -26,5 +26,9 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
         }
         throw new UsernameNotFoundException(
                 "User '" + userName + "' not found");
+    }
+
+    public User findById(Long id){
+        return userRepo.findById(id).orElse(null);
     }
 }

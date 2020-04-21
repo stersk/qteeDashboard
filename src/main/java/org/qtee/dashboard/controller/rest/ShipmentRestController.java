@@ -3,13 +3,16 @@ package org.qtee.dashboard.controller.rest;
 import org.qtee.dashboard.data.projection.ShipmentDayStat;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
+import org.qtee.dashboard.entity.User;
 import org.qtee.dashboard.service.AccountService;
 import org.qtee.dashboard.service.ShipmentService;
+import org.qtee.dashboard.service.UserRepositoryUserDetailService;
 import org.qtee.dashboard.tao.ShipmentForBootstrapTableTAO;
 import org.qtee.dashboard.tao.ShipmentFrom1CTAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -27,6 +30,9 @@ public class ShipmentRestController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private UserRepositoryUserDetailService userService;
 
     @GetMapping(path="/ping")
     public ResponseEntity<String> ping(Principal principal) {
@@ -66,11 +72,16 @@ public class ShipmentRestController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PostMapping(path="/saveShipments")
-    public ResponseEntity<String> saveShipments(@RequestBody List<ShipmentFrom1CTAO> data) {
-        // TODO make appropriate account setting after REST authorization
-        // temporary hardcode account
-        Account account = accountService.getAccountById(1l);
+    @PostMapping(path="/save-all")
+    public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<ShipmentFrom1CTAO> data) {
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User userWithoutAccount = (User) authenticationToken.getPrincipal();
+        User user = userService.findById(userWithoutAccount.getId());
+
+        Account account = user.getAccount();
+        if (account == null) {
+            return new ResponseEntity<String>("No account found for this user", HttpStatus.BAD_REQUEST);
+        }
 
         for (ShipmentFrom1CTAO shipmentTao: data) {
             Shipment shipment = shipmentTao.toShipment();
