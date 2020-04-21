@@ -1,6 +1,7 @@
 package org.qtee.dashboard.data;
 
 import org.qtee.dashboard.data.projection.ShipmentDayStat;
+import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,11 +20,12 @@ public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
                     "FROM " +
                     "    shipments " +
                     "WHERE" +
-                    "    date BETWEEN :from AND :to " +
+                    "    account_id = :account AND" +
+                    "    (date BETWEEN :from AND :to )" +
                     "GROUP BY " +
                     "    date_trunc('day',date)" +
                     "ORDER BY day")
-    List<ShipmentDayStat> getStatisticsByDays(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
+    List<ShipmentDayStat> getStatisticsByDays(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to, @Param("account") Long accountId);
 
-    List<Shipment> findShipmentsByDateBetween(LocalDateTime from, LocalDateTime to);
+    List<Shipment> findShipmentsByAccountAndDateBetween(Account account, LocalDateTime from, LocalDateTime to);
 }

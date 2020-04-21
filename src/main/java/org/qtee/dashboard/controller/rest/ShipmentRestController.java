@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,13 +48,22 @@ public class ShipmentRestController {
 
     @GetMapping(path="/get-all")
     public ResponseEntity<List<ShipmentForBootstrapTableTAO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User userWithoutAccount = (User) authenticationToken.getPrincipal();
+        User user = userService.findById(userWithoutAccount.getId());
+
+        Account account = user.getAccount();
+        if (account == null) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .withZone(ZoneId.of("UTC"));
 
         LocalDateTime startDate = LocalDateTime.parse(from, formatter);
         LocalDateTime endDate = LocalDateTime.parse(to, formatter);
 
-        List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate);
+        List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate, account);
         List<ShipmentForBootstrapTableTAO> response = shipmentList.stream().map(ShipmentForBootstrapTableTAO::new).collect(Collectors.toList());
 
         return new ResponseEntity(response, HttpStatus.OK);
@@ -61,13 +71,22 @@ public class ShipmentRestController {
 
     @GetMapping(path="/get-day-stats")
     public ResponseEntity<List<ShipmentDayStat>> getDayStats(Principal principal, @RequestParam String from, @RequestParam String to) {
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User userWithoutAccount = (User) authenticationToken.getPrincipal();
+        User user = userService.findById(userWithoutAccount.getId());
+
+        Account account = user.getAccount();
+        if (account == null) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .withZone(ZoneId.of("UTC"));
 
         LocalDateTime startDate = LocalDateTime.parse(from, formatter);
         LocalDateTime endDate = LocalDateTime.parse(to, formatter);
 
-        List<ShipmentDayStat> response = shipmentService.getDayStats(startDate, endDate);
+        List<ShipmentDayStat> response = shipmentService.getDayStats(startDate, endDate, account);
 
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -80,7 +99,7 @@ public class ShipmentRestController {
 
         Account account = user.getAccount();
         if (account == null) {
-            return new ResponseEntity<String>("No account found for this user", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }
 
         for (ShipmentFrom1CTAO shipmentTao: data) {
