@@ -1,4 +1,4 @@
-package org.qtee.dashboard.tao;
+package org.qtee.dashboard.dto;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
-public class ShipmentForBootstrapTableTAO {
+public class ShipmentForBootstrapTableDTO {
     private final String date;
     private final String deliveryService;
     private final String deliveryServiceName;
@@ -20,7 +20,7 @@ public class ShipmentForBootstrapTableTAO {
     private final String customer;
     private final String address;
 
-    public ShipmentForBootstrapTableTAO(Shipment shipment) {
+    public ShipmentForBootstrapTableDTO(Shipment shipment) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 
         this.date                = shipment.getDate().format(dateFormatter);

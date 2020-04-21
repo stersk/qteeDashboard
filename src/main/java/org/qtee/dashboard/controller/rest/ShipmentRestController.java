@@ -1,14 +1,14 @@
 package org.qtee.dashboard.controller.rest;
 
 import org.qtee.dashboard.data.projection.ShipmentDayStat;
+import org.qtee.dashboard.dto.ShipmentForBootstrapTableDTO;
+import org.qtee.dashboard.dto.ShipmentFrom1CDTO;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
 import org.qtee.dashboard.entity.User;
 import org.qtee.dashboard.service.AccountService;
 import org.qtee.dashboard.service.ShipmentService;
-import org.qtee.dashboard.service.UserRepositoryUserDetailService;
-import org.qtee.dashboard.tao.ShipmentForBootstrapTableTAO;
-import org.qtee.dashboard.tao.ShipmentFrom1CTAO;
+import org.qtee.dashboard.service.UserServiceWithDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public class ShipmentRestController {
     private AccountService accountService;
 
     @Autowired
-    private UserRepositoryUserDetailService userService;
+    private UserServiceWithDetails userService;
 
     @GetMapping(path="/ping")
     public ResponseEntity<String> ping(Principal principal) {
@@ -47,7 +47,7 @@ public class ShipmentRestController {
     }
 
     @GetMapping(path="/get-all")
-    public ResponseEntity<List<ShipmentForBootstrapTableTAO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
+    public ResponseEntity<List<ShipmentForBootstrapTableDTO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User userWithoutAccount = (User) authenticationToken.getPrincipal();
         User user = userService.findById(userWithoutAccount.getId());
@@ -64,7 +64,7 @@ public class ShipmentRestController {
         LocalDateTime endDate = LocalDateTime.parse(to, formatter);
 
         List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate, account);
-        List<ShipmentForBootstrapTableTAO> response = shipmentList.stream().map(ShipmentForBootstrapTableTAO::new).collect(Collectors.toList());
+        List<ShipmentForBootstrapTableDTO> response = shipmentList.stream().map(ShipmentForBootstrapTableDTO::new).collect(Collectors.toList());
 
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -92,7 +92,7 @@ public class ShipmentRestController {
     }
 
     @PostMapping(path="/save-all")
-    public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<ShipmentFrom1CTAO> data) {
+    public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<ShipmentFrom1CDTO> data) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User userWithoutAccount = (User) authenticationToken.getPrincipal();
         User user = userService.findById(userWithoutAccount.getId());
@@ -102,8 +102,8 @@ public class ShipmentRestController {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }
 
-        for (ShipmentFrom1CTAO shipmentTao: data) {
-            Shipment shipment = shipmentTao.toShipment();
+        for (ShipmentFrom1CDTO shipmentDto: data) {
+            Shipment shipment = shipmentDto.toShipment();
             shipment.setAccount(account);
 
             shipmentService.save(shipment);

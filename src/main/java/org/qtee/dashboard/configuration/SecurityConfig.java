@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @Order(1)
-public class SecurityConfigWeb {
+public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -30,7 +30,6 @@ public class SecurityConfigWeb {
     public static class RestConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            //@formatter:off
             http.antMatcher("/services/**")
                     .authorizeRequests().anyRequest().hasRole("ADMINISTRATOR")
                     .and().httpBasic()
@@ -38,7 +37,6 @@ public class SecurityConfigWeb {
                     .csrf()
                     .ignoringAntMatchers("/h2-console/**", "/services/**")
                     .and().exceptionHandling().accessDeniedPage("/");
-            //@formatter:on
         }
     }
 

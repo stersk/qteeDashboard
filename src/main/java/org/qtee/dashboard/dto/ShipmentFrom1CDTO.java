@@ -1,4 +1,4 @@
-package org.qtee.dashboard.tao;
+package org.qtee.dashboard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShipmentFrom1CTAO {
+public class ShipmentFrom1CDTO {
     private UUID id;
     private LocalDateTime date;
     private Float sum;
