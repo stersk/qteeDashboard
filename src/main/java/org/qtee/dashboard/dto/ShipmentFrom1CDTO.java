@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShipmentFrom1CDTO {
+public class  ShipmentFrom1CDTO {
     private UUID id;
     private LocalDateTime date;
     private Float sum;

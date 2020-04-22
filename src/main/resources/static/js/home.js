@@ -8,9 +8,11 @@ $(document).ready(function () {
     table = $('#table');
 
     initDatePicker();
-    initTable();
-    initStatChart();
 
+    initTable();
+    initTablePerfectScrollbar();
+
+    initStatChart();
     updateStatChartData();
 })
 
@@ -27,7 +29,7 @@ function initDatePicker() {
     var endDate = new Date();
     var startDate = new Date();
 
-    startDate.setDate(endDate.getDate() - 7);
+    startDate.setDate(endDate.getDate() - 21);
 
     $('.datepicker').datepicker({
         format: 'dd.mm.yyyy',
@@ -36,6 +38,8 @@ function initDatePicker() {
 
     $('#startDate').datepicker('update', startDate);
     $('#endDate').datepicker('update', endDate);
+
+
 
     $('#startDate').datepicker().on('changeDate', function (ev) {
         refreshData();
@@ -57,6 +61,8 @@ function initTable() {
         locale: 'uk-UA',
         columns: [{
                 title: '',
+                width: 60,
+                widthUnit: 'px',
                 field: 'deliveryService',
                 align: 'center',
                 valign: 'middle',
@@ -64,6 +70,8 @@ function initTable() {
                 sortable: true
             }, {
                 field: 'declarationNumber',
+                width: 175,
+                widthUnit: 'px',
                 title: 'Номер',
                 align: 'left',
                 valign: 'middle',
@@ -72,6 +80,8 @@ function initTable() {
                 switchable: true
             }, {
                 field: 'date',
+                width: 160,
+                widthUnit: 'px',
                 title: 'Дата',
                 align: 'left',
                 valign: 'middle',
@@ -88,25 +98,34 @@ function initTable() {
                 sortable: true
             }, {
                 field: 'customer',
+                width: 30,
+                widthUnit: '%',
                 title: 'Клієнт',
                 sortable: true,
                 align: 'left'
             }, {
                 field: 'phone',
+                width: 180,
+                widthUnit: 'px',
                 title: 'Телефон',
                 align: 'left',
                 sortable: true,
                 clickToSelect: false
             }, {
                 field: 'address',
+                width: 30,
+                widthUnit: '%',
                 title: 'Адреса доставки',
                 sortable: true,
                 align: 'left'
             }, {
                 title: 'Сумма',
+                width: 120,
+                widthUnit: 'px',
                 field: 'sum',
-                align: 'left',
+                align: 'right',
                 valign: 'middle',
+                formatter: 'sumFormatter',
                 sortable: true
             }
         ]
@@ -154,7 +173,7 @@ function initStatChart() {
                   label: "Кількість",
                   yAxisID: "count",
                   type: "bar",
-                  backgroundColor: "rgba(0,0,0,0.2)",
+                  backgroundColor: "rgba(255,255,233,0.2)",
                   data: [],
                 }
               ]
@@ -280,6 +299,15 @@ function deliveryServiceFormatter(value, row, index, field) {
     return [
         '<img class="fit-picture" width="20" height="20" src="' + value + '">',
     ].join('')
+}
+
+function sumFormatter(value, row, index, field) {
+    var formatter = new Intl.NumberFormat('uk-UA', {
+      style: 'currency',
+      currency: 'UAH',
+    });
+
+    return formatter.format(value);
 }
 
 function tableDataQueryParams(params) {

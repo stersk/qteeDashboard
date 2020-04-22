@@ -30,6 +30,8 @@
     <script type="text/javascript" th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/locale/bootstrap-table-uk-UA.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/extensions/bootstrap-table-cookie.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/extensions/bootstrap-table-resizable.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/Chart.bundle.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.uk.min.js}"></script>
@@ -143,7 +145,7 @@
                         </button>
                     </div>
 
-                    <a class="navbar-brand" href="#pablo">Dashboard</a>
+                    <a class="navbar-brand" href="#pablo">Відгрузки</a>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -290,20 +292,23 @@
                                         data-toolbar="#toolbar"
                                         data-search="true"
                                         data-show-refresh="true"
-                                        data-show-toggle="true"
+                                        data-show-toggle="false"
                                         data-show-fullscreen="true"
                                         data-show-columns="true"
                                         data-show-columns-toggle-all="true"
                                         data-minimum-count-columns="2"
-                                        data-show-pagination-switch="true"
+                                        data-show-pagination-switch="false"
                                         data-pagination="true"
                                         data-id-field="id"
                                         data-page-list="[10, 25, 50, 100, all]"
-                                        data-show-footer="true"
+                                        data-show-footer="false"
                                         data-side-pagination="client"
                                         data-url="/services/shipment/get-all"
                                         data-query-params="tableDataQueryParams"
-                                        data-response-handler="responseHandler">
+                                        data-response-handler="responseHandler"
+                                        data-cookie="true"
+                                        data-cookie-id-table="shipment"
+                                        data-resizable="true">
                                 </table>
                             </div>
                         </div>
