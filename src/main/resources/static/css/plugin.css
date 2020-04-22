@@ -1,0 +1,183 @@
+.card-stats hr {
+    margin: 5px 15px
+}
+
+.card-stats .statistics {
+    position: relative;
+    text-align: center;
+    padding: 15px 0
+}
+
+.card-stats .statistics .title {
+    margin-bottom: 0
+}
+
+.card-stats .statistics .stats-title {
+    margin-bottom: 5px;
+    color: #9a9a9a;
+    font-weight: 400
+}
+
+.card-stats .statistics.statistics-horizontal,
+.card-stats .statistics.statistics-horizontal .info-title {
+    padding: 0
+}
+
+.card-stats .icon {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 15px
+}
+
+.card-stats .stats-information {
+    display: inline-block;
+    margin-bottom: 15px
+}
+
+.card-stats .stats-information .stats-text {
+    font-size: 29px
+}
+
+.card-stats .stats-information .stats-details {
+    display: block;
+    color: #888
+}
+
+.card-stats .dots {
+    text-align: right
+}
+
+.card-stats .dots .dot {
+    background-color: #2c2c2c;
+    height: 3px;
+    width: 3px;
+    border-radius: 50%;
+    display: inline-block
+}
+
+.card-stats [class*=col-] .statistics:after {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 1px;
+    height: calc(100% - 40px);
+    content: "";
+    background: #ddd
+}
+
+.card-stats [class*=col-]:last-child .statistics:after {
+    display: none
+}
+
+.info .info-title {
+    margin: 15px 0 5px;
+    padding: 0 15px;
+    color: #2c2c2c;
+    font-weight: 700;
+}
+
+.icon.icon-primary {
+    color: #f96332
+}
+
+.icon.icon-primary.icon-circle {
+    box-shadow: 0 9px 30px -6px rgba(249, 99, 50, .5)
+}
+
+.icon.icon-info {
+    color: #2ca8ff
+}
+
+.icon.icon-info.icon-circle {
+    box-shadow: 0 9px 30px -6px rgba(44, 168, 255, .5)
+}
+
+.icon.icon-success {
+    color: #18ce0f
+}
+
+.icon.icon-success.icon-circle {
+    box-shadow: 0 9px 30px -6px rgba(24, 206, 15, .5)
+}
+
+.icon.icon-warning {
+    color: #ffb236
+}
+
+.icon.icon-warning.icon-circle {
+    box-shadow: 0 9px 30px -6px rgba(255, 178, 54, .5)
+}
+
+.icon.icon-danger {
+    color: #ff3636
+}
+
+.icon.icon-danger.icon-circle {
+    box-shadow: 0 9px 30px -6px rgba(255, 54, 54, .5)
+}
+
+.icon.icon-white {
+    color: #fff
+}
+
+.info.info-hover .info-title {
+    transition: color .4s
+}
+
+.info.info-hover:hover .icon {
+    transform: translate3d(0, -.5rem, 0)
+}
+
+.info.info-hover:hover .icon.icon-primary.icon-circle {
+    box-shadow: 0 15px 30px 0 rgba(249, 99, 50, .3)
+}
+
+.info.info-hover:hover .icon.icon-info.icon-circle {
+    box-shadow: 0 15px 35px 0 rgba(44, 168, 255, .3)
+}
+
+.info.info-hover:hover .icon.icon-success.icon-circle {
+    box-shadow: 0 15px 35px 0 rgba(24, 206, 15, .3)
+}
+
+.info.info-hover:hover .icon.icon-warning.icon-circle {
+    box-shadow: 0 15px 35px 0 rgba(255, 178, 54, .3)
+}
+
+.info.info-hover:hover .icon.icon-danger.icon-circle {
+    box-shadow: 0 15px 35px 0 rgba(255, 54, 54, .3)
+}
+
+.info.info-hover:hover .icon.icon-info+.info-title {
+    color: #2ca8ff
+}
+
+.info.info-hover:hover .icon.icon-warning+.info-title {
+    color: #ffb236
+}
+
+.info.info-hover:hover .icon.icon-danger+.info-title {
+    color: #ff3636
+}
+
+.info.info-hover:hover .icon.icon-primary+.info-title {
+    color: #f96332
+}
+
+.info.info-hover:hover .icon.icon-success+.info-title {
+    color: #18ce0f
+}
+
+.info .icon {
+    transition: transform .4s, box-shadow .4s
+}
+
+.info .icon>i {
+    font-size: 2.3em
+}
+
+@media screen and (max-width:768px) {
+    .card-stats [class*=col-] .statistics:after {
+        display: none
+    }
+}
