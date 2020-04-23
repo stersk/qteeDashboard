@@ -20,6 +20,7 @@
     <link th:href="@{/styles/Chart.css}" rel="stylesheet">
     <link th:href="@{/styles/bootstrap-datepicker3.min.css}" rel="stylesheet">
     <link th:href="@{/styles/jquery.resizableColumns.css}" rel="stylesheet">
+    <link th:href="@{/styles/animate.css}" rel="stylesheet">
 
     <link th:href="@{/css/home.css}" rel="stylesheet">
     <link th:href="@{/css/plugin.css}" rel="stylesheet">
@@ -38,6 +39,7 @@
     <script type="text/javascript" th:src="@{/js/plugins/Chart.bundle.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.uk.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-notify.js}"></script>
 
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/js/plugins/now-ui-dashboard.js}" type="text/javascript"></script>
@@ -221,7 +223,7 @@
                                             <div class="icon icon-primary">
                                                 <i class="now-ui-icons business_money-coins"></i>
                                             </div>
-                                            <h3 class="info-title">859 <small>грн.</small></h3>
+                                            <h3 id="dataBalance" class="info-title"></h3>
                                             <h6 class="stats-title">Баланс</h6>
                                         </div>
                                     </div>
@@ -232,7 +234,7 @@
                                             <div class="icon icon-success">
                                                 <i class="now-ui-icons files_box"></i>
                                             </div>
-                                            <h3 class="info-title">3 521</h3>
+                                            <h3 id = "dataShipmentsLeft" class="info-title"> - </h3>
                                             <h6 class="stats-title">Кількість відгрузок</h6>
                                         </div>
                                     </div>

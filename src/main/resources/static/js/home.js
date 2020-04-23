@@ -2,8 +2,6 @@ var table;
 var alertBtn;
 var selections = [];
 
-
-
 $(document).ready(function () {
     table = $('#table');
 
@@ -14,14 +12,17 @@ $(document).ready(function () {
 
     initStatChart();
     updateStatChartData();
+
+    updateMetricStatData();
+    setInterval(updateMetricStatData, 5000);
 })
 
 function initTablePerfectScrollbar() {
     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
     if (isWindows) {
-       // if we are on windows OS we activate the perfectScrollbar function
-       var psTable = new PerfectScrollbar('.bootstrap-table .fixed-table-body');
+        // if we are on windows OS we activate the perfectScrollbar function
+        var psTable = new PerfectScrollbar('.bootstrap-table .fixed-table-body');
     }
 }
 
@@ -39,8 +40,6 @@ function initDatePicker() {
     $('#startDate').datepicker('update', startDate);
     $('#endDate').datepicker('update', endDate);
 
-
-
     $('#startDate').datepicker().on('changeDate', function (ev) {
         refreshData();
     });
@@ -52,7 +51,57 @@ function initDatePicker() {
 
 function refreshData() {
     updateStatChartData();
+    updateMetricStatData();
     table.bootstrapTable('refresh');
+}
+
+function updateMetricStatData() {
+    $.ajax({
+        url: "/services/metric/get-metric/balance",
+        type: "get",
+        success: function (response) {
+            $('#dataBalance').html('' + response.value + ' <small> грн.</small>');
+
+            if (response.showNotify) {
+                const options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute:'2-digit'
+                };
+
+                var notifyTitle = new Date(response.date).toLocaleDateString('uk-UA', options)
+
+                $.notify({
+                    icon: "now-ui-icons ui-1_bell-53",
+                    title: "<b>" + notifyTitle + "</b>",
+                    message: response.notifyText
+                }, {
+                    type: 'success',
+                    timer: 4000,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+            }
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+
+    $.ajax({
+        url: "/services/metric/get-metric/shipmentsLeft",
+        type: "get",
+        success: function (response) {
+            $('#dataShipmentsLeft').html('' + response.value);
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
 }
 
 function initTable() {
@@ -151,32 +200,32 @@ function initStatChart() {
     window.shipmentDayStatChart = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: [],
-              datasets: [{
-                  label: "Сума",
-                  yAxisID: "sum",
-                  type: "line",
-                  borderColor: chartColor,
-                  pointBorderColor: chartColor,
-                  pointBackgroundColor: "#1e3d60",
-                  pointHoverBackgroundColor: "#1e3d60",
-                  pointHoverBorderColor: chartColor,
-                  pointBorderWidth: 1,
-                  pointHoverRadius: 7,
-                  pointHoverBorderWidth: 2,
-                  pointRadius: 5,
-                  fill: true,
-                  backgroundColor: gradientFill,
-                  borderWidth: 2,
-                  data: []
-                }, {
-                  label: "Кількість",
-                  yAxisID: "count",
-                  type: "bar",
-                  backgroundColor: "rgba(255,255,233,0.2)",
-                  data: [],
-                }
-              ]
+                labels: [],
+                datasets: [{
+                        label: "Сума",
+                        yAxisID: "sum",
+                        type: "line",
+                        borderColor: chartColor,
+                        pointBorderColor: chartColor,
+                        pointBackgroundColor: "#1e3d60",
+                        pointHoverBackgroundColor: "#1e3d60",
+                        pointHoverBorderColor: chartColor,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 7,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        fill: true,
+                        backgroundColor: gradientFill,
+                        borderWidth: 2,
+                        data: []
+                    }, {
+                        label: "Кількість",
+                        yAxisID: "count",
+                        type: "bar",
+                        backgroundColor: "rgba(255,255,233,0.2)",
+                        data: [],
+                    }
+                ]
             },
             options: {
                 layout: {
@@ -205,7 +254,7 @@ function initStatChart() {
                 },
                 scales: {
                     yAxes: [{
-                            id:"sum",
+                            id: "sum",
                             position: 'left',
                             ticks: {
                                 fontColor: "rgba(255,255,255,0.4)",
@@ -221,24 +270,24 @@ function initStatChart() {
                                 color: "rgba(255,255,255,0.1)",
                                 zeroLineColor: "transparent"
                             }
-                        },{
-                          id:"count",
-                          position: 'right',
-                          ticks: {
-                              fontColor: "rgba(255,255,255,0.4)",
-                              fontStyle: "bold",
-                              beginAtZero: true,
-                              maxTicksLimit: 5,
-                              padding: 10
-                          },
-                          gridLines: {
-                              drawTicks: true,
-                              drawBorder: false,
-                              display: true,
-                              color: "rgba(255,255,255,0.1)",
-                              zeroLineColor: "transparent"
-                          }
-                      }
+                        }, {
+                            id: "count",
+                            position: 'right',
+                            ticks: {
+                                fontColor: "rgba(255,255,255,0.4)",
+                                fontStyle: "bold",
+                                beginAtZero: true,
+                                maxTicksLimit: 5,
+                                padding: 10
+                            },
+                            gridLines: {
+                                drawTicks: true,
+                                drawBorder: false,
+                                display: true,
+                                color: "rgba(255,255,255,0.1)",
+                                zeroLineColor: "transparent"
+                            }
+                        }
                     ],
                     xAxes: [{
                             gridLines: {
@@ -258,34 +307,38 @@ function initStatChart() {
         });
 }
 
-function updateStatChartData(){
+function updateStatChartData() {
     var dayLabels = window.shipmentDayStatChart.data.labels;
     var sumData = window.shipmentDayStatChart.data.datasets[0].data;
     var countData = window.shipmentDayStatChart.data.datasets[1].data;
 
-   $.ajax({
-       url: "/services/shipment/get-day-stats",
-       type: "get",
-       data: tableDataQueryParams({}),
-       success: function (response) {
-           dayLabels.splice(0,dayLabels.length);
-           sumData.splice(0,sumData.length);
-           countData.splice(0,countData.length);
+    $.ajax({
+        url: "/services/shipment/get-day-stats",
+        type: "get",
+        data: tableDataQueryParams({}),
+        success: function (response) {
+            dayLabels.splice(0, dayLabels.length);
+            sumData.splice(0, sumData.length);
+            countData.splice(0, countData.length);
 
-           const options = {day: 'numeric', month: 'long', year: 'numeric'};
+            const options = {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            };
 
-           response.forEach(function(item) {
-             dayLabels.push(new Date(item.day).toLocaleDateString('uk-UA', options));
-             sumData.push(item.sum / 100);
-             countData.push(item.count);
-           });
+            response.forEach(function (item) {
+                dayLabels.push(new Date(item.day).toLocaleDateString('uk-UA', options));
+                sumData.push(item.sum / 100);
+                countData.push(item.count);
+            });
 
-           window.shipmentDayStatChart.update();
-       },
-       error: function (xhr) {
-           //Do Something to handle error
-       }
-   });
+            window.shipmentDayStatChart.update();
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
 }
 
 function responseHandler(res) {
@@ -303,9 +356,9 @@ function deliveryServiceFormatter(value, row, index, field) {
 
 function sumFormatter(value, row, index, field) {
     var formatter = new Intl.NumberFormat('uk-UA', {
-      style: 'currency',
-      currency: 'UAH',
-    });
+            style: 'currency',
+            currency: 'UAH',
+        });
 
     return formatter.format(value);
 }

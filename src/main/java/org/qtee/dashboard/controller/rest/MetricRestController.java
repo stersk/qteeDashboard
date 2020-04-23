@@ -120,7 +120,7 @@ public class MetricRestController {
             } else if (metricType.getNotifySupport() && notifyNode.asBoolean() && notifyTextNode == null) {
                 errorString = "Missing required parameter 'notifyText'";
                 break;
-            } else if (metricType.getNotifySupport()  && notifyNode.asBoolean() && notifyTextNode.isTextual()) {
+            } else if (metricType.getNotifySupport()  && notifyNode.asBoolean() && !notifyTextNode.isTextual()) {
                 errorString = "Parameter 'notifyText' should be String, but it isn't";
                 break;
             } else if (metricType.getNotifySupport()) {

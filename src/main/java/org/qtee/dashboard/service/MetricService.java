@@ -21,7 +21,7 @@ public class MetricService {
     }
 
     public Metric getMetric(Account account, MetricType metricType) {
-        return metricRepository.getOne(new MetricId(account, metricType));
+        return metricRepository.findById(new MetricId(account, metricType)).orElse(null);
     }
 
     public Metric updateMetric(Metric metric) {
