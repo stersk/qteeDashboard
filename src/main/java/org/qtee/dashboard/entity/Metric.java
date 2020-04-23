@@ -26,4 +26,7 @@ public class Metric {
     private LocalDateTime date;
     private Double value;
     private Boolean notify;
+
+    @Column(name = "notify_text")
+    private String notifyText;
 }

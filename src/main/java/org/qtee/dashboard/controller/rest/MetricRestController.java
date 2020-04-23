@@ -57,10 +57,12 @@ public class MetricRestController {
         response.put("date", (metric == null) ? LocalDateTime.of(1,1,1,0,0): metric.getDate());
         response.put("value", (metric == null) ? 0: metric.getValue());
         response.put("showNotify", (metric == null) ? false: metric.getNotify());
+        response.put("notifyText", (metric == null) ? false: metric.getNotifyText());
 
         // set flag to False after metric value have been shown
         if (metric != null && metricType.getNotifySupport() && metric.getNotify()) {
             metric.setNotify(false);
+            metric.setNotifyText("");
             metricService.updateMetric(metric);
         }
 
@@ -90,6 +92,7 @@ public class MetricRestController {
             JsonNode metricNode = metricData.get("metric");
             JsonNode valueNode  = metricData.get("value");
             JsonNode notifyNode  = metricData.get("notify");
+            JsonNode notifyTextNode  = metricData.get("notifyText");
             if (metricNode == null) {
                 errorString = "Missing required parameter 'metric'";
                 break;
@@ -107,14 +110,25 @@ public class MetricRestController {
             }
 
             Boolean notify = false;
+            String notifyText = "";
             if (metricType.getNotifySupport() && notifyNode == null) {
                 errorString = "Missing required parameter 'notify'";
                 break;
             } else if (metricType.getNotifySupport() && !notifyNode.isBoolean()) {
                 errorString = "Parameter 'notify' should be Boolean, but it isn't";
                 break;
+            } else if (metricType.getNotifySupport() && notifyNode.asBoolean() && notifyTextNode == null) {
+                errorString = "Missing required parameter 'notifyText'";
+                break;
+            } else if (metricType.getNotifySupport()  && notifyNode.asBoolean() && notifyTextNode.isTextual()) {
+                errorString = "Parameter 'notifyText' should be String, but it isn't";
+                break;
             } else if (metricType.getNotifySupport()) {
                 notify = notifyNode.asBoolean();
+
+                if (notify) {
+                    notifyText = notifyTextNode.asText();
+                }
             }
 
             double value = valueNode.asDouble();
@@ -125,6 +139,7 @@ public class MetricRestController {
             metric.setDate(LocalDateTime.now());
             metric.setValue(value);
             metric.setNotify(notify);
+            metric.setNotifyText(notifyText);
 
             metricsToSave.add(metric);
         }
