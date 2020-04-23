@@ -2,6 +2,7 @@ package org.qtee.dashboard.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.qtee.dashboard.entity.enums.DeliveryService;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

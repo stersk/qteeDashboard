@@ -3,8 +3,8 @@ package org.qtee.dashboard.dto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.qtee.dashboard.entity.DeliveryService;
 import org.qtee.dashboard.entity.Shipment;
+import org.qtee.dashboard.entity.enums.DeliveryService;
 
 import java.time.format.DateTimeFormatter;
 

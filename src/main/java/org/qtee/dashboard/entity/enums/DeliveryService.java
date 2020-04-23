@@ -1,4 +1,4 @@
-package org.qtee.dashboard.entity;
+package org.qtee.dashboard.entity.enums;
 
 public enum DeliveryService {
     NOWA_POSHTA, UKRPOSHTA;

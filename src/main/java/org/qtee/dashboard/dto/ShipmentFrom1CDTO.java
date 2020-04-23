@@ -3,8 +3,8 @@ package org.qtee.dashboard.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.qtee.dashboard.entity.DeliveryService;
 import org.qtee.dashboard.entity.Shipment;
+import org.qtee.dashboard.entity.enums.DeliveryService;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
