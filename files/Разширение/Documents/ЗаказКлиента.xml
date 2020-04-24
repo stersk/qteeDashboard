@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config"
+                xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                version="2.9">
+	<Document uuid="2448b3c4-cc75-41fa-91ae-fb165c868b6c">
+		<InternalInfo>
+			<xr:GeneratedType name="DocumentObject.ЗаказКлиента" category="Object">
+				<xr:TypeId>49dd6f75-e3bc-40d9-b8e6-39659181b4a2</xr:TypeId>
+				<xr:ValueId>7dabb171-0139-419a-b503-8bcb78657d8e</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentRef.ЗаказКлиента" category="Ref">
+				<xr:TypeId>33ba47e6-fd26-49f6-a815-54266a83b00f</xr:TypeId>
+				<xr:ValueId>3e6af9c0-9b88-45bb-aed1-e7a7a0bd5cd1</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentSelection.ЗаказКлиента" category="Selection">
+				<xr:TypeId>4691c82b-6c9d-4499-86da-9957a09acd37</xr:TypeId>
+				<xr:ValueId>b983696c-d20f-4702-bdf8-d6b8ed3a7ccb</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentList.ЗаказКлиента" category="List">
+				<xr:TypeId>0c02dec8-6974-486d-9fd7-b541971c1800</xr:TypeId>
+				<xr:ValueId>da5b4692-570b-4de2-be1e-04bc3e14f781</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="DocumentManager.ЗаказКлиента" category="Manager">
+				<xr:TypeId>7196d706-c9de-4c85-abc0-6102ddf7c7a2</xr:TypeId>
+				<xr:ValueId>da59a826-cff4-4248-ad60-0d20abfacd36</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<Name>ЗаказКлиента</Name>
+			<Comment/>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<ExtendedConfigurationObject>1ceef4a2-6b58-45a0-8a75-bb6e3004590f</ExtendedConfigurationObject>
+			<RegisterRecords/>
+		</Properties>
+		<ChildObjects>
+			<Attribute uuid="1111ffd9-192b-40cd-a1d2-b75d05f4fc39">
+				<InternalInfo/>
+				<Properties>
+					<Name>Партнер</Name>
+					<Comment/>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<ExtendedConfigurationObject>b6951ae3-bd6b-4547-a0ed-f8cb252badb3</ExtendedConfigurationObject>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Партнеры</v8:Type>
+					</Type>
+				</Properties>
+			</Attribute>
+			<Attribute uuid="9ff7f01e-83e8-4243-9553-69abedf4252b">
+				<InternalInfo/>
+				<Properties>
+					<Name>СуммаДокумента</Name>
+					<Comment/>
+					<ObjectBelonging>Adopted</ObjectBelonging>
+					<ExtendedConfigurationObject>09d5679e-99d4-4bae-a2be-ab43f7ffaaae</ExtendedConfigurationObject>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>2</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Properties>
+			</Attribute>
+		</ChildObjects>
+	</Document>
+</MetaDataObject>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:v8="http://v8.1c.ru/8.1/data/core" version="2.9">
+	<CommonModule uuid="30fd15f0-d899-430a-b223-5fac9d44ac61">
+		<Properties>
+			<Name>U_ОнлайнСтатистикаПовтИсп</Name>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Онлайн статистика повт исп</v8:content>
+				</v8:item>
+			</Synonym>
+			<Comment/>
+			<Global>false</Global>
+			<ClientManagedApplication>false</ClientManagedApplication>
+			<Server>true</Server>
+			<ExternalConnection>false</ExternalConnection>
+			<ClientOrdinaryApplication>false</ClientOrdinaryApplication>
+			<ServerCall>true</ServerCall>
+			<Privileged>false</Privileged>
+			<ReturnValuesReuse>DuringSession</ReturnValuesReuse>
+		</Properties>
+	</CommonModule>
+</MetaDataObject>

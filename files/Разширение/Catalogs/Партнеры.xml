@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" version="2.9">
+	<Catalog uuid="b01beb0c-021f-4537-8153-1a8abd39bcaf">
+		<InternalInfo>
+			<xr:GeneratedType name="CatalogObject.Партнеры" category="Object">
+				<xr:TypeId>72d9532e-da7b-403b-afce-7c3c5b1bdaa0</xr:TypeId>
+				<xr:ValueId>0b2aefc3-7fc9-4d31-8f5e-2f773ce3aaa3</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="CatalogRef.Партнеры" category="Ref">
+				<xr:TypeId>efd7c75e-c727-4ff7-b6a9-a45845654d1f</xr:TypeId>
+				<xr:ValueId>a1f3e09f-77e0-451f-a0b4-efd034a6ab2a</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="CatalogSelection.Партнеры" category="Selection">
+				<xr:TypeId>a95b56c2-c08b-41d8-9448-b3c2cc722916</xr:TypeId>
+				<xr:ValueId>bab9e09b-f571-4fb6-a91a-c3d9aa9e0eaf</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="CatalogList.Партнеры" category="List">
+				<xr:TypeId>2763b653-f6e9-45bb-a778-c14997967049</xr:TypeId>
+				<xr:ValueId>4c926b41-f9d9-49aa-8ab1-e938752063cd</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="CatalogManager.Партнеры" category="Manager">
+				<xr:TypeId>73b2ecfd-142b-48e8-8143-9e6647304152</xr:TypeId>
+				<xr:ValueId>eff6934b-d2b9-4257-9532-aa80356d88db</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<Name>Партнеры</Name>
+			<Comment/>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<ExtendedConfigurationObject>bf75bcc5-82ee-4bd0-89e1-420b42c99454</ExtendedConfigurationObject>
+		</Properties>
+		<ChildObjects/>
+	</Catalog>
+</MetaDataObject>

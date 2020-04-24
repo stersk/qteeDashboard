@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" version="2.9">
+	<Language uuid="54f64acc-05da-48cd-abd2-858c6be15b83">
+		<InternalInfo/>
+		<Properties>
+			<Name>Русский</Name>
+			<Comment/>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<ExtendedConfigurationObject>ed1506c0-ae10-45f0-b356-945bab8ed3fd</ExtendedConfigurationObject>
+			<LanguageCode>ru</LanguageCode>
+		</Properties>
+	</Language>
+</MetaDataObject>
