@@ -3,10 +3,10 @@
 	<ConfigVersions>
 		<Metadata name="Catalog.Партнеры" id="b01beb0c-021f-4537-8153-1a8abd39bcaf" configVersion="ca4d442b580b274cf76a0339d47a8bdae9392113"/>
 		<Metadata name="CommonModule.U_ЗагрузкаВыгрузкаДанных" id="d4a66be6-0aa4-490a-b7b7-bb48728aa2db" configVersion="967205045dc80d06a9ad28d42e9040ac389a0d4d"/>
-		<Metadata name="CommonModule.U_ЗагрузкаВыгрузкаДанных.Module" id="d4a66be6-0aa4-490a-b7b7-bb48728aa2db.0" configVersion="91217cbbc26742ad15bd52725e4cdc1f80a83c30"/>
+		<Metadata name="CommonModule.U_ЗагрузкаВыгрузкаДанных.Module" id="d4a66be6-0aa4-490a-b7b7-bb48728aa2db.0" configVersion="adaf039386ab9543a574bc23f2540f5fa3121a75"/>
 		<Metadata name="CommonModule.U_ОнлайнСтатистикаПовтИсп" id="30fd15f0-d899-430a-b223-5fac9d44ac61" configVersion="1ae72b25f6305b89bcba96784d328f964a4a0161"/>
 		<Metadata name="CommonModule.U_ОнлайнСтатистикаПовтИсп.Module" id="30fd15f0-d899-430a-b223-5fac9d44ac61.0" configVersion="c17a992d5ac5330622edcd078ea0963ea4180e5f"/>
-		<Metadata name="Configuration.U_ОнлайнСтатистика" id="10371402-391c-42cd-9fc7-7237fc3a4ff6" configVersion="85338931ded9b7fd9c6ab90c9a997a8a40137f4d"/>
+		<Metadata name="Configuration.U_ОнлайнСтатистика" id="10371402-391c-42cd-9fc7-7237fc3a4ff6" configVersion="fe5629b90c67021364f09973f1b66d272418936b"/>
 		<Metadata name="Document.U_ОнлайнПлатеж" id="bb29ed08-7d88-42bc-91b1-5afd013489fb" configVersion="75e8e86aa99d4797dfc889b8feab0d8f4c64cfe8">
 			<Metadata name="Document.U_ОнлайнПлатеж.Attribute.Назначение" id="cc52c7de-4230-4238-82ef-a425ab2eb55d"/>
 			<Metadata name="Document.U_ОнлайнПлатеж.Attribute.Сумма" id="eb18eb05-29d2-4f42-8da0-6fc2830655ac"/>
@@ -21,9 +21,9 @@
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики" id="a9eae9b8-e5f8-4e55-b750-e85641fa0d57" configVersion="c357899290d5f1a30d28bf8c22d23e5c13cc272e"/>
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Content" id="a9eae9b8-e5f8-4e55-b750-e85641fa0d57.1" configVersion="7e527311ca94ead7735aa6c55817f21ca567ee0f"/>
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.U_НастройкиПодсистемы" id="3e3400cb-42ab-4716-913b-30da2458c26c" configVersion="0dc1688773e68795daaca435ea74d5c032eb434d"/>
-		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.U_НастройкиПодсистемы.Form" id="3e3400cb-42ab-4716-913b-30da2458c26c.0" configVersion="15b40515ea5b7446f35d802bfb38ec2e9c722e38"/>
+		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.U_НастройкиПодсистемы.Form" id="3e3400cb-42ab-4716-913b-30da2458c26c.0" configVersion="7bf4266f6c9fe1b186d836210c86b73cc53d8328"/>
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.ФормаСписка" id="b1b74ebf-2de8-48af-ab1f-b48cd777b4b3" configVersion="acec72c362fb252e26b0e842b94cbe0499e9de12"/>
-		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.ФормаСписка.Form" id="b1b74ebf-2de8-48af-ab1f-b48cd777b4b3.0" configVersion="cd3448d52dc7bb573969945cd7f63fa42de753de"/>
+		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.Form.ФормаСписка.Form" id="b1b74ebf-2de8-48af-ab1f-b48cd777b4b3.0" configVersion="488dd1f677aba295a1a213929b97bea678f7d94a"/>
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.ManagerModule" id="a9eae9b8-e5f8-4e55-b750-e85641fa0d57.3" configVersion="3522d30a67bdc7f66235ee9deffd9145603c187d"/>
 		<Metadata name="ExchangePlan.U_ВыгрузкаОнлайнСтатистики.ObjectModule" id="a9eae9b8-e5f8-4e55-b750-e85641fa0d57.2" configVersion="6234815c398516226e070058402050b605c4892c"/>
 		<Metadata name="HTTPService.U_MonoBank" id="624576b2-84f6-403b-bf4e-3d86d73c30bc" configVersion="535c5939b7ff338a5707b58b49ec05dda6ebf4f0">
@@ -34,5 +34,6 @@
 		<Metadata name="HTTPService.U_MonoBank.Module" id="624576b2-84f6-403b-bf4e-3d86d73c30bc.0" configVersion="2abfd45b0eecc094156e092535ce569459162cd6"/>
 		<Metadata name="Language.Русский" id="54f64acc-05da-48cd-abd2-858c6be15b83" configVersion="10db69dde18dc9a03e0e8c7afd6abbc116670484"/>
 		<Metadata name="Role.U_ОнлайнСтатистикаОсновнаяРоль" id="c2923741-6cff-4b75-9b65-310df1e9aae0" configVersion="3cb2644f673fe6e9e27d40ff0cb8dbc605ba790e"/>
+		<Metadata name="Subsystem.U_ОнлайнСтатистика" id="659f5e7b-bd1f-43c7-b2f5-6e89a7ed3e06" configVersion="eea079745fef597af369f092aeb1b30bde896ef2"/>
 	</ConfigVersions>
 </ConfigDumpInfo>

@@ -59,6 +59,13 @@
 							<ContextMenu name="HTTPSСерверСтатистикиКонтекстноеМеню" id="57"/>
 							<ExtendedTooltip name="HTTPSСерверСтатистикиРасширеннаяПодсказка" id="58"/>
 						</CheckBoxField>
+						<Button name="КомандаТестСоединения" id="59">
+							<Type>UsualButton</Type>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<HorizontalStretch>true</HorizontalStretch>
+							<CommandName>Form.Command.КомандаТестСоединения</CommandName>
+							<ExtendedTooltip name="КомандаТестСоединенияРасширеннаяПодсказка" id="60"/>
+						</Button>
 					</ChildItems>
 				</UsualGroup>
 				<InputField name="ПользовательСерверСтатистики" id="48">
@@ -337,6 +344,21 @@
 				</v8:item>
 			</ToolTip>
 			<Action>КомандаПолучитьВыписку</Action>
+		</Command>
+		<Command name="КомандаТестСоединения" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Тест соединения</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Тест соединения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>КомандаТестСоединения</Action>
 		</Command>
 	</Commands>
 </Form>

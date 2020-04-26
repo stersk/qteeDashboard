@@ -6,7 +6,7 @@
 	<Title>
 		<v8:item>
 			<v8:lang>ru</v8:lang>
-			<v8:content>Сжатие чрезмерно больших картинок</v8:content>
+			<v8:content>Онлайн-статистика</v8:content>
 		</v8:item>
 	</Title>
 	<AutoTitle>false</AutoTitle>
@@ -124,13 +124,16 @@
 						<ExtendedTooltip name="СписокУправлениеПоискомРасширеннаяПодсказка" id="15"/>
 					</SearchControlAddition>
 					<ChildItems>
-						<LabelField name="Ссылка" id="45">
+						<InputField name="Ссылка" id="45">
 							<DataPath>Список.Ссылка</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<OpenButton>true</OpenButton>
 							<ContextMenu name="СсылкаКонтекстноеМеню" id="46"/>
 							<ExtendedTooltip name="СсылкаРасширеннаяПодсказка" id="47"/>
-						</LabelField>
+						</InputField>
 						<LabelField name="НомерСообщения" id="42">
 							<DataPath>Список.НомерСообщения</DataPath>
+							<Visible>false</Visible>
 							<ContextMenu name="НомерСообщенияКонтекстноеМеню" id="43"/>
 							<ExtendedTooltip name="НомерСообщенияРасширеннаяПодсказка" id="44"/>
 						</LabelField>
@@ -159,6 +162,8 @@
 	U_ОнлайнПлатежИзменения.Ссылка КАК Ссылка
 ИЗ
 	Документ.U_ОнлайнПлатеж.Изменения КАК U_ОнлайнПлатежИзменения
+ГДЕ
+	U_ОнлайнПлатежИзменения.Узел = &amp;Узел
 
 ОБЪЕДИНИТЬ ВСЕ
 
@@ -167,7 +172,9 @@
 	ЗаказКлиентаИзменения.НомерСообщения,
 	ЗаказКлиентаИзменения.Ссылка
 ИЗ
-	Документ.ЗаказКлиента.Изменения КАК ЗаказКлиентаИзменения</QueryText>
+	Документ.ЗаказКлиента.Изменения КАК ЗаказКлиентаИзменения
+ГДЕ
+	ЗаказКлиентаИзменения.Узел = &amp;Узел</QueryText>
 				<ListSettings>
 					<dcsset:filter>
 						<dcsset:viewMode>Normal</dcsset:viewMode>
@@ -223,7 +230,7 @@
 			<Title>
 				<v8:item>
 					<v8:lang>ru</v8:lang>
-					<v8:content>Обработать все</v8:content>
+					<v8:content>Выгрузить все</v8:content>
 				</v8:item>
 			</Title>
 			<ToolTip>

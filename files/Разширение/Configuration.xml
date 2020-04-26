@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core"
-                xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.9">
+				xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.9">
 	<Configuration uuid="10371402-391c-42cd-9fc7-7237fc3a4ff6">
 		<InternalInfo>
 			<xr:ContainedObject>
@@ -63,6 +63,7 @@
 		</Properties>
 		<ChildObjects>
 			<Language>Русский</Language>
+			<Subsystem>U_ОнлайнСтатистика</Subsystem>
 			<Role>U_ОнлайнСтатистикаОсновнаяРоль</Role>
 			<CommonModule>U_ЗагрузкаВыгрузкаДанных</CommonModule>
 			<CommonModule>U_ОнлайнСтатистикаПовтИсп</CommonModule>
