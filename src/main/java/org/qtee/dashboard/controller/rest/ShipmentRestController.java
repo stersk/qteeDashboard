@@ -37,12 +37,7 @@ public class ShipmentRestController {
 
     @GetMapping(path="/ping")
     public ResponseEntity<String> ping(Principal principal) {
-        String response = "That's all Ok:";
-        if (principal == null) {
-            response += "null";
-        } else {
-            response += principal.getName();
-        }
+        String response = "{}";
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
