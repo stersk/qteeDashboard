@@ -19,6 +19,7 @@ public class Invoice {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    private String number;
     private LocalDateTime date;
     private Long sum;
 
@@ -26,4 +27,5 @@ public class Invoice {
     private Long commissionRate;
 
     private String description;
+    private Boolean notified;
 }
