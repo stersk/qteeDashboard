@@ -1,8 +1,8 @@
 package org.qtee.dashboard.controller.rest;
 
 import org.qtee.dashboard.data.projection.ShipmentDayStat;
-import org.qtee.dashboard.dto.ShipmentForBootstrapTableDTO;
-import org.qtee.dashboard.dto.ShipmentFrom1CDTO;
+import org.qtee.dashboard.dto.Shipment1CDTO;
+import org.qtee.dashboard.dto.ShipmentBootstrapTableDTO;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
 import org.qtee.dashboard.entity.User;
@@ -42,7 +42,7 @@ public class ShipmentRestController {
     }
 
     @GetMapping(path="/get-all")
-    public ResponseEntity<List<ShipmentForBootstrapTableDTO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
+    public ResponseEntity<List<ShipmentBootstrapTableDTO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User userWithoutAccount = (User) authenticationToken.getPrincipal();
         User user = userService.findById(userWithoutAccount.getId());
@@ -59,7 +59,7 @@ public class ShipmentRestController {
         LocalDateTime endDate = LocalDateTime.parse(to, formatter);
 
         List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate, account);
-        List<ShipmentForBootstrapTableDTO> response = shipmentList.stream().map(ShipmentForBootstrapTableDTO::new).collect(Collectors.toList());
+        List<ShipmentBootstrapTableDTO> response = shipmentList.stream().map(ShipmentBootstrapTableDTO::new).collect(Collectors.toList());
 
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -87,7 +87,7 @@ public class ShipmentRestController {
     }
 
     @PostMapping(path="/save-all")
-    public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<ShipmentFrom1CDTO> data) {
+    public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<Shipment1CDTO> data) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User userWithoutAccount = (User) authenticationToken.getPrincipal();
         User user = userService.findById(userWithoutAccount.getId());
@@ -97,7 +97,7 @@ public class ShipmentRestController {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }
 
-        for (ShipmentFrom1CDTO shipmentDto: data) {
+        for (Shipment1CDTO shipmentDto: data) {
             Shipment shipment = shipmentDto.toShipment();
             shipment.setAccount(account);
 

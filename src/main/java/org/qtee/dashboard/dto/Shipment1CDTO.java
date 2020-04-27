@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class  ShipmentFrom1CDTO {
+public class Shipment1CDTO {
     private UUID id;
     private LocalDateTime date;
     private Float sum;
@@ -24,8 +24,8 @@ public class  ShipmentFrom1CDTO {
     private String status;
 
     public Shipment toShipment() {
-        sum = sum * 100;
-        Long sumLong = sum.longValue();
+        Float tempSum = sum * 100;
+        Long sumLong = tempSum.longValue();
 
         Shipment shipment = new Shipment();
         shipment.setAddress(address);

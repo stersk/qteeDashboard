@@ -2,6 +2,7 @@ package org.qtee.dashboard.controller.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.qtee.dashboard.dto.Invoice1CDTO;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Invoice;
 import org.qtee.dashboard.entity.User;
@@ -31,7 +32,7 @@ public class InvoiceRestController {
     private UserServiceWithDetails userService;
 
     @PostMapping(path="/save-all")
-    public ResponseEntity<String> saveInvoices(Principal principal, @RequestBody List<Invoice> data) {
+    public ResponseEntity<String> saveInvoices(Principal principal, @RequestBody List<Invoice1CDTO> data) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
         User userWithoutAccount = (User) authenticationToken.getPrincipal();
         User user = userService.findById(userWithoutAccount.getId());
@@ -41,7 +42,7 @@ public class InvoiceRestController {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }
 
-        data.stream().forEach(invoice -> {
+        data.stream().map(Invoice1CDTO::toInvoice).forEach(invoice -> {
             Invoice existingInvoice = invoiceService.getInvoice(invoice.getId());
             if (existingInvoice == null) {
                 invoice.setNotified(false);
@@ -72,7 +73,7 @@ public class InvoiceRestController {
             return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
         } else {
             ObjectMapper mapper = new ObjectMapper();
-            String response = mapper.writeValueAsString(deletedInvoice);
+            String response = mapper.writeValueAsString(new Invoice1CDTO(deletedInvoice));
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
