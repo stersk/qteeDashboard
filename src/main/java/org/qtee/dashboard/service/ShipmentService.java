@@ -30,4 +30,12 @@ public class ShipmentService {
     public void save(Shipment shipment) {
         shipmentRepository.saveAndFlush(shipment);
     }
+
+    public Long getTotalSum(Account account){
+        return shipmentRepository.getTotalSum(account);
+    }
+
+    public Long getShipmentsCount(Account account){
+        return shipmentRepository.getShipmentsCount(account);
+    }
 }

@@ -1,5 +1,6 @@
 package org.qtee.dashboard.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.qtee.dashboard.entity.enums.MetricType;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @IdClass(MetricId.class)
 @Table(name = "metrics")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Metric {
     @Id

@@ -47,7 +47,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/home", "/orders", "/")
+                    .antMatchers( "/logout", "/")
                     .access("hasAnyRole('ROLE_USER', 'ROLE_ADMINISTRATOR')")
                     .antMatchers("/register")
                     .access("hasRole('ROLE_ADMINISTRATOR')")

@@ -7,6 +7,7 @@ import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Shipment;
 import org.qtee.dashboard.entity.User;
 import org.qtee.dashboard.service.AccountService;
+import org.qtee.dashboard.service.MetricService;
 import org.qtee.dashboard.service.ShipmentService;
 import org.qtee.dashboard.service.UserServiceWithDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ShipmentRestController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private MetricService metricService;
 
     @Autowired
     private UserServiceWithDetails userService;
@@ -102,6 +106,10 @@ public class ShipmentRestController {
             shipment.setAccount(account);
 
             shipmentService.save(shipment);
+        }
+
+        if (!data.isEmpty()) {
+            metricService.recalculateMetric(account);
         }
 
         return new ResponseEntity("{}", HttpStatus.OK);
