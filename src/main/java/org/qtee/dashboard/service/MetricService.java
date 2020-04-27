@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class MetricService {
         if (lastInvoice == null) {
             lastInvoice = new Invoice();
             lastInvoice.setSum(0l);
-            lastInvoice.setDate(LocalDateTime.of(1,1,1,0,0));
+            lastInvoice.setDate(LocalDateTime.ofInstant(Instant.ofEpochMilli(1l), ZoneId.of("UTC")));
         }
 
         Long shipmentsCount = 0l;
@@ -66,7 +68,7 @@ public class MetricService {
 
         Metric balanceMetric = new Metric(account, MetricType.BALANSE, currentDate, balance.doubleValue()/100);
         Metric shipmentsLeftMetric = new Metric(account, MetricType.SHIPMENTS_LEFT, currentDate, shipmentsLeft.doubleValue());
-        Metric lastInvoiceMetric = new Metric(account, MetricType.LAST_INVOICE, lastInvoice.getDate(), lastInvoice.getSum().doubleValue());
+        Metric lastInvoiceMetric = new Metric(account, MetricType.LAST_INVOICE, lastInvoice.getDate(), lastInvoice.getSum().doubleValue()/100);
         Metric shipmentsCountByDay = new Metric(account, MetricType.SHIPMENTS_COUNT_BY_DAY, dateTimeStart, shipmentsCount.doubleValue());
 
         metricRepository.save(balanceMetric);
@@ -79,6 +81,10 @@ public class MetricService {
     @Nullable
     public NotifyDTO getNotify(Metric metric) {
         NotifyDTO notify = null;
+
+        if (metric == null) {
+            return null;
+        }
 
         switch (metric.getMetricType()){
             case BALANSE:

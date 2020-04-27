@@ -56,3 +56,7 @@ div.search {
 #endDate:focus{
     border-left-color: rgb(249, 99, 50);
 }
+#dataLastInvoice span.mini {
+    font-size: 0.5em;
+    font-weight: 400;
+}

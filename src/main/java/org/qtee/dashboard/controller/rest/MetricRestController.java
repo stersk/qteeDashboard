@@ -16,7 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +58,7 @@ public class MetricRestController {
         Metric metric = metricService.getMetric(account, metricType);
         NotifyDTO notifyData = metricService.getNotify(metric);
 
-        response.put("date", (metric == null) ? LocalDateTime.of(1,1,1,0,0): metric.getDate());
+        response.put("date", (metric == null) ? LocalDateTime.ofInstant(Instant.ofEpochMilli(1l), ZoneId.of("UTC")): metric.getDate());
         response.put("value", (metric == null) ? 0: metric.getValue());
         response.put("showNotify", (notifyData != null));
         response.put("notifyData", (metric == null) ? false: notifyData);

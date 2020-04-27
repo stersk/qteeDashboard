@@ -88,7 +88,9 @@ function updateMetricStatData() {
             }
         },
         error: function (xhr) {
-            //Do Something to handle error
+            if (xhr.status == 401) {
+                window.location.reload(true);
+            }
         }
     });
 
@@ -100,6 +102,44 @@ function updateMetricStatData() {
         },
         error: function (xhr) {
             //Do Something to handle error
+        }
+    });
+
+    $.ajax({
+        url: "/services/metric/get-metric/shipmentsCountByDay",
+        type: "get",
+        success: function (response) {
+            var dataDate = new Date(response.date);
+            var now = new Date;
+
+            if (areSameDate(dataDate, now)) {
+                $('#dataShipmentsToday').html('' + response.value);
+            } else {
+                $('#dataShipmentsToday').html(' - ');
+            }
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+
+    $.ajax({
+        url: "/services/metric/get-metric/lastInvoice",
+        type: "get",
+        success: function (response) {
+            var dataDate = new Date(response.date);
+            if (dataDate.getTime == 1) {
+                $('#dataLastInvoice').html('-');
+            } else {
+                options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+
+                var htmlString = '' + response.value + ' <small> грн.</small> <span class="mini">(' + dataDate.toLocaleDateString('uk-UA', options)
+                    + ')</span>';
+                $('#dataLastInvoice').html(htmlString);
+            }
+        },
+        error: function (xhr) {
+
         }
     });
 }
@@ -368,4 +408,10 @@ function tableDataQueryParams(params) {
     params.to = $('#endDate').datepicker('getDate').toISOString();
 
     return params
+}
+
+function areSameDate(d1, d2) {
+    return d1.getFullYear() == d2.getFullYear()
+        && d1.getMonth() == d2.getMonth()
+        && d1.getDate() == d2.getDate();
 }
