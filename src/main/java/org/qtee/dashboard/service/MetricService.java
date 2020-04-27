@@ -1,6 +1,7 @@
 package org.qtee.dashboard.service;
 
 import org.qtee.dashboard.data.MetricRepository;
+import org.qtee.dashboard.data.projection.ShipmentDayStat;
 import org.qtee.dashboard.dto.NotifyDTO;
 import org.qtee.dashboard.entity.Account;
 import org.qtee.dashboard.entity.Invoice;
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -46,11 +48,31 @@ public class MetricService {
         Long balance = invoiceService.getTotalSum(account) - shipmentService.getShipmentsCount(account) * price;
         Long shipmentsLeft = balance / price;
 
+        Invoice lastInvoice = invoiceService.getLastInvoice(account);
+        if (lastInvoice == null) {
+            lastInvoice = new Invoice();
+            lastInvoice.setSum(0l);
+            lastInvoice.setDate(LocalDateTime.of(1,1,1,0,0));
+        }
+
+        Long shipmentsCount = 0l;
+        LocalDateTime dateTimeStart = currentDate.truncatedTo(ChronoUnit.DAYS);
+        LocalDateTime dateTimeEnd = dateTimeStart.plusSeconds(86399);
+        List<ShipmentDayStat> shipmentsByDays = shipmentService.getDayStats(dateTimeStart, dateTimeEnd, account);
+        if (!shipmentsByDays.isEmpty()) {
+            ShipmentDayStat currentStat = shipmentsByDays.get(0);
+            shipmentsCount = currentStat.getCount();
+        }
+
         Metric balanceMetric = new Metric(account, MetricType.BALANSE, currentDate, balance.doubleValue()/100);
         Metric shipmentsLeftMetric = new Metric(account, MetricType.SHIPMENTS_LEFT, currentDate, shipmentsLeft.doubleValue());
+        Metric lastInvoiceMetric = new Metric(account, MetricType.LAST_INVOICE, lastInvoice.getDate(), lastInvoice.getSum().doubleValue());
+        Metric shipmentsCountByDay = new Metric(account, MetricType.SHIPMENTS_COUNT_BY_DAY, dateTimeStart, shipmentsCount.doubleValue());
 
         metricRepository.save(balanceMetric);
         metricRepository.save(shipmentsLeftMetric);
+        metricRepository.save(lastInvoiceMetric);
+        metricRepository.save(shipmentsCountByDay);
         metricRepository.flush();
     }
 
