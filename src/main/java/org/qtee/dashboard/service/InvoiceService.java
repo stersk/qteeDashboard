@@ -33,4 +33,8 @@ public class InvoiceService {
     public Long getTotalSum(Account account){
         return invoiceRepository.getTotalSum(account);
     }
+
+    public Invoice getLastInvoice(Account account) {
+        return invoiceRepository.findFirstByAccountOrderByDateDesc(account).orElse(null);
+    }
 }

@@ -71,14 +71,14 @@ function updateMetricStatData() {
                     minute:'2-digit'
                 };
 
-                var notifyTitle = new Date(response.date).toLocaleDateString('uk-UA', options)
+                var notifyTitle = new Date(response.notifyData.date).toLocaleDateString('uk-UA', options)
 
                 $.notify({
                     icon: "now-ui-icons ui-1_bell-53",
                     title: "<b>" + notifyTitle + "</b>",
-                    message: response.notifyText
+                    message: response.notifyData.text
                 }, {
-                    type: 'success',
+                    type: 'info',
                     timer: 4000,
                     placement: {
                         from: "top",

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
@@ -16,4 +17,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
                     "WHERE " +
                     "invoice.account = :account")
     Long getTotalSum(@Param("account") Account account);
+
+    Optional<Invoice> findFirstByAccountOrderByDateDesc(Account account);
 }
