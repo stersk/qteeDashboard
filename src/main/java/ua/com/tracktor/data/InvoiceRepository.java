@@ -19,4 +19,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
     Long getTotalSum(@Param("account") Account account);
 
     Optional<Invoice> findFirstByAccountOrderByDateDesc(Account account);
+
+    Optional<Invoice> getOneByNumber(String number);
 }

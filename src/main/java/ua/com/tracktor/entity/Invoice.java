@@ -26,6 +26,7 @@ public class Invoice {
     @Column(name = "commission_rate")
     private Long commissionRate;
 
+    @Column(name="text", length=1024)
     private String description;
     private Boolean notified;
 }

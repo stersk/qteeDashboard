@@ -13,8 +13,13 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    public void save(Invoice invoice) {
+    public Invoice save(Invoice invoice) {
+        if (invoice.getId() == null) {
+            invoice.setId(UUID.randomUUID());
+        }
+
         invoiceRepository.saveAndFlush(invoice);
+        return invoice;
     }
 
     public Invoice getInvoice(UUID id) {
@@ -36,5 +41,9 @@ public class InvoiceService {
 
     public Invoice getLastInvoice(Account account) {
         return invoiceRepository.findFirstByAccountOrderByDateDesc(account).orElse(null);
+    }
+
+    public Invoice getInvoiceByNumber(String invoiceNumber){
+        return invoiceRepository.getOneByNumber(invoiceNumber).orElse(null);
     }
 }
