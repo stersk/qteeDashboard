@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Invoice;
 import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.InvoiceService;
@@ -37,6 +38,8 @@ public class WayforpayRestController {
         // 1. account hardcoded, need to refactor this
         // 2. add merchant signature check for incomming connections
         // 3. control refund (low priority task)
+
+        Account account = accountService.getAccountById(Long.decode(env.getProperty("wayforpay.account-id")));
 
         JsonNode metricNode = data.get("merchantAccount");
         String merchantAccount = metricNode.asText("merchantAccount");
@@ -84,7 +87,7 @@ public class WayforpayRestController {
                 invoice.setSum(sum.longValue());
                 invoice.setCommissionRate(commissionRate.longValue());
                 invoice.setDescription(description);
-//                invoice.setAccount();
+                invoice.setAccount(account);
                 invoiceService.save(invoice);
             }
         }
