@@ -95,15 +95,35 @@ function updateMetricStatData() {
     });
 
     $.ajax({
-        url: "/services/metric/get-metric/shipmentsLeft",
+        url: "/services/metric/get-metric/shipmentSumByDay",
         type: "get",
         success: function (response) {
-            $('#dataShipmentsLeft').html('' + response.value);
+            var dataDate = new Date(response.date);
+            var now = new Date;
+
+            if (areSameDate(dataDate, now)) {
+                $('#dataShipmentsSumToday').html('' + response.value + ' <small> грн.</small>');
+            } else {
+                $('#dataShipmentsSumToday').html(' - ');
+            }
         },
         error: function (xhr) {
-            //Do Something to handle error
+            if (xhr.status == 401) {
+                window.location.reload(true);
+            }
         }
     });
+
+//    $.ajax({
+//        url: "/services/metric/get-metric/shipmentsLeft",
+//        type: "get",
+//        success: function (response) {
+//            $('#dataShipmentsLeft').html('' + response.value);
+//        },
+//        error: function (xhr) {
+//            //Do Something to handle error
+//        }
+//    });
 
     $.ajax({
         url: "/services/metric/get-metric/shipmentsCountByDay",
