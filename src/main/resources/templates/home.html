@@ -174,8 +174,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <script type="text/javascript" id="widget-wfp-script" src="https://secure.wayforpay.com/server/pay-widget.js?ref=button"></script>
-                            <script type="text/javascript">function runWfpWdgt(url){var wayforpay=new Wayforpay();wayforpay.invoice(url);}</script>
-                            <a class="nav-link" href="#" onclick="runWfpWdgt('https://secure.wayforpay.com/button/b0f8e1636c17b');">
+                            <a class="nav-link" href="#" th:url="${@environment.getProperty('wayforpay.widget-link')}" onclick="runWfpWdgt(this);">
                                 Оплатити
 <!--                                <a href="#"   onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';"></a>-->
 <!--                                <i class="now-ui-icons media-2_sound-wave"></i>-->

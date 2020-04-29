@@ -410,6 +410,11 @@ function tableDataQueryParams(params) {
     return params
 }
 
+function runWfpWdgt(element){
+    var wayforpay = new Wayforpay();
+    wayforpay.invoice($(element).attr('url'));
+}
+
 function areSameDate(d1, d2) {
     return d1.getFullYear() == d2.getFullYear()
         && d1.getMonth() == d2.getMonth()
