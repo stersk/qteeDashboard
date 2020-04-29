@@ -60,3 +60,9 @@ div.search {
     font-size: 0.5em;
     font-weight: 400;
 }
+.card-stats .statistics .stats-title {
+    margin-top: 20px;
+}
+.card-stats .statistics .btn {
+    text-transform: uppercase;
+}

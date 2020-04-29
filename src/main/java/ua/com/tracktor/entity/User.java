@@ -43,7 +43,6 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == 1) {
-            // TODO make role as string in Entity
             return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
         } else {
             return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
