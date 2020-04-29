@@ -72,6 +72,17 @@
 					<CommandName>Form.Command.УдалитьРегистрациюВсех</CommandName>
 					<ExtendedTooltip name="УдалитьРегистрациюВсехРасширеннаяПодсказка" id="37"/>
 				</Button>
+				<Button name="ПолучитьБаланс" id="51">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.ПолучитьБаланс</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Баланс</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="ПолучитьБалансРасширеннаяПодсказка" id="52"/>
+				</Button>
 			</ChildItems>
 		</UsualGroup>
 		<UsualGroup name="СписокКомпоновщикНастроекПользовательскиеНастройки" id="1">
@@ -296,6 +307,21 @@
 			</Picture>
 			<Action>КомандаОбновитьДанные</Action>
 			<Representation>Picture</Representation>
+		</Command>
+		<Command name="ПолучитьБаланс" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить баланс</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить баланс</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПолучитьБаланс</Action>
 		</Command>
 	</Commands>
 </Form>
