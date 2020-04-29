@@ -15,7 +15,11 @@ import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Invoice;
 import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.InvoiceService;
+import ua.com.tracktor.service.MetricService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
@@ -32,12 +36,29 @@ public class WayforpayRestController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping(path="/transaction")
-    public ResponseEntity<String> transactionData(@RequestBody JsonNode data) {
+    @Autowired
+    private MetricService metricService;
+
+    @PostMapping(path="/transaction", consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<String> transactionData(@RequestBody String stringData) {
+        // (if , try to get body as String to solve this trouble,
+        // as servise seng JSON, but provide application/x-www-form-urlencoded header)
         //TODO
         // 1. account hardcoded, need to refactor this
         // 2. add merchant signature check for incomming connections
         // 3. control refund (low priority task)
+
+        // Because Content type 'application/x-www-form-urlencoded;charset=UTF-8' and service send json in body, we will
+        //  get body as string and map it to object
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode data = null;
+        try {
+            stringData = URLDecoder.decode(stringData, StandardCharsets.UTF_8.toString());
+
+            data = objectMapper.readTree(stringData);
+        } catch (JsonProcessingException | UnsupportedEncodingException e) {
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+        }
 
         Account account = accountService.getAccountById(Long.decode(env.getProperty("wayforpay.account-id")));
 
@@ -66,16 +87,6 @@ public class WayforpayRestController {
                 LocalDateTime date =
                        LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone.getDefault().toZoneId());
 
-
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                String description  = "";
-                try {
-                    description  = objectMapper.writeValueAsString(data);
-                } catch (JsonProcessingException e) {
-
-                }
-
                 Invoice invoice = invoiceService.getInvoiceByNumber(number);
                 if (invoice == null) {
                     invoice = new Invoice();
@@ -86,9 +97,11 @@ public class WayforpayRestController {
                 invoice.setDate(date);
                 invoice.setSum(sum.longValue());
                 invoice.setCommissionRate(commissionRate.longValue());
-                invoice.setDescription(description);
+                invoice.setDescription(stringData);
                 invoice.setAccount(account);
                 invoiceService.save(invoice);
+
+                metricService.recalculateMetric(account);
             }
         }
 
