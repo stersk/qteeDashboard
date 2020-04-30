@@ -9,14 +9,14 @@ import ua.com.tracktor.entity.User;
 public class RegistrationForm {
   private String username;
   private String password;
-  private String fullName;
+  private String fullname;
   private String phone;
-  private Account account;
+  private String account;
   
-  public User toUser(PasswordEncoder passwordEncoder) {
+  public User toUser(PasswordEncoder passwordEncoder, Account account) {
     Boolean enabled = true;
     Integer role = 0; // 0 - user; 1 - administrator
 
-    return new User(username, passwordEncoder.encode(password), role, enabled, fullName, phone, account);
+    return new User(username, passwordEncoder.encode(password), role, enabled, fullname, phone, account);
   }
 }
