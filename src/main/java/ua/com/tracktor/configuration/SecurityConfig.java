@@ -31,7 +31,7 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.antMatcher("/services/**")
-                    .authorizeRequests().anyRequest().hasRole("ADMINISTRATOR")
+                    .authorizeRequests().anyRequest().access("hasAnyRole('ROLE_USER', 'ROLE_ADMINISTRATOR')")
                     .and().httpBasic()
                     .and()
                     .csrf()
