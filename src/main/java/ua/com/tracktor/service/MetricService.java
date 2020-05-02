@@ -42,7 +42,7 @@ public class MetricService {
         return metricRepository.save(metric);
     }
 
-    public void recalculateMetric(Account account) {
+    public void recalculateMetrics(Account account) {
         //TODO Make getting price from db
         Long price = 500l;
 

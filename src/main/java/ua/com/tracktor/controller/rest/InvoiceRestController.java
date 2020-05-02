@@ -58,7 +58,7 @@ public class InvoiceRestController {
             invoiceService.save(invoice);
         });
 
-        metricService.recalculateMetric(account);
+        metricService.recalculateMetrics(account);
 
         return new ResponseEntity("{}", HttpStatus.OK);
     }
@@ -78,7 +78,7 @@ public class InvoiceRestController {
         if (deletedInvoice == null) {
             return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
         } else {
-            metricService.recalculateMetric(account);
+            metricService.recalculateMetrics(account);
 
             ObjectMapper mapper = new ObjectMapper();
             String response = mapper.writeValueAsString(new Invoice1CDTO(deletedInvoice));

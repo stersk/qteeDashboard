@@ -109,7 +109,7 @@ public class ShipmentRestController {
         }
 
         if (!data.isEmpty()) {
-            metricService.recalculateMetric(account);
+            metricService.recalculateMetrics(account);
         }
 
         return new ResponseEntity("{}", HttpStatus.OK);

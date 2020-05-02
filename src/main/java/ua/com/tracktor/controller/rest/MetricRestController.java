@@ -33,6 +33,25 @@ public class MetricRestController {
     @Autowired
     private UserServiceWithDetails userService;
 
+    @GetMapping(path="/update")
+    public ResponseEntity<String> ping(Principal principal) {
+        String response = "{}";
+
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
+        User userWithoutAccount = (User) authenticationToken.getPrincipal();
+        User user = userService.findById(userWithoutAccount.getId());
+
+        Account account = user.getAccount();
+        if (account == null) {
+            response = "No account found for this user";
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        metricService.recalculateMetrics(account);
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @GetMapping(path="/get-metric/{type}")
     public ResponseEntity<Map<String, Object>> getMetric(Principal principal, @PathVariable(value = "type") String metricTypeName) {
         Map<String, Object> response = new HashMap<>();

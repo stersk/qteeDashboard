@@ -101,7 +101,7 @@ public class WayforpayRestController {
                 invoice.setAccount(account);
                 invoiceService.save(invoice);
 
-                metricService.recalculateMetric(account);
+                metricService.recalculateMetrics(account);
             }
         }
 
