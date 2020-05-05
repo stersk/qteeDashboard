@@ -66,3 +66,13 @@ div.search {
 .card-stats .statistics .btn {
     text-transform: uppercase;
 }
+footer {
+    margin-top: -50px;
+}
+footer .contacts-head {
+    margin-bottom: 10px;
+}
+footer .contact-head {
+    font-weight: 700;
+    padding-right: 15px;
+}
