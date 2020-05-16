@@ -104,7 +104,7 @@ function updateMetricStatData() {
             if (areSameDate(dataDate, now)) {
                 $('#dataShipmentsSumToday').html('' + response.value + ' <small> грн.</small>');
             } else {
-                $('#dataShipmentsSumToday').html(' - ');
+                $('#dataShipmentsSumToday').html('0 <small> грн.</small>');
             }
         },
         error: function (xhr) {
@@ -133,9 +133,9 @@ function updateMetricStatData() {
             var now = new Date;
 
             if (areSameDate(dataDate, now)) {
-                $('#dataShipmentsToday').html('' + response.value);
+                $('#dataShipmentsToday').html('' + response.value + '<small> шт. </small>');
             } else {
-                $('#dataShipmentsToday').html(' - ');
+                $('#dataShipmentsToday').html('0 <small> шт. </small>');
             }
         },
         error: function (xhr) {
