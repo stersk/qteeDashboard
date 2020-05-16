@@ -76,3 +76,12 @@ footer .contact-head {
     font-weight: 700;
     padding-right: 15px;
 }
+.terms-and-conditions {
+    float: right;
+    font-size: .8571em;
+    line-height: 1.8;
+    padding-right: 15px;
+}
+.terms-and-conditions:hover {
+    cursor: pointer;
+}
