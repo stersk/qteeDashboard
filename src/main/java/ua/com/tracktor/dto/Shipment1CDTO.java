@@ -37,10 +37,10 @@ public class Shipment1CDTO {
         shipment.setSum(sumLong);
 
         switch (deliveryService) {
-            case "Нова Пошта":
+            case "НоваяПочта":
                 shipment.setDeliveryService(DeliveryService.NOWA_POSHTA);
                 break;
-            case "Укрпошта" :
+            case "Укрпочта" :
                 shipment.setDeliveryService(DeliveryService.UKRPOSHTA);
                 break;
         }
