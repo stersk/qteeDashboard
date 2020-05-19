@@ -83,8 +83,8 @@ public class ShipmentRestController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .withZone(ZoneId.of("UTC"));
 
-        LocalDateTime startDate = LocalDateTime.parse(from, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(to, formatter);
+        LocalDateTime startDate = LocalDateTime.parse(from, formatter).toLocalDate().atStartOfDay();
+        LocalDateTime endDate = LocalDateTime.parse(to, formatter).toLocalDate().atTime(LocalTime.MAX);
 
         List<ShipmentDayStat> response = shipmentService.getDayStats(startDate, endDate, account);
 
