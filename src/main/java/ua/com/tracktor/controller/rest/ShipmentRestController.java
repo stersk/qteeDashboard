@@ -18,6 +18,7 @@ import ua.com.tracktor.service.UserServiceWithDetails;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class ShipmentRestController {
                 .withZone(ZoneId.of("UTC"));
 
         LocalDateTime startDate = LocalDateTime.parse(from, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(to, formatter);
+        LocalDateTime endDate = LocalDateTime.parse(to, formatter).toLocalDate().atTime(LocalTime.MAX);
 
         List<Shipment> shipmentList = shipmentService.getAllInRange(startDate, endDate, account);
         List<ShipmentBootstrapTableDTO> response = shipmentList.stream().map(ShipmentBootstrapTableDTO::new).collect(Collectors.toList());

@@ -92,13 +92,14 @@ public class WayforpayRestController {
                     invoice = new Invoice();
                     invoice.setNumber(number);
                     invoice.setNotified(false);
+                    invoice.setAccount(account);
                 }
 
                 invoice.setDate(date);
                 invoice.setSum(sum.longValue());
                 invoice.setCommissionRate(commissionRate.longValue());
                 invoice.setDescription(stringData);
-                invoice.setAccount(account);
+
                 invoiceService.save(invoice);
 
                 metricService.recalculateMetrics(account);
