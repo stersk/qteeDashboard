@@ -44,5 +44,5 @@ public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
     Long getShipmentsCount(@Param("account") Account account);
 
 
-    List<Shipment> findShipmentsByAccountAndDateBetween(Account account, LocalDateTime from, LocalDateTime to);
+    List<Shipment> findShipmentsByAccountAndDateBetweenOrderByDateDesc(Account account, LocalDateTime from, LocalDateTime to);
 }

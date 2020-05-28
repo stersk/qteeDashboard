@@ -20,7 +20,7 @@ public class ShipmentService {
     }
 
     public List<Shipment> getAllInRange(LocalDateTime from, LocalDateTime to, Account account) {
-        return shipmentRepository.findShipmentsByAccountAndDateBetween(account, from, to);
+        return shipmentRepository.findShipmentsByAccountAndDateBetweenOrderByDateDesc(account, from, to);
     }
 
     public List<ShipmentDayStat> getDayStats(LocalDateTime from, LocalDateTime to, Account account) {
