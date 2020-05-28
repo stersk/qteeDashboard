@@ -85,3 +85,6 @@ footer .contact-head {
 .terms-and-conditions:hover {
     cursor: pointer;
 }
+.bootstrap-table {
+    font-family: 'Roboto', sans-serif;
+}
