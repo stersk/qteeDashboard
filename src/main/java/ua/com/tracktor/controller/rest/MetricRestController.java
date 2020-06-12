@@ -34,7 +34,7 @@ public class MetricRestController {
     private UserServiceWithDetails userService;
 
     @GetMapping(path="/update")
-    public ResponseEntity<String> ping(Principal principal) {
+    public ResponseEntity<String> update(Principal principal) {
         String response = "{}";
 
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;

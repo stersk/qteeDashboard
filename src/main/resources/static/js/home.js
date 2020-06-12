@@ -1,6 +1,7 @@
 var table;
 var alertBtn;
 var selections = [];
+var eventSource;
 
 $(document).ready(function () {
     table = $('#table');
@@ -14,7 +15,11 @@ $(document).ready(function () {
     updateStatChartData();
 
     updateMetricStatData();
-    setInterval(updateMetricStatData, 5000);
+
+    window.onload = subscribe;
+    window.onbeforeunload = function() {
+      eventSource.close();
+    }
 })
 
 function initTablePerfectScrollbar() {
@@ -53,6 +58,18 @@ function refreshData() {
     updateStatChartData();
     updateMetricStatData();
     table.bootstrapTable('refresh');
+}
+
+function subscribe() {
+  eventSource = new EventSource('services/notificationSource');
+
+  eventSource.onmessage = function(e) {
+    var notification = JSON.parse(e.data);
+
+    if (notification.notificationType == "dataUpdated") {
+        refreshData();
+    }
+  };
 }
 
 function updateMetricStatData() {

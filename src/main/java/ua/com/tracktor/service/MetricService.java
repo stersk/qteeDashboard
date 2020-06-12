@@ -29,6 +29,9 @@ public class MetricService {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    private SSENotificationService notificationService;
+
     public void saveAll(List<Metric> metrics){
         metricRepository.saveAll(metrics);
         metricRepository.flush();
@@ -80,6 +83,8 @@ public class MetricService {
         metricRepository.save(shipmentsCountByDay);
         metricRepository.save(shipmentsSumByDay);
         metricRepository.flush();
+
+        notificationService.sendUpdateNotification(account.getId());
     }
 
     @Nullable
