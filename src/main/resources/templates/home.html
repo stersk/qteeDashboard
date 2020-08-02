@@ -357,69 +357,68 @@
                 </div>
             </div>
 
-        <!-- Modal -->
-        <div class="modal fade bd-example-modal-lg" id="termsAndConditions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div th:replace="termsAndConditions::oferta"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            <!-- Modal. Therm and coditions -->
+            <div class="modal fade bd-example-modal-lg" id="termsAndConditions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div th:replace="termsAndConditions::oferta"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="makeInvoiceErrorWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Оплата</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Виникла помилка, спробуйте поновити сторінку або перезайти на сайт.<br><br> Вибачте за незручності
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="container-fluid ">
+                    <div class="copyright" id="copyright">
+                        <h5 class="contacts-head">Наші контакти:</h5>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="contact-head">
+                                        тел:
+                                    </td>
+                                    <td>
+                                        (068) 846-99-84
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="contact-head">
+                                        e-mail:
+                                    </td>
+                                    <td>
+                                        support@tracktor.com.ua
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="terms-and-conditions">
+                        <h5 class="contacts-head" data-toggle="modal" data-target="#termsAndConditions">Умови надання послуг</h5>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <footer class="footer">
-            <div class="container-fluid ">
-                <!--                <nav>-->
-                <!--                    <ul>-->
-                <!--                        <li>-->
-                <!--                            <a href="https://www.creative-tim.com">-->
-                <!--                                Creative Tim-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                        <li>-->
-                <!--                            <a href="http://presentation.creative-tim.com">-->
-                <!--                                About Us-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                        <li>-->
-                <!--                            <a href="http://blog.creative-tim.com">-->
-                <!--                                Blog-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                    </ul>-->
-                <!--                </nav>-->
-                <div class="copyright" id="copyright">
-                    <h5 class="contacts-head">Наші контакти:</h5>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="contact-head">
-                                    тел:
-                                </td>
-                                <td>
-                                    (068) 846-99-84
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="contact-head">
-                                    e-mail:
-                                </td>
-                                <td>
-                                    support@tracktor.com.ua
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="terms-and-conditions">
-                    <h5 class="contacts-head" data-toggle="modal" data-target="#termsAndConditions">Умови надання послуг</h5>
-                </div>
-            </div>
-        </footer>
-    </div>
     </div>
 </div>
 </body>

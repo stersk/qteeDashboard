@@ -456,7 +456,7 @@ function openPayWindow(){
             wayforpay.invoice(response);
         },
         error: function (xhr) {
-            //Do Something to handle error
+            $('#makeInvoiceErrorWindow').modal('show');
         }
     });
 }
