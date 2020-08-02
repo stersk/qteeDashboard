@@ -5,15 +5,13 @@ import com.fasterxml.jackson.databind.node.JsonNodeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import ua.com.tracktor.dto.NotifyDTO;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Metric;
-import ua.com.tracktor.entity.User;
 import ua.com.tracktor.entity.enums.MetricType;
+import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.MetricService;
-import ua.com.tracktor.service.UserServiceWithDetails;
 
 import java.security.Principal;
 import java.time.Instant;
@@ -31,17 +29,13 @@ public class MetricRestController {
     private MetricService metricService;
 
     @Autowired
-    private UserServiceWithDetails userService;
+    private AccountService accountService;
 
     @GetMapping(path="/update")
     public ResponseEntity<String> update(Principal principal) {
         String response = "{}";
 
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             response = "No account found for this user";
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -56,13 +50,7 @@ public class MetricRestController {
     public ResponseEntity<Map<String, Object>> getMetric(Principal principal, @PathVariable(value = "type") String metricTypeName) {
         Map<String, Object> response = new HashMap<>();
 
-        //TODO Refactor code for getting account from principal to separate method and remove similar duplicate code
-        //  from rest controllers
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             response.put("error", "No account found for this user");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -91,13 +79,7 @@ public class MetricRestController {
             return new ResponseEntity<>("It should be array of metrics data in the body, but it isn't", HttpStatus.BAD_REQUEST);
         }
 
-        //TODO Refactor code for getting account from principal to separate method and remove similar duplicate code
-        //  from rest controllers
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }

@@ -2,15 +2,13 @@ package ua.com.tracktor.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import ua.com.tracktor.dto.SSENotifyDTO;
 import ua.com.tracktor.entity.Account;
-import ua.com.tracktor.entity.User;
-import ua.com.tracktor.service.UserServiceWithDetails;
+import ua.com.tracktor.service.AccountService;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -23,19 +21,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RequestMapping("/services")
 public class NotificationRestController {
     @Autowired
-    private UserServiceWithDetails userService;
+    private AccountService accountService;
 
     private final Map<Long, CopyOnWriteArrayList<SseEmitter>> accountEmittersMap = new ConcurrentHashMap<>();
 
     @GetMapping(path = "/notificationSource")
     public SseEmitter getNewNotification(Principal principal) {
-        //TODO Refactor code for getting account from principal to separate method and remove similar duplicate code
-        //  from rest controllers
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return null;
         }

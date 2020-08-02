@@ -8,7 +8,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import ua.com.tracktor.entity.Account;
-import ua.com.tracktor.entity.User;
-import ua.com.tracktor.service.UserServiceWithDetails;
+import ua.com.tracktor.service.AccountService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
@@ -33,7 +31,7 @@ import java.util.Objects;
 @RequestMapping("/services/notification/**")
 public class ViberServiceProxyController {
     @Autowired
-    private UserServiceWithDetails userService;
+    private AccountService accountService;
 
     @Autowired
     private Environment env;
@@ -48,11 +46,7 @@ public class ViberServiceProxyController {
         String basePath = env.getProperty("viber-service.server.path");
         int port = Integer.parseInt(Objects.requireNonNull(env.getProperty("viber-service.server.port")));
 
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>("{\"error\":\"Account not authorized\"}", HttpStatus.UNAUTHORIZED);
         }

@@ -3,18 +3,15 @@ package ua.com.tracktor.controller.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import ua.com.tracktor.data.projection.ShipmentDayStat;
 import ua.com.tracktor.dto.Shipment1CDTO;
 import ua.com.tracktor.dto.ShipmentBootstrapTableDTO;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Shipment;
-import ua.com.tracktor.entity.User;
 import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.MetricService;
 import ua.com.tracktor.service.ShipmentService;
-import ua.com.tracktor.service.UserServiceWithDetails;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -37,9 +34,6 @@ public class ShipmentRestController {
     @Autowired
     private MetricService metricService;
 
-    @Autowired
-    private UserServiceWithDetails userService;
-
     @GetMapping(path="/ping")
     public ResponseEntity<String> ping(Principal principal) {
         String response = "{}";
@@ -48,11 +42,7 @@ public class ShipmentRestController {
 
     @GetMapping(path="/get-all")
     public ResponseEntity<List<ShipmentBootstrapTableDTO>> getAll(Principal principal, @RequestParam String from, @RequestParam String to) {
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }
@@ -71,11 +61,7 @@ public class ShipmentRestController {
 
     @GetMapping(path="/get-day-stats")
     public ResponseEntity<List<ShipmentDayStat>> getDayStats(Principal principal, @RequestParam String from, @RequestParam String to) {
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }
@@ -93,11 +79,7 @@ public class ShipmentRestController {
 
     @PostMapping(path="/save-all")
     public ResponseEntity<String> saveShipments(Principal principal, @RequestBody List<Shipment1CDTO> data) {
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        Account account = user.getAccount();
+        Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }

@@ -9,7 +9,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +19,9 @@ import ua.com.tracktor.dto.WayForPayCreateInvoiceResponseDTO;
 import ua.com.tracktor.dto.WayForPayResponseDTO;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Invoice;
-import ua.com.tracktor.entity.User;
 import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.InvoiceService;
 import ua.com.tracktor.service.MetricService;
-import ua.com.tracktor.service.UserServiceWithDetails;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -48,9 +45,6 @@ public class WayforpayRestController {
 
     @Autowired
     private MetricService metricService;
-
-    @Autowired
-    private UserServiceWithDetails userService;
 
     @PostMapping(path="/wayforpay/transaction", consumes = "application/x-www-form-urlencoded")
     public ResponseEntity<WayForPayResponseDTO> transactionStatus(@RequestBody String stringData) {
@@ -126,11 +120,7 @@ public class WayforpayRestController {
 
     @GetMapping(path="/services/get-new-invoice-link")
     public ResponseEntity<String> createInvoice(Principal principal) {
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) principal;
-        User userWithoutAccount = (User) authenticationToken.getPrincipal();
-        User user = userService.findById(userWithoutAccount.getId());
-
-        final Account account = user.getAccount();
+        final Account account = accountService.getAccountByPrincipal(principal);
         if (account == null) {
             return new ResponseEntity<>("No account found for this user", HttpStatus.BAD_REQUEST);
         }
