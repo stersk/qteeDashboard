@@ -59,7 +59,6 @@ public class WayforpayRestController {
         // (if , try to get body as String to solve this trouble,
         // as servise seng JSON, but provide application/x-www-form-urlencoded header)
         //TODO
-        // 1. account hardcoded, need to refactor this
         // 2. add merchant signature check for incomming connections
         // 3. control refund (low priority task)
 
@@ -93,9 +92,6 @@ public class WayforpayRestController {
                 JsonNode dateNode = data.get("createdDate");
                 Long timestamp = (dateNode == null) ? 0l : dateNode.asLong();
 
-//              Time already in UTC-timezone
-//              LocalDateTime date =
-//                        LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of("UTC"));
                 LocalDateTime date =
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone.getDefault().toZoneId());
 
@@ -152,11 +148,6 @@ public class WayforpayRestController {
         ResponseEntity<String> resultResponseEntity = null;
 
         try {
-            //for debug
-            ObjectMapper objectMapper = new ObjectMapper();
-            String testData = objectMapper.writeValueAsString(query);
-            //for debug
-
             RestTemplate restTemplate = new RestTemplate();
             responseEntity = restTemplate.exchange("https://api.wayforpay.com/api", HttpMethod.POST, httpEntity, String.class);
 

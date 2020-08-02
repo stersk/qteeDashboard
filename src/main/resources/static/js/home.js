@@ -447,11 +447,6 @@ function tableDataQueryParams(params) {
     return params
 }
 
-function runWfpWdgt(element){
-    var wayforpay = new Wayforpay();
-    wayforpay.invoice($(element).attr('url'));
-}
-
 function openPayWindow(){
     $.ajax({
         url: "/services/get-new-invoice-link",
