@@ -1,23 +1,20 @@
 package ua.com.tracktor.util;
 
-import org.springframework.stereotype.Component;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-@Component
 public class Hmac {
-    public String hmacDigest(String msg, String keyString, String algo) {
+    public static String hmacDigest(String msg, String keyString, String algo) {
         String digest = null;
         try {
             SecretKeySpec key = new SecretKeySpec((keyString).getBytes(StandardCharsets.UTF_8), algo);
             Mac mac = Mac.getInstance(algo);
             mac.init(key);
 
-            byte[] bytes = mac.doFinal(msg.getBytes(StandardCharsets.US_ASCII));
+            byte[] bytes = mac.doFinal(msg.getBytes(StandardCharsets.UTF_8));
 
             StringBuffer hash = new StringBuffer();
             for (int i = 0; i < bytes.length; i++) {

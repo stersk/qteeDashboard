@@ -36,11 +36,17 @@ public class InvoiceService {
     }
 
     public Long getTotalSum(Account account){
-        return invoiceRepository.getTotalSum(account);
+        Long totalSum = invoiceRepository.getTotalSum(account);
+        if (totalSum == null) {
+            totalSum = Long.valueOf(0l);
+        }
+        return totalSum;
     }
 
     public Invoice getLastInvoice(Account account) {
-        return invoiceRepository.findFirstByAccountOrderByDateDesc(account).orElse(null);
+        // It can be situation when last invoice is generated, not payed invoice with empty sum. It can be paid in future,
+        // but we ignore it now
+        return invoiceRepository.findFirstByAccountAndSumNotNullOrderByDateDesc(account).orElse(null);
     }
 
     public Invoice getInvoiceByNumber(String invoiceNumber){

@@ -452,6 +452,20 @@ function runWfpWdgt(element){
     wayforpay.invoice($(element).attr('url'));
 }
 
+function openPayWindow(){
+    $.ajax({
+        url: "/services/get-new-invoice-link",
+        type: "get",
+        success: function (response) {
+            var wayforpay = new Wayforpay();
+            wayforpay.invoice(response);
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+}
+
 function areSameDate(d1, d2) {
     return d1.getFullYear() == d2.getFullYear()
         && d1.getMonth() == d2.getMonth()

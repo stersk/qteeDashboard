@@ -73,15 +73,16 @@ public class MetricService {
 
         Metric balanceMetric = new Metric(account, MetricType.BALANSE, currentDate, balance.doubleValue()/100);
         Metric shipmentsLeftMetric = new Metric(account, MetricType.SHIPMENTS_LEFT, currentDate, shipmentsLeft.doubleValue());
-        Metric lastInvoiceMetric = new Metric(account, MetricType.LAST_INVOICE, lastInvoice.getDate(), lastInvoice.getSum().doubleValue()/100);
         Metric shipmentsCountByDay = new Metric(account, MetricType.SHIPMENTS_COUNT_BY_DAY, dateTimeStart, shipmentsCount.doubleValue());
         Metric shipmentsSumByDay = new Metric(account, MetricType.SHIPMENTS_SUM_BY_DAY, dateTimeStart, shipmentsSum.doubleValue()/100);
+        Metric lastInvoiceMetric = new Metric(account, MetricType.LAST_INVOICE, lastInvoice.getDate(), lastInvoice.getSum().doubleValue() / 100);
 
         metricRepository.save(balanceMetric);
         metricRepository.save(shipmentsLeftMetric);
-        metricRepository.save(lastInvoiceMetric);
         metricRepository.save(shipmentsCountByDay);
         metricRepository.save(shipmentsSumByDay);
+        metricRepository.save(lastInvoiceMetric);
+
         metricRepository.flush();
 
         notificationService.sendUpdateNotification(account.getId());
