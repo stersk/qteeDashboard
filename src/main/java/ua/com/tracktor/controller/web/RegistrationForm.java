@@ -12,6 +12,7 @@ public class RegistrationForm {
   private String fullname;
   private String phone;
   private String account;
+  private Double price;
   
   public User toUser(PasswordEncoder passwordEncoder, Account account) {
     Boolean enabled = true;

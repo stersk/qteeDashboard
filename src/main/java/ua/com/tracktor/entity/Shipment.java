@@ -20,6 +20,9 @@ public class Shipment {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @Column(name = "price")
+    private Long declarationPrice;
+
     private LocalDateTime date;
     private Long sum;
     private String customer;

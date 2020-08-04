@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Taco Cloud</title>
+    <title>Tracktor - New user creation</title>
   </head>
   
   <body>
@@ -12,22 +12,25 @@
     <form method="POST" th:action="@{/register}" id="registerForm">
     
         <label for="username">Username: </label>
-        <input type="text" name="username"/><br/>
+        <input id="username" type="text" name="username"/><br/>
 
         <label for="password">Password: </label>
-        <input type="password" name="password"/><br/>
+        <input id="password" type="password" name="password"/><br/>
 
         <label for="confirm">Confirm password: </label>
-        <input type="password" name="confirm"/><br/>
+        <input id="confirm" type="password" name="confirm"/><br/>
 
         <label for="fullname">Full name: </label>
-        <input type="text" name="fullname"/><br/>
+        <input id="fullname" type="text" name="fullname"/><br/>
     
         <label for="phone">Phone: </label>
-        <input type="text" name="phone"/><br/>
+        <input id="phone" type="text" name="phone"/><br/>
 
         <label for="account">Account: </label>
-        <input type="text" name="account"/><br/>
+        <input id="account" type="text" name="account"/><br/>
+
+        <label for="price">Price: </label>
+        <input id="price" type="number" step="0.01" min="0" name="price"/><br/>
     
         <input type="submit" value="Register"/>
     </form>

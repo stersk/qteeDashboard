@@ -87,6 +87,7 @@ public class ShipmentRestController {
         for (Shipment1CDTO shipmentDto: data) {
             Shipment shipment = shipmentDto.toShipment();
             shipment.setAccount(account);
+            shipment.setDeclarationPrice(account.getPrice());
 
             shipmentService.save(shipment);
         }

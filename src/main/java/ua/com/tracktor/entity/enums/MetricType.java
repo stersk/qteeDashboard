@@ -5,7 +5,8 @@ public enum MetricType {
     SHIPMENTS_LEFT(false),
     LAST_INVOICE(false),
     SHIPMENTS_COUNT_BY_DAY(false),
-    SHIPMENTS_SUM_BY_DAY(false);
+    SHIPMENTS_SUM_BY_DAY(false),
+    SHIPMENT_COST(false);
 
     public Boolean getNotifySupport() {
         return notifySupport;
@@ -40,6 +41,10 @@ public enum MetricType {
 
                 case "shipmentSumByDay":
                     metricType = SHIPMENTS_SUM_BY_DAY;
+                    break;
+
+                case "shipmentCost":
+                    metricType = SHIPMENT_COST;
                     break;
 
                 default:

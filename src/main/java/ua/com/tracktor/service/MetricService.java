@@ -38,7 +38,12 @@ public class MetricService {
     }
 
     public Metric getMetric(Account account, MetricType metricType) {
-        return metricRepository.findById(new MetricId(account, metricType)).orElse(null);
+        if (metricType == MetricType.SHIPMENT_COST) {
+            Metric metric = new Metric(account, MetricType.SHIPMENT_COST, LocalDateTime.now(), account.getPrice().doubleValue()/100);
+            return metric;
+        } else {
+            return metricRepository.findById(new MetricId(account, metricType)).orElse(null);
+        }
     }
 
     public Metric updateMetric(Metric metric) {
@@ -46,11 +51,10 @@ public class MetricService {
     }
 
     public void recalculateMetrics(Account account) {
-        //TODO Make getting price from db
-        Long price = 500l;
+        Long price = account.getPrice();
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Long balance = invoiceService.getTotalSum(account) - shipmentService.getShipmentsCount(account) * price;
+        Long balance = invoiceService.getTotalSum(account) - shipmentService.getShipmentsCost(account);
         Long shipmentsLeft = balance / price;
 
         Invoice lastInvoice = invoiceService.getLastInvoice(account);
@@ -100,8 +104,8 @@ public class MetricService {
             case BALANSE:
                 // show notify about new invoice only once
                 Invoice lastInvoice = invoiceService.getLastInvoice(metric.getAccount());
-                if (!lastInvoice.getNotified()) {
-                    Float sum = (float) lastInvoice.getSum();
+                if (lastInvoice != null && !lastInvoice.getNotified()) {
+                    float sum = (float) lastInvoice.getSum();
                     notify = new NotifyDTO();
                     notify.setText("Ваш рахунок поповнено на " + Math.round(sum/100) + " грн.");
                     notify.setDate(lastInvoice.getDate());

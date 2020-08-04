@@ -42,6 +42,7 @@ public class RegistrationController {
       if (account == null) {
         account = new Account();
         account.setName(accountName);
+        account.setPrice((long) (form.getPrice() * 100)); // price in coins
 
         account = accountService.save(account);
       }

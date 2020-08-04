@@ -38,4 +38,8 @@ public class ShipmentService {
     public Long getShipmentsCount(Account account){
         return shipmentRepository.getShipmentsCount(account);
     }
+
+    public Long getShipmentsCost(Account account) {
+        return shipmentRepository.getShipmentsCost(account);
+    }
 }

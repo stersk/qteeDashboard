@@ -131,6 +131,26 @@ function updateMetricStatData() {
         }
     });
 
+    $.ajax({
+            url: "/services/metric/get-metric/shipmentCost",
+            type: "get",
+            success: function (response) {
+                var dataDate = new Date(response.date);
+                var now = new Date;
+
+                if (areSameDate(dataDate, now)) {
+                    $('#dataDeclarationCost').html('' + response.value + ' <small> грн.</small>');
+                } else {
+                    $('#dataDeclarationCost').html('0 <small> грн.</small>');
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status == 401) {
+                    window.location.reload(true);
+                }
+            }
+        });
+
 //    $.ajax({
 //        url: "/services/metric/get-metric/shipmentsLeft",
 //        type: "get",

@@ -43,6 +43,13 @@ public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
             "shipment.account = :account")
     Long getShipmentsCount(@Param("account") Account account);
 
+    @Query(value =  "SELECT " +
+            "sum(shipment.declarationPrice) " +
+            "FROM " +
+            "   Shipment shipment " +
+            "WHERE " +
+            "shipment.account = :account")
+    Long getShipmentsCost(@Param("account") Account account);
 
     List<Shipment> findShipmentsByAccountAndDateBetweenOrderByDateDesc(Account account, LocalDateTime from, LocalDateTime to);
 }
