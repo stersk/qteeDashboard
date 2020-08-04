@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ua.com.tracktor.data.UserRepository;
-import ua.com.tracktor.entity.User;
 
 @Configuration
 @EnableWebSecurity
@@ -85,13 +83,6 @@ public class SecurityConfig {
                     .passwordEncoder(encoder());
 
         }
-
-        @Override
-        public void init(WebSecurity web) throws Exception {
-            initAdminAccount();
-
-            super.init(web);
-        }
     }
 
     @Bean
@@ -99,11 +90,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(5);
     }
 
-    private void initAdminAccount() {
-        User existingUser = repository.findByUsername("admin");
-        if (existingUser == null) {
-            existingUser = new User("admin", encoder().encode("1829"), 1,  true, "Головний адміністратор", "", null);
-            repository.save(existingUser);
-        }
-    }
 }
