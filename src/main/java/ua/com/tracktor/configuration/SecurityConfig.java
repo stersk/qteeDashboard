@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     @Configuration
     @Order(1)
-    public static class RestConfigurationAdapter extends WebSecurityConfigurerAdapter {
+    public class RestConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.antMatcher("/services/**")
@@ -40,7 +40,20 @@ public class SecurityConfig {
 
     @Configuration
     @Order(2)
-    public class App1ConfigurationAdapter extends WebSecurityConfigurerAdapter {
+    public class ActuatorSecurity extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.antMatcher("/actuator/**")
+                    .authorizeRequests().anyRequest().access("hasAnyRole('ROLE_ADMINISTRATOR')")
+                    .and().httpBasic();
+        }
+
+    }
+
+    @Configuration
+    @Order(3)
+    public class WebAppConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
