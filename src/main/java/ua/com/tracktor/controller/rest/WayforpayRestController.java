@@ -23,6 +23,8 @@ import ua.com.tracktor.service.AccountService;
 import ua.com.tracktor.service.InvoiceService;
 import ua.com.tracktor.service.MetricService;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -148,12 +150,17 @@ public class WayforpayRestController {
             if (queryResult.getReasonCode() == 1100) {
                 resultResponseEntity = new ResponseEntity<>(queryResult.getInvoiceUrl(), HttpStatus.OK);
             } else {
-                resultResponseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+                resultResponseEntity = new ResponseEntity<>("WayForPay error result: " + responseEntity.getBody(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         } catch (Exception e) {
             invoiceService.deleteInvoice(newInvoice.getId());
-            resultResponseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            e.printStackTrace(printWriter);
+
+            resultResponseEntity = new ResponseEntity<>("WayForPay query exception: " + printWriter.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return resultResponseEntity;
