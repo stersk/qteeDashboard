@@ -80,7 +80,7 @@ public class WayforpayRestController {
                 JsonNode sumNode = data.get("amount");
                 Double sum = (sumNode == null) ? 0l : sumNode.asDouble() * 100;
 
-                JsonNode commissionRateNode = data.get("amount");
+                JsonNode commissionRateNode = data.get("fee");
                 Double commissionRate = (commissionRateNode == null) ? 0l : commissionRateNode.asDouble() * 100;
 
                 JsonNode dateNode = data.get("createdDate");
