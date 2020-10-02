@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class Hmac {
+public class HmacUtil {
     public static String hmacDigest(String msg, String keyString, String algo) {
         String digest = null;
         try {

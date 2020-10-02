@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.core.env.Environment;
 import ua.com.tracktor.entity.Invoice;
-import ua.com.tracktor.util.Hmac;
+import ua.com.tracktor.util.HmacUtil;
 
 @Data
 @NoArgsConstructor
@@ -33,6 +33,6 @@ public class WayForPayResponseDTO {
         stringBuilder.append(status).append(";");
         stringBuilder.append(time.toString());
 
-        signature = Hmac.hmacDigest(stringBuilder.toString(), env.getProperty("wayforpay.secret-key"), "HmacMD5");
+        signature = HmacUtil.hmacDigest(stringBuilder.toString(), env.getProperty("wayforpay.secret-key"), "HmacMD5");
     }
 }

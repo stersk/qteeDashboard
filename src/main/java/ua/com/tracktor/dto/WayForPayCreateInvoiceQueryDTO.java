@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.core.env.Environment;
 import ua.com.tracktor.entity.Invoice;
-import ua.com.tracktor.util.Hmac;
+import ua.com.tracktor.util.HmacUtil;
 
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class WayForPayCreateInvoiceQueryDTO {
         productPrice.forEach(item -> stringBuilder.append(item).append(";"));
 
         stringBuilder.setLength(stringBuilder.length() - 1); //trim last character
-        merchantSignature = Hmac.hmacDigest(stringBuilder.toString(), key, "HmacMD5");
+        merchantSignature = HmacUtil.hmacDigest(stringBuilder.toString(), key, "HmacMD5");
     }
 
     private static List<Integer> getNullPriceForOneProduct() {
