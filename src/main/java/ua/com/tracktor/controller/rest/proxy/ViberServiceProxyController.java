@@ -1,4 +1,4 @@
-package ua.com.tracktor.controller.rest;
+package ua.com.tracktor.controller.rest.proxy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,11 +8,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.service.AccountService;
@@ -20,6 +20,7 @@ import ua.com.tracktor.service.AccountService;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -28,7 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/services/notification/**")
+@RequestMapping("/services/notification")
 public class ViberServiceProxyController {
     @Autowired
     private AccountService accountService;
@@ -37,6 +38,20 @@ public class ViberServiceProxyController {
     private Environment env;
 
     private final Map<Account, LocalDateTime> lastAccountQueryTime = new HashMap<>();
+
+    @PostMapping (path="/ping")
+    public ResponseEntity<Map<String, String>> ping(Principal principal) {
+        Account account = accountService.getAccountByPrincipal(principal);
+        Map<String, String> response = new HashMap<>();
+        if (account == null) {
+            response.put("success", "false");
+            response.put("error", "No account found for this user");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } else {
+            response.put("success", "true");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
 
     @RequestMapping(value = "/**")
     public ResponseEntity<String> viberMirror(Principal principal, @RequestBody String body, @RequestHeader MultiValueMap<String, String> headers, HttpMethod method, HttpServletRequest request) throws URISyntaxException
@@ -74,8 +89,15 @@ public class ViberServiceProxyController {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters()
+                    .add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8)); // for correct cyrillic symbols in string body
             responseEntity = restTemplate.exchange(uri, method, httpEntity, String.class);
-
+        } catch (HttpClientErrorException e) {
+            String responseBody = e.getResponseBodyAsString();
+            responseEntity = new ResponseEntity<>(responseBody, Objects.requireNonNull(HttpStatus.resolve(e.getRawStatusCode())));
+        } catch (HttpServerErrorException e) {
+            String responseBody = e.getResponseBodyAsString();
+            responseEntity = new ResponseEntity<>(responseBody, Objects.requireNonNull(HttpStatus.resolve(e.getRawStatusCode())));
         } catch (Exception e) {
             Map<String, String> data = new HashMap<>();
             data.put("error", "Query send error");

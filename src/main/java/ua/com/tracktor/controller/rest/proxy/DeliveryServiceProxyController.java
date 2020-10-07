@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/services/delivery/**")
+@RequestMapping("/services/delivery")
 public class DeliveryServiceProxyController {
     @Autowired
     private AccountService accountService;
