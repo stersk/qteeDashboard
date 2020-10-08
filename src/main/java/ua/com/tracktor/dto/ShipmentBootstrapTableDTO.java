@@ -22,14 +22,26 @@ public class ShipmentBootstrapTableDTO {
 
     public ShipmentBootstrapTableDTO(Shipment shipment) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        this.date = shipment.getDate().format(dateFormatter);
 
-        this.date                = shipment.getDate().format(dateFormatter);
-        this.deliveryService     = DeliveryService.getLogoPath(shipment.getDeliveryService());
-        this.deliveryServiceName = DeliveryService.getName(shipment.getDeliveryService());
-        this.phone = shipment.getPhone();
-        this.sum = (float) shipment.getSum() / 100;
-        this.customer = shipment.getCustomer();
-        this.address = shipment.getAddress();
-        this.declarationNumber = shipment.getDeclarationNumber();
+        if (shipment.getDeclarationNumber() == null) {
+            // When registered shipment with base data (fallback mode for failure)
+            this.deliveryService = DeliveryService.getLogoPath(shipment.getDeliveryService());
+            this.deliveryServiceName = DeliveryService.getName(shipment.getDeliveryService());
+            this.phone = "";
+            this.sum = 0f;
+            this.customer = "";
+            this.address = "";
+            this.declarationNumber = "";
+        } else {
+            // When registered shipment with whole data
+            this.deliveryService = DeliveryService.getLogoPath(shipment.getDeliveryService());
+            this.deliveryServiceName = DeliveryService.getName(shipment.getDeliveryService());
+            this.phone = shipment.getPhone();
+            this.sum = (float) shipment.getSum() / 100;
+            this.customer = shipment.getCustomer();
+            this.address = shipment.getAddress();
+            this.declarationNumber = shipment.getDeclarationNumber();
+        }
     }
 }
