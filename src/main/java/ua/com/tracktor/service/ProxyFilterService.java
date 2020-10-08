@@ -15,6 +15,7 @@ import ua.com.tracktor.entity.Shipment;
 import ua.com.tracktor.entity.enums.DeliveryService;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 //TODO: Refactor: write Jackson util class for getting nodes and nodes value by path (using recursive)
@@ -32,9 +33,8 @@ public class ProxyFilterService {
 
     @Async
     public void registerQuery(Class controller, Account account, String uri, String requestBody, HttpHeaders requestHeaders,
-                              int responseStatusCode, String responseBody, HttpHeaders responseHeaders) {
+                              int responseStatusCode, String responseBody, HttpHeaders responseHeaders, Map<String, LocalDateTime> dates) {
 
-        //TODO: In this function we should write all queries into DB and write filtering succession after that
         ObjectMapper objectMapper = new ObjectMapper();
         String requestHeadersString = "{\"error\": \"parsing error\"}";
         String responseHeadersString = "{\"error\": \"parsing error\"}";
@@ -45,8 +45,8 @@ public class ProxyFilterService {
             e.printStackTrace();
         }
 
-        QueryRecord queryRecord = new QueryRecord(null, account, uri, LocalDateTime.now(), false, requestBody,
-                requestHeadersString, responseStatusCode, responseBody, responseHeadersString);
+        QueryRecord queryRecord = new QueryRecord(null, account, uri, false, dates.get("request"), dates.get("response"),
+                requestBody, requestHeadersString, responseStatusCode, responseBody, responseHeadersString);
         Long newId = queryRecordService.save(queryRecord);
 
         boolean success = filterRequest(controller, account, requestBody, responseBody, responseStatusCode);

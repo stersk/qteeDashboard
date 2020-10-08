@@ -23,8 +23,13 @@ public class QueryRecord {
     private Account account;
 
     private String uri;
-    private LocalDateTime date;
     private Boolean filtered;
+
+    @Column(name = "query_date")
+    private LocalDateTime queryDate;
+
+    @Column(name = "response_date")
+    private LocalDateTime responseDate;
 
     @Lob @Type(type = "org.hibernate.type.TextType")
     @Column(name = "request_body")

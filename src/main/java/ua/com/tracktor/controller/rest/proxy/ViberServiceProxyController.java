@@ -57,6 +57,9 @@ public class ViberServiceProxyController {
     @RequestMapping(value = "/**")
     public ResponseEntity<String> viberMirror(Principal principal, @RequestBody String body, @RequestHeader HttpHeaders headers, HttpMethod method, HttpServletRequest request) throws URISyntaxException
     {
+        Map<String, LocalDateTime> dates = new HashMap<>();
+        dates.put("request", LocalDateTime.now());
+
         ResponseEntity<String> responseEntity = null;
 
         int secondsPerQuerylimit = Integer.parseInt(Objects.requireNonNull(env.getProperty("viber-service.server.status-query-limit-time-in-seconds")));
@@ -137,7 +140,9 @@ public class ViberServiceProxyController {
         }
 
         if (filterQuery) {
-            proxyFilterService.registerQuery(ViberServiceProxyController.class, account, request.getRequestURI(), body, headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders());
+            dates.put("response", LocalDateTime.now());
+            proxyFilterService.registerQuery(ViberServiceProxyController.class, account, request.getRequestURI(), body,
+                    headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(), dates);
         }
 
         return responseEntity;

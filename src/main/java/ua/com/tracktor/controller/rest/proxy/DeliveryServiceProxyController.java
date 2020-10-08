@@ -23,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -43,6 +44,9 @@ public class DeliveryServiceProxyController {
     @RequestMapping(value = "/**")
     public ResponseEntity<String> deliveryMirror(Principal principal, @RequestBody String body, @RequestHeader HttpHeaders headers, HttpMethod method, HttpServletRequest request) throws URISyntaxException
     {
+        Map<String, LocalDateTime> dates = new HashMap<>();
+        dates.put("request", LocalDateTime.now());
+
         String server = env.getProperty("delivery-service.server.address");
         String basePath = env.getProperty("delivery-service.server.path");
         String userName = env.getProperty("delivery-service.server.user");
@@ -89,7 +93,8 @@ public class DeliveryServiceProxyController {
             }
         }
 
-        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, request.getRequestURI(), body, headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders());
+        dates.put("response", LocalDateTime.now());
+        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, request.getRequestURI(), body, headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(), dates);
 
         return responseEntity;
     }
