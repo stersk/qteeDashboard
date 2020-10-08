@@ -9,6 +9,8 @@ import ua.com.tracktor.entity.enums.DeliveryService;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+//TODO: sum in JSON is not Float. Need refactoring of it to Long
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

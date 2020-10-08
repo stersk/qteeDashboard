@@ -12,8 +12,8 @@ import ua.com.tracktor.configuration.WebConfig;
 
 @SpringBootTest
 @ContextConfiguration(classes = WebConfig.class,
-		initializers = DashboardApplicationTests.class)
-public class DashboardApplicationTests implements ApplicationContextInitializer<ConfigurableApplicationContext>{
+		initializers = TracktorApplicationTests.class)
+public class TracktorApplicationTests implements ApplicationContextInitializer<ConfigurableApplicationContext>{
 	@Autowired
 	ApplicationContext context;
 

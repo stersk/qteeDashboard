@@ -9,6 +9,7 @@ import ua.com.tracktor.entity.Shipment;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ShipmentService {
@@ -39,7 +40,13 @@ public class ShipmentService {
         return shipmentRepository.getShipmentsCount(account);
     }
 
+    public Shipment getShipmentById(UUID id) {
+        return shipmentRepository.findById(id).orElse(null);
+    }
+
     public Long getShipmentsCost(Account account) {
         return shipmentRepository.getShipmentsCost(account);
     }
+
+
 }
