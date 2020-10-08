@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import ua.com.tracktor.controller.rest.proxy.DeliveryServiceProxyController;
 import ua.com.tracktor.controller.rest.proxy.ViberServiceProxyController;
 import ua.com.tracktor.entity.Account;
+import ua.com.tracktor.entity.QueryRecord;
 import ua.com.tracktor.entity.Shipment;
 import ua.com.tracktor.entity.enums.DeliveryService;
 
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -27,13 +27,31 @@ public class ProxyFilterService {
     @Autowired
     private MetricService metricService;
 
+    @Autowired
+    private QueryRecordService queryRecordService;
+
     @Async
-    public void registerQuery(Class controller, Account account, URI uri, String requestBody, HttpHeaders requestHeaders,
-                              int responseStatusCode, HttpHeaders responseHeaders, String responseBody) {
+    public void registerQuery(Class controller, Account account, String uri, String requestBody, HttpHeaders requestHeaders,
+                              int responseStatusCode, String responseBody, HttpHeaders responseHeaders) {
 
         //TODO: In this function we should write all queries into DB and write filtering succession after that
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestHeadersString = "{\"error\": \"parsing error\"}";
+        String responseHeadersString = "{\"error\": \"parsing error\"}";
+        try {
+            requestHeadersString = objectMapper.writeValueAsString(requestHeaders);
+            responseHeadersString = objectMapper.writeValueAsString(responseHeaders);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        QueryRecord queryRecord = new QueryRecord(null, account, uri, LocalDateTime.now(), false, requestBody,
+                requestHeadersString, responseStatusCode, responseBody, responseHeadersString);
+        Long newId = queryRecordService.save(queryRecord);
 
         boolean success = filterRequest(controller, account, requestBody, responseBody, responseStatusCode);
+
+        queryRecordService.updateFilteredFlag(newId, success);
     }
 
     private Boolean filterRequest(Class controller, Account account, String requestBody, String responseBody, Integer responseStatusCode) {

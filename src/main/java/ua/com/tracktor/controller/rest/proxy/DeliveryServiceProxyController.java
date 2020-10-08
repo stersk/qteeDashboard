@@ -89,7 +89,7 @@ public class DeliveryServiceProxyController {
             }
         }
 
-        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, uri, body, headers, responseEntity.getStatusCodeValue(), responseEntity.getHeaders(), responseEntity.getBody());
+        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, request.getRequestURI(), body, headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders());
 
         return responseEntity;
     }
