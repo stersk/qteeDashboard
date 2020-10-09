@@ -33,7 +33,8 @@ public class ProxyFilterService {
 
     @Async
     public void registerQuery(Class controller, Account account, String uri, String requestBody, HttpHeaders requestHeaders,
-                              int responseStatusCode, String responseBody, HttpHeaders responseHeaders, Map<String, LocalDateTime> dates) {
+                              int responseStatusCode, String responseBody, HttpHeaders responseHeaders,
+                              Map<String, LocalDateTime> dates, String remoteAddr) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String requestHeadersString = "{\"error\": \"parsing error\"}";
@@ -46,7 +47,7 @@ public class ProxyFilterService {
         }
 
         QueryRecord queryRecord = new QueryRecord(null, account, uri, false, dates.get("request"), dates.get("response"),
-                requestBody, requestHeadersString, responseStatusCode, responseBody, responseHeadersString);
+                requestBody, requestHeadersString, responseStatusCode, responseBody, responseHeadersString, remoteAddr);
         Long newId = queryRecordService.save(queryRecord);
 
         boolean success = filterRequest(controller, account, requestBody, responseBody, responseStatusCode);

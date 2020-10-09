@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.tracktor.entity.QueryRecord;
 
+import java.util.List;
+
 
 public interface QueryRecordRepository extends CrudRepository<QueryRecord, Long> {
     @Transactional
@@ -16,4 +18,5 @@ public interface QueryRecordRepository extends CrudRepository<QueryRecord, Long>
             "SET queryRecord.filtered = :filtered " +
             "WHERE queryRecord.id = :id")
     void updateFilteredFlag(@Param("id") Long id, @Param("filtered") Boolean filtered);
+    List<QueryRecord> findTop10ByOrderByIdDesc();
 }

@@ -142,7 +142,8 @@ public class ViberServiceProxyController {
         if (filterQuery) {
             dates.put("response", LocalDateTime.now());
             proxyFilterService.registerQuery(ViberServiceProxyController.class, account, request.getRequestURI(), body,
-                    headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(), dates);
+                    headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(),
+                    dates, request.getRemoteAddr());
         }
 
         return responseEntity;

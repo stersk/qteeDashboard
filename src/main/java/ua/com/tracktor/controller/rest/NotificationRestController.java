@@ -25,6 +25,7 @@ public class NotificationRestController {
 
     private final Map<Long, CopyOnWriteArrayList<SseEmitter>> accountEmittersMap = new ConcurrentHashMap<>();
 
+    //TODO: change /notificationSource to notification-source
     @GetMapping(path = "/notificationSource")
     public SseEmitter getNewNotification(Principal principal) {
         Account account = accountService.getAccountByPrincipal(principal);

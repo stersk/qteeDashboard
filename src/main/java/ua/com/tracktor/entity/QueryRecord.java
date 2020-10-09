@@ -26,7 +26,7 @@ public class QueryRecord {
     private Boolean filtered;
 
     @Column(name = "query_date")
-    private LocalDateTime queryDate;
+    private LocalDateTime requestDate;
 
     @Column(name = "response_date")
     private LocalDateTime responseDate;
@@ -49,4 +49,7 @@ public class QueryRecord {
     @Lob @Type(type = "org.hibernate.type.TextType")
     @Column(name = "response_headers")
     private String responseHeaders;
+
+    @Column(name = "source_ip")
+    private String sourceIp;
 }

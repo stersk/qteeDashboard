@@ -11,7 +11,8 @@ CREATE TABLE public.query_records (
     uri character varying(255),
     account_id bigint,
     query_date timestamp without time zone,
-    response_date timestamp without time zone
+    response_date timestamp without time zone,
+    source_ip character varying(15)
 );
 
 ALTER TABLE public.query_records OWNER TO postgres;

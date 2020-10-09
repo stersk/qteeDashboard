@@ -40,7 +40,6 @@ public class DeliveryServiceProxyController {
     @Autowired
     private Environment env;
 
-
     @RequestMapping(value = "/**")
     public ResponseEntity<String> deliveryMirror(Principal principal, @RequestBody String body, @RequestHeader HttpHeaders headers, HttpMethod method, HttpServletRequest request) throws URISyntaxException
     {
@@ -48,7 +47,7 @@ public class DeliveryServiceProxyController {
         dates.put("request", LocalDateTime.now());
 
         String server = env.getProperty("delivery-service.server.address");
-        String basePath = env.getProperty("delivery-service.server.path");
+        String basePath = env.getProperty("delivery-service.server.path") + "/event";
         String userName = env.getProperty("delivery-service.server.user");
         String password = env.getProperty("delivery-service.server.password");
         int port = Integer.parseInt(Objects.requireNonNull(env.getProperty("delivery-service.server.port")));
@@ -62,7 +61,7 @@ public class DeliveryServiceProxyController {
             responseEntity = new ResponseEntity<>("{\"error\":\"Account not authorized\"}", HttpStatus.UNAUTHORIZED);
         } else {
             headers.add("x-user-id", account.getId().toString());
-            headers.remove("authorization"); // Authorization on viberService is disabled by default
+            headers.remove("authorization");
             RestUtil.addBasicAuthorizationHeader(headers, userName, password);
 
             HttpEntity<String> httpEntity = new HttpEntity<>(body, headers);
@@ -94,7 +93,9 @@ public class DeliveryServiceProxyController {
         }
 
         dates.put("response", LocalDateTime.now());
-        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, request.getRequestURI(), body, headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(), dates);
+        proxyFilterService.registerQuery(DeliveryServiceProxyController.class, account, request.getRequestURI(), body,
+                headers, responseEntity.getStatusCodeValue(), responseEntity.getBody(), responseEntity.getHeaders(),
+                dates, request.getRemoteAddr());
 
         return responseEntity;
     }
