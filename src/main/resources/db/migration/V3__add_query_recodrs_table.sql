@@ -10,7 +10,7 @@ CREATE TABLE public.query_records (
     response_status_code integer,
     uri character varying(255),
     account_id bigint,
-    query_date timestamp without time zone,
+    request_date timestamp without time zone,
     response_date timestamp without time zone,
     source_ip character varying(15)
 );

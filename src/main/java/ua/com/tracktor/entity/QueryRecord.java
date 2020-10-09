@@ -25,7 +25,7 @@ public class QueryRecord {
     private String uri;
     private Boolean filtered;
 
-    @Column(name = "query_date")
+    @Column(name = "request_date")
     private LocalDateTime requestDate;
 
     @Column(name = "response_date")

@@ -20,6 +20,8 @@ $(document).ready(function () {
     window.onbeforeunload = function() {
       eventSource.close();
     }
+
+    $('#upload_recorder_queries').click(onUploadRecordedQueriesClick);
 })
 
 function initTablePerfectScrollbar() {
@@ -70,6 +72,44 @@ function subscribe() {
         refreshData();
     }
   };
+}
+
+function onUploadRecordedQueriesClick() {
+    $.ajax({
+        url: "/services/query-record/upload-all",
+        type: "get",
+        success: function (response) {
+            var notifyTitle = "Лог запросів";
+
+            $.notify({
+                icon: "now-ui-icons ui-1_bell-53",
+                title: "<b>" + notifyTitle + "</b>",
+                message: "Вивантаження розпочато"
+            }, {
+                type: 'success',
+                timer: 4000,
+                placement: {
+                    from: "top",
+                    align: "right"
+                }
+            });
+        },
+        error: function (xhr) {
+            var notifyTitle = "Лог запросів";
+                $.notify({
+                    icon: "now-ui-icons ui-1_bell-53",
+                    title: "<b>" + notifyTitle + "</b>",
+                    message: "Помилка запуску вивантаження"
+                }, {
+                    type: 'danger',
+                    timer: 4000,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+        }
+    });
 }
 
 function updateMetricStatData() {
