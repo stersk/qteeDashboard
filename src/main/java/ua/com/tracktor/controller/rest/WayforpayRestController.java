@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -57,11 +58,12 @@ public class WayforpayRestController {
         //TODO
         // 2. add merchant signature check for incomming connections
         // 3. control refund (low priority task)
+        // 4. Add scheduled tasks for cleaning db from old non-payed invoices
 
         // Because Content type 'application/x-www-form-urlencoded;charset=UTF-8' and service send json in body, we will
         //  get body as string and map it to object
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode data = null;
+        JsonNode data;
         try {
             stringData = URLDecoder.decode(stringData, StandardCharsets.UTF_8.toString());
 
@@ -80,13 +82,13 @@ public class WayforpayRestController {
 
             if (transactionStatus != null && transactionStatus.equalsIgnoreCase("Approved")) {
                 JsonNode sumNode = data.get("amount");
-                Double sum = (sumNode == null) ? 0l : sumNode.asDouble() * 100;
+                Double sum = (sumNode == null) ? 0L : sumNode.asDouble() * 100;
 
                 JsonNode commissionRateNode = data.get("fee");
-                Double commissionRate = (commissionRateNode == null) ? 0l : commissionRateNode.asDouble() * 100;
+                Double commissionRate = (commissionRateNode == null) ? 0L : commissionRateNode.asDouble() * 100;
 
                 JsonNode dateNode = data.get("createdDate");
-                Long timestamp = (dateNode == null) ? 0l : dateNode.asLong();
+                Long timestamp = (dateNode == null) ? 0L : dateNode.asLong();
 
                 LocalDateTime date =
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone.getDefault().toZoneId());
@@ -95,7 +97,7 @@ public class WayforpayRestController {
                 if (invoice == null) {
                     invoice = new Invoice();
                     invoice.setNumber(number.toString());
-                    invoice.setAccount(accountService.getAccountById(Long.decode(env.getProperty("wayforpay.account-id-for-unknown-invoices"))));
+                    invoice.setAccount(accountService.getAccountById(Long.decode(Objects.requireNonNull(env.getProperty("wayforpay.account-id-for-unknown-invoices")))));
                 }
 
                 invoice.setDate(date);
@@ -137,7 +139,7 @@ public class WayforpayRestController {
 
         HttpEntity<WayForPayCreateInvoiceQueryDTO> httpEntity = new HttpEntity<>(query);
         ResponseEntity<String> responseEntity;
-        ResponseEntity<String> resultResponseEntity = null;
+        ResponseEntity<String> resultResponseEntity;
 
         try {
             RestTemplate restTemplate = new RestTemplate();

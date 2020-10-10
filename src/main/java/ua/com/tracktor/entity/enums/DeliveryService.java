@@ -1,7 +1,7 @@
 package ua.com.tracktor.entity.enums;
 
 public enum DeliveryService {
-    NOWA_POSHTA, UKRPOSHTA;
+    NOWA_POSHTA, UKRPOSHTA, MEEST;
 
     public static String getLogoPath(DeliveryService deliveryService) {
         if (deliveryService == null) {
@@ -10,9 +10,11 @@ public enum DeliveryService {
 
         switch (deliveryService) {
             case NOWA_POSHTA:
-                return "/images/NovaPoshta.png";
+                return "/images/NovaPoshta.svg";
             case UKRPOSHTA:
-                return "/images/Ukrposhta.png";
+                return "/images/Ukrposhta.svg";
+            case MEEST:
+                return "/images/Meest.svg";
             default:
                 return "/images/UnknownDeliveryService.png";
         }
@@ -28,6 +30,8 @@ public enum DeliveryService {
                 return "Нова Пошта";
             case UKRPOSHTA:
                 return "Укрпошта";
+            case MEEST:
+                return "Meest Express";
             default:
                 return "";
         }
