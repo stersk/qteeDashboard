@@ -1,11 +1,14 @@
 package ua.com.tracktor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ua.com.tracktor.data.InvoiceRepository;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Invoice;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,7 +41,7 @@ public class InvoiceService {
     public Long getTotalSum(Account account){
         Long totalSum = invoiceRepository.getTotalSum(account);
         if (totalSum == null) {
-            totalSum = Long.valueOf(0l);
+            totalSum = 0L;
         }
         return totalSum;
     }
@@ -51,5 +54,12 @@ public class InvoiceService {
 
     public Invoice getInvoiceByNumber(String invoiceNumber){
         return invoiceRepository.getOneByNumber(invoiceNumber).orElse(null);
+    }
+
+    @Scheduled(cron="0 8 * * * *")
+    public void cleanOldNonusedInvoices() {
+        LocalDateTime oldInvoicesDate = LocalDateTime.now().plusDays(-14);
+        List<Invoice> oldInvoices = invoiceRepository.getNonusedInvoicesBefore(oldInvoicesDate);
+        oldInvoices.forEach(invoice -> invoiceRepository.delete(invoice));
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import ua.com.tracktor.entity.Account;
 import ua.com.tracktor.entity.Invoice;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,6 +19,14 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
                     "WHERE " +
                     "invoice.account = :account")
     Long getTotalSum(@Param("account") Account account);
+
+    @Query(value =  "SELECT " +
+            "invoice " +
+            "FROM " +
+            "   Invoice invoice " +
+            "WHERE " +
+            "invoice.date < :date AND invoice.sum is null")
+    List<Invoice> getNonusedInvoicesBefore(@Param("date") LocalDateTime date);
 
     Optional<Invoice> findFirstByAccountAndSumNotNullOrderByDateDesc(Account account);
 
