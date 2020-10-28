@@ -40,7 +40,11 @@ public class WebConfig implements WebMvcConfigurer {
                 context.addConstraint(securityConstraint);
             }
         };
-        tomcat.addAdditionalTomcatConnectors(redirectConnector());
+
+        if (Objects.requireNonNull(env.getProperty("server.ssl-redirection")).equalsIgnoreCase("true")) {
+            tomcat.addAdditionalTomcatConnectors(redirectConnector());
+        }
+
         return tomcat;
     }
 

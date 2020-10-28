@@ -27,6 +27,7 @@ public class TracktorApplicationTests implements ApplicationContextInitializer<C
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("server.ssl-redirection-port", 	"8080");
 		environment.setProperty("server.port", 					"8443");
+		environment.setProperty("server.ssl-redirection",		"false");
 
 		applicationContext.setEnvironment(environment);
 	}
