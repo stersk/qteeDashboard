@@ -24,7 +24,7 @@ public class QueryRecordRestController {
     @GetMapping(path = "/upload-all")
     public ResponseEntity<String> uploadQueriesRequest() {
 
-        queryRecordService.uploadAllRecordsToServer(env);
+        queryRecordService.uploadAllRecordsToServer();
 
         return new ResponseEntity<>("Upload process started", HttpStatus.OK);
     }
