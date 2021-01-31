@@ -58,7 +58,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers( "/logout", "/cabinet", "/termsAndConditions")
+                    .antMatchers( "/logout", "/", "/cabinet", "/termsAndConditions")
                     .access("hasAnyRole('ROLE_USER', 'ROLE_ADMINISTRATOR')")
                     .antMatchers("/register")
                     .access("hasRole('ROLE_ADMINISTRATOR')")
@@ -67,13 +67,12 @@ public class SecurityConfig {
 
                     .and()
                     .formLogin()
-                    .loginPage("/")
-
+                    .loginPage("/login")
                     .defaultSuccessUrl("/cabinet", true)
 
                     .and()
                     .logout()
-                    .logoutSuccessUrl("/")
+                    .logoutSuccessUrl("/cabinet")
 
                     // Make H2-Console non-secured; for debug purposes
                     .and()
