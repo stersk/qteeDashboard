@@ -75,7 +75,7 @@
                                     <ul class="rd-navbar-nav">
 <!--                                        <li class="rd-nav-item"><a class="rd-nav-link" href="about.html">About</a>-->
 <!--                                        </li>-->
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">Вхід</a>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="#" data-toggle="modal" data-target="#loginModal">Вхід</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -293,6 +293,74 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Login form modal dialog-->
+        <section class="section">
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+<!--                        <div class="col-md-8 col-lg-6 col-xxl-5">-->
+<!--                            <article class="accent-box">-->
+<!--                                <h4 class="accent-box-title text-center">Login to your account</h4>-->
+<!--                                <p class="accent-box-text text-center">Enter your credentials below.</p>-->
+<!--                                <form class="accent-box-form rd-mailform" th:attr="action=|@{/login}|" method="post" novalidate="novalidate">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <div class="input-group has-error">-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                                                <span class="input-group-text int-user novi-icon"/>-->
+<!--                                            </div>-->
+<!--                                            <input class="form-control form-control-has-validation" type="text" name="username" placeholder="Your login" data-constraints="@Required" id="regula-generated-712908">-->
+<!--                                            <span class="form-validation">The text field is required.</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <div class="input-group input-group-validation">-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                                                <span class="input-group-text int-user novi-icon"/>-->
+<!--                                            </div>-->
+<!--                                            <input class="form-control input-password password-login form-control-has-validation" type="password" name="password" placeholder="Password" data-constraints="@Required" id="regula-generated-318819">-->
+<!--                                            <span class="form-validation">The text field is required.</span>-->
+<!--                                            <div class="input-group-append">-->
+<!--                                                <span class="input-group-text input-group-text-nodivider input-password-icon" data-multi-switch="{&quot;targets&quot;:&quot;.password-login&quot;}"/>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <button class="btn btn-block btn-lg btn-primary accent-box-btn" type="submit" value="Login">Sign in</button>-->
+<!--                                    <div class="accent-box-text small group-15">-->
+<!--                                        <div>-->
+<!--                                            <u class="font-weight-medium">-->
+<!--                                                <a class="link-inherit" href="#">Forgot your password?</a>-->
+<!--                                            </u>-->
+<!--                                        </div>-->
+<!--                                        <div>Haven’t an account?-->
+<!--                                            <u class="font-weight-medium">-->
+<!--                                                <a class="link-inherit" href="register.html">Sign up here.</a>-->
+<!--                                            </u>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </article>-->
+                        <form class="form-login text-center" th:attr="action=|@{/login}|" method="post" id="loginForm">
+                            <img class="mb-4" th:src="@{/images/Tracktor.svg}" alt="" height="72">
+                            <h1 class="h3 mb-3 font-weight-normal">Вхід</h1>
+                            <input type="text" name="action" value="login" hidden>
+                            <label for="username" class="sr-only">Логін:</label>
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Введіть ім'я" required autofocus>
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Введіть пароль" required>
+                            <button class="btn btn-lg btn-dark btn-block" type="submit" value="Login">Увійти</button>
+                            <input
+                                    type="hidden"
+                                    th:name="${_csrf.parameterName}"
+                                    th:value="${_csrf.token}" />
+                            <!--        <p>-->
+                            <!--          <a th:href="@{/register}">Зареєструватись</a>-->
+                            <!--        </p>-->
+                            <p class="mt-5 mb-3 text-muted">&copy; 2019-2020 tracktor</p>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,8 +58,12 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+
+                    .and()
                     .authorizeRequests()
-                    .antMatchers( "/logout", "/", "/cabinet", "/termsAndConditions")
+                    .antMatchers( "/logout", "/cabinet", "/termsAndConditions")
                     .access("hasAnyRole('ROLE_USER', 'ROLE_ADMINISTRATOR')")
                     .antMatchers("/register")
                     .access("hasRole('ROLE_ADMINISTRATOR')")
@@ -67,7 +72,8 @@ public class SecurityConfig {
 
                     .and()
                     .formLogin()
-                    .loginPage("/login")
+                    .loginPage("/")
+                    .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/cabinet", true)
 
                     .and()
