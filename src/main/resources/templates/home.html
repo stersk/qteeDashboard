@@ -11,6 +11,8 @@
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>-->
     <link rel="stylesheet" th:href="@{/css/fonts.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/accent-box.css}">
+    <link rel="stylesheet" th:href="@{/css/input.css}">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
 </head>
 <body>
@@ -302,65 +304,51 @@
             <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-<!--                        <div class="col-md-8 col-lg-6 col-xxl-5">-->
-<!--                            <article class="accent-box">-->
-<!--                                <h4 class="accent-box-title text-center">Login to your account</h4>-->
-<!--                                <p class="accent-box-text text-center">Enter your credentials below.</p>-->
-<!--                                <form class="accent-box-form rd-mailform" th:attr="action=|@{/login}|" method="post" novalidate="novalidate">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <div class="input-group has-error">-->
-<!--                                            <div class="input-group-prepend">-->
-<!--                                                <span class="input-group-text int-user novi-icon"/>-->
-<!--                                            </div>-->
-<!--                                            <input class="form-control form-control-has-validation" type="text" name="username" placeholder="Your login" data-constraints="@Required" id="regula-generated-712908">-->
-<!--                                            <span class="form-validation">The text field is required.</span>-->
+                        <article class="accent-box">
+                            <h4 class="accent-box-title text-center">Вхід в персональний кабінет</h4>
+                            <p class="accent-box-text text-center">Введіть свої дані входу нижче.</p>
+<!--                            <form class="accent-box-form rd-mailform" th:attr="action=|@{/login}|" method="post">-->
+                            <form class="accent-box-form" th:attr="action=|@{/login}|" method="post">
+                                <div class="form-group">
+                                    <div class="input-group has-error">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text far fa-user novi-icon"></span>
+                                        </div>
+                                        <input class="form-control form-control-has-validation" type="text" name="username" placeholder="Логін" data-constraints="@Required" id="regula-generated-712908">
+<!--                                        <span class="form-validation">The text field is required.</span>-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group input-group-validation">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text far fa-user novi-icon"/>
+                                        </div>
+                                        <input class="form-control input-password password-login form-control-has-validation" type="password" name="password" placeholder="Пароль" data-constraints="@Required" id="regula-generated-318819">
+<!--                                        <span class="form-validation">The text field is required.</span>-->
+<!--                                        <div class="input-group-append">-->
+<!--                                            <span class="input-group-text input-group-text-nodivider input-password-icon" data-multi-switch="{&quot;targets&quot;:&quot;.password-login&quot;}"/>-->
 <!--                                        </div>-->
+                                    </div>
+                                </div>
+                                <button class="btn btn-block btn-lg btn-primary accent-box-btn" type="submit" value="Login">Ввійти</button>
+                                <div class="accent-box-text small group-15">
+<!--                                    <div>-->
+<!--                                        <u class="font-weight-medium">-->
+<!--                                            <a class="link-inherit" href="#">Forgot your password?</a>-->
+<!--                                        </u>-->
 <!--                                    </div>-->
-<!--                                    <div class="form-group">-->
-<!--                                        <div class="input-group input-group-validation">-->
-<!--                                            <div class="input-group-prepend">-->
-<!--                                                <span class="input-group-text int-user novi-icon"/>-->
-<!--                                            </div>-->
-<!--                                            <input class="form-control input-password password-login form-control-has-validation" type="password" name="password" placeholder="Password" data-constraints="@Required" id="regula-generated-318819">-->
-<!--                                            <span class="form-validation">The text field is required.</span>-->
-<!--                                            <div class="input-group-append">-->
-<!--                                                <span class="input-group-text input-group-text-nodivider input-password-icon" data-multi-switch="{&quot;targets&quot;:&quot;.password-login&quot;}"/>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+<!--                                    <div>Haven’t an account?-->
+<!--                                        <u class="font-weight-medium">-->
+<!--                                            <a class="link-inherit" href="register.html">Sign up here.</a>-->
+<!--                                        </u>-->
 <!--                                    </div>-->
-<!--                                    <button class="btn btn-block btn-lg btn-primary accent-box-btn" type="submit" value="Login">Sign in</button>-->
-<!--                                    <div class="accent-box-text small group-15">-->
-<!--                                        <div>-->
-<!--                                            <u class="font-weight-medium">-->
-<!--                                                <a class="link-inherit" href="#">Forgot your password?</a>-->
-<!--                                            </u>-->
-<!--                                        </div>-->
-<!--                                        <div>Haven’t an account?-->
-<!--                                            <u class="font-weight-medium">-->
-<!--                                                <a class="link-inherit" href="register.html">Sign up here.</a>-->
-<!--                                            </u>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </article>-->
-                        <form class="form-login text-center" th:attr="action=|@{/login}|" method="post" id="loginForm">
-                            <img class="mb-4" th:src="@{/images/Tracktor.svg}" alt="" height="72">
-                            <h1 class="h3 mb-3 font-weight-normal">Вхід</h1>
-                            <input type="text" name="action" value="login" hidden>
-                            <label for="username" class="sr-only">Логін:</label>
-                            <input type="text" name="username" id="username" class="form-control" placeholder="Введіть ім'я" required autofocus>
-                            <label for="password" class="sr-only">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Введіть пароль" required>
-                            <button class="btn btn-lg btn-dark btn-block" type="submit" value="Login">Увійти</button>
-                            <input
-                                    type="hidden"
-                                    th:name="${_csrf.parameterName}"
-                                    th:value="${_csrf.token}" />
-                            <!--        <p>-->
-                            <!--          <a th:href="@{/register}">Зареєструватись</a>-->
-                            <!--        </p>-->
-                            <p class="mt-5 mb-3 text-muted">&copy; 2019-2020 tracktor</p>
-                        </form>
+                                </div>
+                                <input type="hidden"
+                                        th:name="${_csrf.parameterName}"
+                                        th:value="${_csrf.token}" />
+
+                            </form>
+                        </article>
                     </div>
                 </div>
             </div>
