@@ -1,0 +1,25 @@
+@media (min-width: 1200px) {
+    #loginModal button.close{
+        margin-right: -1.5rem;
+        margin-top: -1.5rem;
+    }
+}
+
+#loginModal button.close{
+    margin-right: -1.5rem;
+    margin-top: -2.25rem;
+}
+
+#loginModal .accent-box-text.group-options {
+    margin-top: 0px;
+}
+
+#loginModal span.input-group-text.far {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+#loginModal .form-validation {
+    top: 0;
+    bottom: initial;
+}

@@ -260,7 +260,7 @@
 			// Custom validator - phone number
 			regula.custom({
 				name: 'PhoneNumber',
-				defaultMessage: 'Invalid phone number format',
+				defaultMessage: 'Помилковий формат телефону',
 				validator: function() {
 					if ( this.value === '' ) return true;
 					else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test( this.value );
@@ -292,19 +292,19 @@
 			var regularConstraintsMessages = [
 				{
 					type: regula.Constraint.Required,
-					newMessage: "The text field is required."
+					newMessage: "Поле обов'язкове для заповнення."
 				},
 				{
 					type: regula.Constraint.Email,
-					newMessage: "The email is not a valid email."
+					newMessage: "Некорректний адрес електронної пошти."
 				},
 				{
 					type: regula.Constraint.Numeric,
-					newMessage: "Only numbers are required"
+					newMessage: "Допускаються тільки цифри."
 				},
 				{
 					type: regula.Constraint.Selected,
-					newMessage: "Please choose an option."
+					newMessage: "Виберіть одну із опцій."
 				}
 			];
 

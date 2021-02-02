@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:300,400,700%7CPoppins:300,400,500,700,900">
     <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/styles/intense.css}"/>
+    <link rel="stylesheet" th:href="@{/css/custom/home.css}"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/fonts/Mercury/Mercury.css}"/>
@@ -300,12 +301,15 @@
         </section>
         <!--Login form modal dialog-->
         <section class="section">
-            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" data-backdrop="static"  id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <article class="accent-box">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <h4 class="accent-box-title text-center">Вхід в персональний кабінет</h4>
-                            <p class="accent-box-text text-center">Введіть свої дані входу нижче.</p>
+<!--                            <p class="accent-box-text text-center">Введіть свої дані входу нижче.</p>-->
                             <form class="accent-box-form rd-mailform" data-form-output="form-output-global" th:attr="action=|@{/login}|" method="post">
                                 <div class="form-group">
                                     <div class="input-group has-error">
@@ -327,7 +331,7 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-block btn-lg btn-primary accent-box-btn" type="submit" value="Login">Ввійти</button>
-                                <div class="accent-box-text small group-15">
+                                <div class="accent-box-text small group-options">
 <!--                                    <div>-->
 <!--                                        <u class="font-weight-medium">-->
 <!--                                            <a class="link-inherit" href="#">Forgot your password?</a>-->
