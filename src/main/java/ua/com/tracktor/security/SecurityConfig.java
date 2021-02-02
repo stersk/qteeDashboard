@@ -42,14 +42,12 @@ public class SecurityConfig {
     @Configuration
     @Order(2)
     public class ActuatorSecurity extends WebSecurityConfigurerAdapter {
-
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.antMatcher("/actuator/**")
                     .authorizeRequests().anyRequest().access("hasAnyRole('ROLE_ADMINISTRATOR')")
                     .and().httpBasic();
         }
-
     }
 
     @Configuration
@@ -72,7 +70,7 @@ public class SecurityConfig {
 
                     .and()
                     .formLogin()
-                    .loginPage("/")
+                    .loginPage("/?login")
                     .loginProcessingUrl("/login")
                     .successHandler(new SavedRequestAwareAuthenticationSuccessHandler("/cabinet"))
                     .failureHandler(new CustomAuthenticationFailureHandler())
