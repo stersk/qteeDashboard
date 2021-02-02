@@ -33,6 +33,7 @@
 - RDNavBar.min.js
 - regula.min.js
 - WOW.min.js
+- RDMailForm.js
 
 ###### images
 - intense/bg-image-2-1700x257.jpg

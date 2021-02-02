@@ -306,15 +306,13 @@
                         <article class="accent-box">
                             <h4 class="accent-box-title text-center">Вхід в персональний кабінет</h4>
                             <p class="accent-box-text text-center">Введіть свої дані входу нижче.</p>
-<!--                            <form class="accent-box-form rd-mailform" th:attr="action=|@{/login}|" method="post">-->
-                            <form class="accent-box-form" th:attr="action=|@{/login}|" method="post">
+                            <form class="accent-box-form rd-mailform" data-form-output="form-output-global" th:attr="action=|@{/login}|" method="post">
                                 <div class="form-group">
                                     <div class="input-group has-error">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text far fa-user novi-icon"></span>
                                         </div>
-                                        <input class="form-control form-control-has-validation" type="text" name="username" placeholder="Логін" data-constraints="@Required" id="regula-generated-712908">
-<!--                                        <span class="form-validation">The text field is required.</span>-->
+                                        <input class="form-control" type="text" name="username" placeholder="Логін" data-constraints="@Required">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -322,8 +320,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text far fa-user novi-icon"/>
                                         </div>
-                                        <input class="form-control input-password password-login form-control-has-validation" type="password" name="password" placeholder="Пароль" data-constraints="@Required" id="regula-generated-318819">
-<!--                                        <span class="form-validation">The text field is required.</span>-->
+                                        <input class="form-control input-password password-login" type="password" name="password" placeholder="Пароль" data-constraints="@Required">
 <!--                                        <div class="input-group-append">-->
 <!--                                            <span class="input-group-text input-group-text-nodivider input-password-icon" data-multi-switch="{&quot;targets&quot;:&quot;.password-login&quot;}"/>-->
 <!--                                        </div>-->
@@ -346,6 +343,8 @@
                                         th:name="${_csrf.parameterName}"
                                         th:value="${_csrf.token}" />
 
+                                <!-- Element for mailform error output -->
+                                <div class="snackbars" id="form-output-global"></div>
                             </form>
                         </article>
                     </div>
@@ -419,7 +418,8 @@
         </footer>
     </div>
     <!--<div class="snackbars" id="form-output-global"></div>    // used by subsribe for -->
-    <div th:include="~{fragments/intense :: js-import}"></div>-->
+    <div th:include="~{fragments/intense :: js-import}"></div>
+    <script type="text/javascript" th:src="@{/js/plugins/RDMailForm.js}"></script>
     <!--coded by Drel-->
 </body></body>
 </html>

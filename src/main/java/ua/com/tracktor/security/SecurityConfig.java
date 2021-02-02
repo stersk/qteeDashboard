@@ -1,4 +1,4 @@
-package ua.com.tracktor.configuration;
+package ua.com.tracktor.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -74,11 +74,12 @@ public class SecurityConfig {
                     .formLogin()
                     .loginPage("/")
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/cabinet", true)
+                    .successHandler(new SavedRequestAwareAuthenticationSuccessHandler("/cabinet"))
+                    .failureHandler(new CustomAuthenticationFailureHandler())
 
                     .and()
                     .logout()
-                    .logoutSuccessUrl("/cabinet")
+                    .logoutSuccessUrl("/")
 
                     // Make H2-Console non-secured; for debug purposes
                     .and()
@@ -89,9 +90,7 @@ public class SecurityConfig {
                     .and()
                     .headers()
                     .frameOptions()
-                    .sameOrigin()
-            ;
-
+                    .sameOrigin();
         }
 
         @Override
