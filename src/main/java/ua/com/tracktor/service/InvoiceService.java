@@ -59,7 +59,7 @@ public class InvoiceService {
     @Scheduled(cron="0 8 * * * *")
     public void cleanOldNonusedInvoices() {
         LocalDateTime oldInvoicesDate = LocalDateTime.now().plusDays(-14);
-        List<Invoice> oldInvoices = invoiceRepository.getNonusedInvoicesBefore(oldInvoicesDate);
+        List<Invoice> oldInvoices = invoiceRepository.getUnusedInvoicesBefore(oldInvoicesDate);
         oldInvoices.forEach(invoice -> invoiceRepository.delete(invoice));
     }
 }

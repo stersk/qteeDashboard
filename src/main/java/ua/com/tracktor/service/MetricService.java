@@ -75,7 +75,7 @@ public class MetricService {
             shipmentsSum = currentStat.getSum();
         }
 
-        Metric balanceMetric = new Metric(account, MetricType.BALANSE, currentDate, balance.doubleValue()/100);
+        Metric balanceMetric = new Metric(account, MetricType.BALANCE, currentDate, balance.doubleValue()/100);
         Metric shipmentsLeftMetric = new Metric(account, MetricType.SHIPMENTS_LEFT, currentDate, shipmentsLeft.doubleValue());
         Metric shipmentsCountByDay = new Metric(account, MetricType.SHIPMENTS_COUNT_BY_DAY, dateTimeStart, shipmentsCount.doubleValue());
         Metric shipmentsSumByDay = new Metric(account, MetricType.SHIPMENTS_SUM_BY_DAY, dateTimeStart, shipmentsSum.doubleValue()/100);
@@ -101,7 +101,7 @@ public class MetricService {
         }
 
         switch (metric.getMetricType()){
-            case BALANSE:
+            case BALANCE:
                 // show notify about new invoice only once
                 Invoice lastInvoice = invoiceService.getLastInvoice(metric.getAccount());
                 if (lastInvoice != null && !lastInvoice.getNotified()) {

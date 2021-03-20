@@ -1,7 +1,7 @@
 package ua.com.tracktor.entity.enums;
 
 public enum MetricType {
-    BALANSE(true),
+    BALANCE(true),
     SHIPMENTS_LEFT(false),
     LAST_INVOICE(false),
     SHIPMENTS_COUNT_BY_DAY(false),
@@ -24,7 +24,7 @@ public enum MetricType {
         if (name != null) {
             switch (name) {
                 case "balance":
-                    metricType = BALANSE;
+                    metricType = BALANCE;
                     break;
 
                 case "shipmentsLeft":

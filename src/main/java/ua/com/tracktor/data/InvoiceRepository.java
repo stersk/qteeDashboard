@@ -26,7 +26,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
             "   Invoice invoice " +
             "WHERE " +
             "invoice.date < :date AND invoice.sum is null")
-    List<Invoice> getNonusedInvoicesBefore(@Param("date") LocalDateTime date);
+    List<Invoice> getUnusedInvoicesBefore(@Param("date") LocalDateTime date);
 
     Optional<Invoice> findFirstByAccountAndSumNotNullOrderByDateDesc(Account account);
 
