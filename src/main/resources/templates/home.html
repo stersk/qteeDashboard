@@ -1,371 +1,428 @@
-<!DOCTYPE html>
-<html class="wide wow-animation" lang="uk-UA" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="uk" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
-    <title>Tracktor</title>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:300,400,700%7CPoppins:300,400,500,700,900">
-    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>-->
-    <link rel="stylesheet" th:href="@{/css/fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+    <title>Tracktor - Основні дані</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <!--     Fonts and icons     -->
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+
+    <!-- Material Kit CSS -->
+    <link th:href="@{/styles/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/now-ui-dashboard.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/bootstrap-table.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/Chart.css}" rel="stylesheet">
+    <link th:href="@{/styles/bootstrap-datepicker3.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/jquery.resizableColumns.css}" rel="stylesheet">
+    <link th:href="@{/styles/animate.css}" rel="stylesheet">
+
+    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link th:href="@{/css/plugin.css}" rel="stylesheet">
+
+    <!--   Core JS Files   -->
+    <!--<script type="text/javascript" th:src="@{/js/core/jquery.min.js}"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/core/popper.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/core/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/jquery.resizableColumns.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/locale/bootstrap-table-uk-UA.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/extensions/bootstrap-table-cookie.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-table/extensions/bootstrap-table-resizable.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/Chart.bundle.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.uk.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js"></script>
+
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script th:src="@{/js/plugins/now-ui-dashboard.js}" type="text/javascript"></script>
+
+    <script th:src="@{/js/home.js}" type="text/javascript"></script>
 </head>
 <body>
-    <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img th:src="@{/images/cabinet/index/ie8-panel/warning_bar_0000_us.jpg}" height="42" width="820" alt="Ви використовуэте застарівший переглядач. Для безпечнішого і швидшого переглядання інернет-ресурсів обновіться до новішої версії."></a></div>
-    <div class="preloader">
-        <div class="preloader-body">
-            <div class="cssload-container">
-                <div class="cssload-speeding-wheel"></div>
-            </div>
-            <p>Завантаження ...</p>
+<div class="wrapper">
+    <div class="sidebar" data-color="orange" hidden>
+        <!--
+            Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+        -->
+        <div class="logo">
+            <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+                CT
+            </a>
+
+            <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                Creative Tim
+            </a>
+        </div>
+
+        <div class="sidebar-wrapper" id="sidebar-wrapper">
+            <ul class="nav">
+                <li class="active ">
+                    <a href="../dashboard.html">
+
+                        <i class="now-ui-icons design_app"></i>
+
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../icons.html">
+
+                        <i class="now-ui-icons education_atom"></i>
+
+                        <p>Icons</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../map.html">
+
+                        <i class="now-ui-icons location_map-big"></i>
+
+                        <p>Maps</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../notifications.html">
+
+                        <i class="now-ui-icons ui-1_bell-53"></i>
+
+                        <p>Notifications</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../user.html">
+
+                        <i class="now-ui-icons users_single-02"></i>
+
+                        <p>User Profile</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../tables.html">
+
+                        <i class="now-ui-icons design_bullet-list-67"></i>
+
+                        <p>Table List</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../typography.html">
+
+                        <i class="now-ui-icons text_caps-small"></i>
+
+                        <p>Typography</p>
+                    </a>
+                </li>
+
+                <li class="active-pro">
+                    <a href="../upgrade.html">
+
+                        <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+
+                        <p>Upgrade to PRO</p>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="page">
-        <header class="section page-header">
-            <!--RD Navbar-->
-            <div class="rd-navbar-wrap">
-                <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-                    <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
-                    <div class="rd-navbar-aside-outer rd-navbar-collapse bg-gray-dark" hidden>
-                        <div class="rd-navbar-aside">
-                            <ul class="list-inline navbar-contact-list">
-                                <li>
-                                    <div class="unit unit-spacing-xs align-items-center">
-                                        <div class="unit-left"><span class="icon text-middle fa-phone"></span></div>
-                                        <div class="unit-body"><a href="tel:#">+1 800 123 45 67</a></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="unit unit-spacing-xs align-items-center">
-                                        <div class="unit-left"><span class="icon text-middle fa-envelope"></span></div>
-                                        <div class="unit-body"><a href="mailto:#">info@demolink.org</a></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="unit unit-spacing-xs align-items-center">
-                                        <div class="unit-left"><span class="icon text-middle fa-map-marker"></span></div>
-                                        <div class="unit-body"><a href="#">2164 Wall St. New York, NY 10122</a></div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="social-links">
-                                <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-linkedin" href="#"></a></li>
-                                <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-twitter" href="#"></a></li>
-                                <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook" href="#"></a></li>
-                                <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram" href="#"></a></li>
-                            </ul>
-                        </div>
+    <div class="main-panel ps ps--active-y" id="main-panel">
+        <nav class="navbar navbar-expand-lg navbar-transparent bg-primary  navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <div class="navbar-toggle">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
                     </div>
-                    <div class="rd-navbar-main-outer">
-                        <div class="rd-navbar-main">
-                            <!--RD Navbar Panel-->
-                            <div class="rd-navbar-panel">
-                                <!--RD Navbar Toggle-->
-                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                                <!--RD Navbar Brand-->
-                                <div class="rd-navbar-brand">
-                                    <!--Brand--><a class="brand" href="index.html"><img class="brand-logo-dark" th:src="@{/images/cabinet/index/tracktor-logo.png}" alt="" width="100" height="17"/><img class="brand-logo-light" th:src="@{/images/cabinet/index/tracktor-logo-inverted.png}" alt="" width="100" height="17"/></a>
-                                </div>
-                            </div>
-                            <div class="rd-navbar-main-element">
-                                <div class="rd-navbar-nav-wrap">
-                                    <ul class="rd-navbar-nav">
-<!--                                        <li class="rd-nav-item"><a class="rd-nav-link" href="about.html">About</a>-->
-<!--                                        </li>-->
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">Вхід</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <!--Main section-->
-        <section class="section main-section parallax-scene-js" th:attr="style=|background:url('@{/images/cabinet/index/bg-1-1700x803.jpg}') no-repeat center center; background-size:cover;|">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-8 col-12">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="main-decorated-box text-center text-xl-left">
-                                        <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><span class="align-top offset-top-30 d-inline-block font-weight-light prefix-text">the</span><span class="big font-weight-bold d-inline-flex offset-right-170">best</span><span class="biggest d-block d-xl-flex font-weight-bold">Solutions.</span></h1>
-                                        <div class="decorated-subtitle text-italic text-white wow slideInLeft">Fresh Ideas for Your Business</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="main-decorated-box text-center text-xl-left">
-                                        <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s">Мы знаем все о </h1>
-                                        <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><b> рассылке SMS, входящих SMS, HLR и Viber </b></h1>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="main-decorated-box text-center text-xl-left">
-                                        <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s">Простота отправки смс </h1>
-                                        <h1 class="text-white text-xl-center wow slideInRight" data-wow-delay=".3s"><b>Веб-интерфейс, ПО, SMTP, XML, HTTP(S), SMPP, 1C и др.</b></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Назад</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Вперед</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center offset-top-75" data-wow-delay=".2s"><a class="button-way-point d-inline-block text-center d-inline-flex flex-column justify-content-center" href="#" data-custom-scroll-to="about"><span class="fa-chevron-down"></span></a></div>
-                </div>
-            </div>
-            <div class="decorate-layer">
-                <div class="layer-1">
-                    <div class="layer" data-depth=".20"><img th:src="@{/images/cabinet/index/parallax-item-1-563x532.png}" alt="" width="563" height="266"/>
-                    </div>
-                </div>
-                <div class="layer-2">
-                    <div class="layer" data-depth=".30"><img th:src="@{/images/cabinet/index/parallax-item-2-276x343.png}" alt="" width="276" height="171"/>
-                    </div>
-                </div>
-                <div class="layer-3">
-                    <div class="layer" data-depth=".40"><img th:src="@{/images/cabinet/index/parallax-item-3-153x144.png}" alt="" width="153" height="72"/>
-                    </div>
-                </div>
-                <div class="layer-4">
-                    <div class="layer" data-depth=".20"><img th:src="@{/images/cabinet/index/parallax-item-4-69x74.png}" alt="" width="69" height="37"/>
-                    </div>
-                </div>
-                <div class="layer-5">
-                    <div class="layer" data-depth=".40"><img th:src="@{/images/cabinet/index/parallax-item-5-72x75.png}" alt="" width="72" height="37"/>
-                    </div>
-                </div>
-                <div class="layer-6">
-                    <div class="layer" data-depth=".30"><img th:src="@{/images/cabinet/index/parallax-item-6-45x54.png}" alt="" width="45" height="27"/>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--About-->
-        <section class="section section-sm position-relative" id="about">
-            <div class="container">
-                <div class="row row-30">
-                    <div class="col-lg-6">
-                        <div class="block-decorate-img wow fadeInLeft" data-wow-delay=".2s"><img th:src="@{/images/cabinet/index/home-1-570x703.jpg}" alt="" width="570" height="351"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="block-sm offset-top-45">
-                            <div class="section-name wow fadeInRight" data-wow-delay=".2s">About us</div>
-                            <h3 class="wow fadeInLeft text-capitalize devider-bottom" data-wow-delay=".3s">What We<span class="text-primary"> Do</span></h3>
-                            <p class="offset-xl-40 wow fadeInUp" data-wow-delay=".4s">Small or big, your business will love our financial help and business consultations! We are happy when our clients are too... Actually, this is quite simple to achieve - because each time we help them in sorting out different accounting intricacies or save the day before filing the taxes, they are happy indeed! And so are we!</p>
-                            <p class="default-letter-spacing font-weight-bold text-gray-dark wow fadeInUp" data-wow-delay=".4s">We have over fifteen years of successful experience in financial sphere in the US business market.</p><a class="button-width-190 button-primary button-circle button-lg button offset-top-30" href="#">read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="decor-text decor-text-1">ABOUT</div>
-        </section>
-        <!--Features-->
-        <section class="section custom-section position-relative section-md">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-7 col-lg-7 col-12">
-                        <div class="section-name wow fadeInRight">our features</div>
-                        <h3 class="text-capitalize devider-left wow fadeInLeft" data-wow-delay=".2s">Why Businesses<span class="text-primary"> Choose us</span></h3>
-                        <p>With over 20 years of experience in business consulting, we have a lot to offer to our clients. Here are some reasons why companies worldwide choose us.</p>
-                        <div class="row row-15">
-                            <div class="col-xl-6 wow fadeInUp" data-wow-delay=".2s">
-                                <div class="box-default">
-                                    <div class="box-default-title">Innovative Solutions</div>
-                                    <p class="box-default-description">Our services and solutions are built on business innovations.</p><span class="box-default-icon novi-icon icon-lg mercury-icon-lightbulb-gears"></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 wow fadeInUp" data-wow-delay=".3s">
-                                <div class="box-default">
-                                    <div class="box-default-title">Strategic Thinking</div>
-                                    <p class="box-default-description">СonsultBiz works strategically to forge the best path for your business.</p><span class="box-default-icon novi-icon icon-lg mercury-icon-target-2"></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 wow fadeInUp" data-wow-delay=".4s">
-                                <div class="box-default">
-                                    <div class="box-default-title">Experienced Team</div>
-                                    <p class="box-default-description">We employ the best consultants with more than 10 years of experience.</p><span class="box-default-icon novi-icon icon-lg mercury-icon-user"></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 wow fadeInUp" data-wow-delay=".5s">
-                                <div class="box-default">
-                                    <div class="box-default-title">Creative Approach</div>
-                                    <p class="box-default-description">Every project we work on is based on the creative solutions of any issues.</p><span class="box-default-icon novi-icon icon-lg mercury-icon-partners"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="image-left-side wow slideInRight" data-wow-delay=".5s"><img th:src="@{/images/cabinet/index/home-2-636x480.jpg}" alt="" width="636" height="240"/>
-            </div>
-            <div class="decor-text decor-text-2 wow fadeInUp" data-wow-delay=".3s">features</div>
-        </section>
-        <!--Counters-->
-        <section class="section bg-image-2">
-            <div class="container section-md">
-                <div class="row row-30 text-center">
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="counter-classic">
-                            <div class="counter-classic-number"><span class="icon-lg novi-icon offset-right-10 mercury-icon-time"></span><span class="counter text-white" data-speed="2000">2007</span>
-                            </div>
-                            <div class="counter-classic-title">Year of Establishment</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="counter-classic">
-                            <div class="counter-classic-number"><span class="icon-lg novi-icon offset-right-10 mercury-icon-folder"></span><span class="counter text-white" data-speed="2000">547</span>
-                            </div>
-                            <div class="counter-classic-title">Successful Projects</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="counter-classic">
-                            <div class="counter-classic-number"><span class="icon-lg novi-icon offset-right-10 mercury-icon-users"></span><span class="counter text-white" data-speed="2000">45</span><span class="symbol text-white">+</span>
-                            </div>
-                            <div class="counter-classic-title">Global Partners</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="counter-classic">
-                            <div class="counter-classic-number"><span class="icon-lg novi-icon offset-right-10 mercury-icon-group"></span><span class="counter text-white" data-speed="2000">1500</span>
-                            </div>
-                            <div class="counter-classic-title">Team Members</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--Owl Carousel-->
-        <section class="section section-md bg-gray-lighten">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <div class="section-name wow fadeInRight text-center" data-wow-delay=".2s">testimonials</div>
-                        <h3 class="wow fadeInLeft text-capitalize text-center" data-wow-delay=".3s">What People Say<span class="text-primary"> About Us</span></h3>
-                        <div class="owl-carousel review-carousel" data-items="1" data-sm-items="1" data-md-items="1" data-lg-items="1" data-xl-items="1" data-xxl-items="1" data-dots="true" data-nav="false" data-stage-padding="0" data-loop="false" data-margin="0" data-mouse-drag="true" data-autoplay="false">
-                            <div class="item">
-                                <div class="item-preview wow fadeInDown" data-wow-delay=".2s"><img th:src="@{/images/cabinet/index/user-1-216x216.jpg}" alt="" width="216" height="108"/>
-                                </div>
-                                <div class="item-description wow fadeInUp" data-wow-delay=".3s">
-                                    <p>I was impressed by the quality of what your specialists did. They quickly found out what was the main problem of my company and helped me form a correct strategy, which worked perfectly and set my business on the right path.</p>
-                                    <div class="item-subsection"><span class="item-subsection-title devider-left">Heather Perry</span><span>Regular Client</span></div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-preview wow fadeInDown" data-wow-delay=".2s"><img th:src="@{/images/cabinet/index/user-2-216x216.jpg}" alt="" width="216" height="108"/>
-                                </div>
-                                <div class="item-description wow fadeInUp" data-wow-delay=".3s">
-                                    <p>I appreciate what you’ve done to help my small company develop and thrive in that market niche that we specialize in. Your business consulting experts are the best in the whole industry and I’m going to recommend you to my partners!</p>
-                                    <div class="item-subsection"><span class="item-subsection-title devider-left">Donald Hughes</span><span>Regular Client</span></div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-preview wow fadeInDown" data-wow-delay=".2s"><img th:src="@{/images/cabinet/index/user-3-216x216.jpg}" alt="" width="216" height="108"/>
-                                </div>
-                                <div class="item-description wow fadeInUp" data-wow-delay=".3s">
-                                    <p>My cooperation with your team helped me understand that you really care about your clients – it was proved by a lot of positive reviews already – and that's why I chose you. Thank you for a great job, you are true professionals!</p>
-                                    <div class="item-subsection"><span class="item-subsection-title devider-left">Anthony Parker</span><span>Regular Client</span></div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="item-preview wow fadeInDown" data-wow-delay=".2s"><img th:src="@{/images/cabinet/index/user-4-216x216.jpg}" alt="" width="216" height="108"/>
-                                </div>
-                                <div class="item-description wow fadeInUp" data-wow-delay=".3s">
-                                    <p>Two years after СonsultBiz’s involvement, we are remarkably successful and the leader in served markets. This brought industry knowledge, best practices, and real-world solutions to the intricate challenges we faced.</p>
-                                    <div class="item-subsection"><span class="item-subsection-title devider-left">Jennifer Coleman</span><span>Regular Client</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--Footer-->
-        <!--<a class="section section-banner"
-                href="https://www.templatemonster.com/intense-multipurpose-html-template.html"
-                target="_blank"
-                th:attr="style=|background-image: url(@{/images/cabinet/index/background-01-1920x310.jpg}); background-image: -webkit-image-set( url(@{/images/cabinet/index/background-01-1920x310.jpg}) 1x, url(@{/images/cabinet/index/background-01-3840x620.jpg}) 2x )"
-            <img th:src="@{/images/cabinet/index/foreground-01-1600x310.png"
-                th:attr="srcset=|url(@{/images/foreground-01-1600x310.png} 1x, @{images/foreground-01-3200x620.png} 2x|"
-                alt="" width="1600" height="310"></a>-->
 
-        <footer class="section footer-classic section-sm">
-            <div class="container">
-                <div class="row row-30">
-                    <div class="col-lg-3 wow fadeInLeft">
-                        <!--Brand--><a class="brand" href="index.html"><img class="brand-logo-dark" th:src="@{/images/cabinet/index/Tracktor.svg}" alt="" width="100" height="17"/><img class="brand-logo-light" th:src="@{/images/cabinet/index/Tracktor.svg}" alt="" width="100" height="17"/></a>
-                        <p class="footer-classic-description offset-top-0 offset-right-25">СonsultBiz provides a full range of business consulting & advisory services to small, medium, and international companies worldwide. We use innovations and experience to drive your success.</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-8 wow fadeInUp">
-                        <P class="footer-classic-title">contact info</P>
-                        <div class="d-block offset-top-0">2164 Wall St, New York<span class="d-lg-block">NY 10122, USA</span></div><a class="d-inline-block accent-link" href="mailto:#">info@demolink.org</a><a class="d-inline-block" href="tel:#">+1 800 123 45 67</a>
-                        <ul>
-                            <li>Mon-Thu:<span class="d-inline-block offset-left-10 text-white">9:30 AM - 9:00 PM</span></li>
-                            <li>Fri:<span class="d-inline-block offset-left-10 text-white">10:00 AM - 9:00 PM</span></li>
-                            <li>Sat:<span class="d-inline-block offset-left-10 text-white">10:00 AM - 3:00 PM</span></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
-                        <P class="footer-classic-title">Quick Links</P>
-                        <ul class="footer-classic-nav-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                        </ul>
-                    </div>
-                    <!--
-                    <div class="col-lg-4 wow fadeInLeft" data-wow-delay=".2s">
-                      <P class="footer-classic-title">newsletter</P>
-                      <form class="rd-mailform text-left footer-classic-subscribe-form" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                        <div class="form-wrap">
-                          <label class="form-label" for="subscribe-email">Your Email Address</label>
-                          <input class="form-input" id="subscribe-email" type="email" name="email" data-constraints="@Email @Required">
-                        </div>
-                        <div class="form-button group-sm text-center text-lg-left">
-                          <button class="button button-primary button-circle" type="submit">sign up</button>
-                        </div>
-                      </form>
-                      <p>Be the first to find out about our latest news, updates, and special offers.</p>
-                    </div>
-                    -->
+                    <a class="navbar-brand" href="#pablo">Відгрузки</a>
                 </div>
-            </div>
-            <div class="container wow fadeInUp" data-wow-delay=".4s">
-                <div class="footer-classic-aside">
-                    <!-- <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. All Rights Reserved. Design by <a href="https://www.templatemonster.com">TemplateMonster</a></p> -->
-                    <p class="rights"><span></span><span>&copy;&nbsp; 2019-</span><span class="copyright-year"></span><span>&nbsp;tracktor</span></p>
-                    <ul class="social-links">
-                        <li><a class="fa fa-linkedin" href="#"></a></li>
-                        <li><a class="fa fa fa-twitter" href="#"></a></li>
-                        <li><a class="fa fa-facebook" href="#"></a></li>
-                        <li><a class="fa fa-instagram" href="#"></a></li>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+<!--                    <form>-->
+<!--                        <div class="input-group no-border">-->
+<!--                            <input type="text" value="" class="form-control" placeholder="Search...">-->
+<!--                            <div class="input-group-append">-->
+<!--                                <div class="input-group-text">-->
+<!--                                    <i class="now-ui-icons ui-1_zoom-bold"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+<!--                            <a class="nav-link" href="#" th:url="${@environment.getProperty('wayforpay.widget-link')}" onclick="runWfpWdgt(this);">-->
+<!--                                Оплатити-->
+<!--                                <a href="#"   onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';"></a>-->
+<!--                                <i class="now-ui-icons media-2_sound-wave"></i>-->
+<!--                                <p>-->
+<!--                                    <span class="d-lg-none d-md-block">Stats</span>-->
+<!--                                </p>-->
+<!--                            </a>-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Номер договору: 2365</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                            <a class="nav-link" id="upload_recorder_queries" href="#">Вигрузити логи на сервер</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                            <a class="nav-link" th:href="@{/register}">Створити користувача</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="now-ui-icons users_single-02"></i>
+                                <p>
+                                    <span id="username" class="d-none d-sm-block" th:text="${#authentication.principal.fullName}"></span>
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <form method="POST" th:action="@{/logout}" id="logoutForm">
+                                    <input class="dropdown-item" type="submit" value="Вихід"/>
+                                </form>
+                            </div>
+                        </li>
+
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#pablo">-->
+<!--                                <i class="now-ui-icons users_single-02"></i>-->
+<!--                                <p>-->
+<!--                                    <span class="d-lg-none d-md-block">Account</span>-->
+<!--                                </p>-->
+<!--                            </a>-->
+<!--                        </li>-->
                     </ul>
                 </div>
             </div>
-        </footer>
+        </nav>
+        <div class="panel-header panel-header-lg">
+            <canvas id="shipmentDayStatChart"></canvas>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="statistics">
+                                        <div class="info">
+                                            <div class="icon icon-primary">
+                                                <i class="now-ui-icons business_money-coins"></i>
+                                            </div>
+                                            <h3 id="dataBalance" class="info-title"> - </h3>
+<!--                                            <h6 class="stats-title">Баланс</h6>-->
+                                            <script type="text/javascript" id="widget-wfp-script" src="https://secure.wayforpay.com/server/pay-widget.js?ref=button"></script>
+                                            <a class="btn btn-info" href="#" onclick="openPayWindow();">
+                                                Поповнити рахунок
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="statistics">
+                                        <div class="info">
+                                            <div class="icon icon-success">
+                                                <i class="now-ui-icons files_box"></i>
+                                            </div>
+                                            <h3 id = "dataDeclarationCost" class="info-title"> - <small>грн/шт </small></h3>
+                                            <h6 class="stats-title">Вартість декларації</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="statistics">
+                                        <div class="info">
+                                            <div class="icon icon-success">
+                                                <i class="now-ui-icons objects_support-17"></i>
+                                            </div>
+                                            <h3 id = "dataLastInvoice" class="info-title"> - </h3>
+                                            <h6 class="stats-title">Останнє поповнення</h6>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="statistics">-->
+<!--                                        <div class="info">-->
+<!--                                            <div class="icon icon-success">-->
+<!--                                                <i class="now-ui-icons files_box"></i>-->
+<!--                                            </div>-->
+<!--                                            <h3 id = "dataShipmentsLeft" class="info-title"> - </h3>-->
+<!--                                            <h6 class="stats-title">Залишилось декларацій</h6>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="statistics">-->
+<!--                                        <div class="info">-->
+<!--                                            <div class="icon icon-success">-->
+<!--                                                <i class="now-ui-icons files_box"></i>-->
+<!--                                            </div>-->
+<!--                                            <h3 id = "dataShipmentsSumToday" class="info-title"> - </h3>-->
+<!--                                            <h6 class="stats-title">Сумма сьогоднішніх декларацій</h6>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="col-md-3">
+                                    <div class="statistics">
+                                        <div class="info">
+                                            <div class="icon icon-info">
+                                                <i class="now-ui-icons users_single-02"></i>
+                                            </div>
+                                            <h3 class="info-title">
+                                                <span id = "dataShipmentsToday"></span><span><small> / </small></span><span id = "dataShipmentsSumToday"></span>
+                                            </h3>
+                                            <h6 class="stats-title">Сформовано декларацій сьогодні</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+<!--                        <div class="card-header">-->
+<!--                            <h4 class="card-title"> Відгрузки </h4>-->
+<!--                        </div>-->
+                        <div class="card-body">
+                             <!--
+                               Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                               Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                             -->
+                                <div id="toolbar">
+                                    <!--
+                                    <button id="remove" class="btn btn-danger" disabled>
+                                        <i class="glyphicon glyphicon-remove"></i> Delete
+                                    </button>
+                                    <button id="alertBtn" class="btn btn-default">Alert</button>
+                                    -->
+                                    <div class="input-group input-daterange datepicker">
+                                        <input id="startDate" type="text" class="form-control">
+                                        <div class="input-group-addon">до</div>
+                                        <input id="endDate"  type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <table
+                                        id="table"
+                                        data-classes="table table-bordered table-hover table-borderless table-striped"
+                                        data-toolbar="#toolbar"
+                                        data-search="true"
+                                        data-show-refresh="true"
+                                        data-show-toggle="false"
+                                        data-show-fullscreen="true"
+                                        data-show-columns="true"
+                                        data-show-columns-toggle-all="true"
+                                        data-minimum-count-columns="2"
+                                        data-show-pagination-switch="false"
+                                        data-pagination="true"
+                                        data-id-field="id"
+                                        data-page-list="[10, 25, 50, 100, all]"
+                                        data-show-footer="false"
+                                        data-side-pagination="client"
+                                        data-url="/services/shipment/get-all"
+                                        data-query-params="tableDataQueryParams"
+                                        data-response-handler="responseHandler"
+                                        data-cookie="true"
+                                        data-cookie-id-table="shipment"
+                                        data-resizable="true">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal. Therm and coditions -->
+            <div class="modal fade bd-example-modal-lg" id="termsAndConditions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div th:replace="termsAndConditions::oferta"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="makeInvoiceErrorWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Оплата</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Виникла помилка, спробуйте поновити сторінку або перезайти на сайт.<br><br> Вибачте за незручності
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="container-fluid ">
+                    <div class="copyright" id="copyright">
+                        <h5 class="contacts-head">Наші контакти:</h5>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="contact-head">
+                                        тел:
+                                    </td>
+                                    <td>
+                                        (068) 846-99-84
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="contact-head">
+                                        e-mail:
+                                    </td>
+                                    <td>
+                                        support@tracktor.com.ua
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="terms-and-conditions">
+                        <h5 class="contacts-head" data-toggle="modal" data-target="#termsAndConditions">Умови надання послуг</h5>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-    <!--<div class="snackbars" id="form-output-global"></div>    // used by subsribe for -->
-    <script th:src="@{/js/custom/cabinet/core.min.js}"></script>
-    <script th:src="@{/js/custom/cabinet/script.js}"></script>
-    <!--coded by Drel-->
+</div>
 </body>
 </html>

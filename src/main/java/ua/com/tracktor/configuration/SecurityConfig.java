@@ -58,7 +58,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers( "/logout", "/cabinet", "/termsAndConditions")
+                    .antMatchers( "/logout", "/", "/termsAndConditions")
                     .access("hasAnyRole('ROLE_USER', 'ROLE_ADMINISTRATOR')")
                     .antMatchers("/register")
                     .access("hasRole('ROLE_ADMINISTRATOR')")
@@ -67,9 +67,7 @@ public class SecurityConfig {
 
                     .and()
                     .formLogin()
-                    .loginPage("/")
-
-                    .defaultSuccessUrl("/cabinet", true)
+                    .loginPage("/login")
 
                     .and()
                     .logout()
