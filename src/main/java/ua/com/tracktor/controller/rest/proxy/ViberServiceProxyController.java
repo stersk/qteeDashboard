@@ -25,6 +25,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/services/notification")
@@ -38,7 +39,7 @@ public class ViberServiceProxyController {
     @Autowired
     private Environment env;
 
-    private final Map<Account, LocalDateTime> lastAccountQueryTime = new HashMap<>();
+    private final Map<Account, LocalDateTime> lastAccountQueryTime = new ConcurrentHashMap<>();
 
     @PostMapping (path="/ping")
     public ResponseEntity<Map<String, String>> ping(Principal principal) {
@@ -137,6 +138,8 @@ public class ViberServiceProxyController {
                 }
 
             }
+        } else if (path.endsWith("set-option")) {
+            filterQuery = false;
         }
 
         if (filterQuery) {
