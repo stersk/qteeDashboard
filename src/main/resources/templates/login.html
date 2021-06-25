@@ -36,7 +36,8 @@
 <!--        <p>-->
 <!--          <a th:href="@{/register}">Зареєструватись</a>-->
 <!--        </p>-->
-        <p class="mt-5 mb-3 text-muted">&copy; 2019-2020 tracktor</p>
+        <p class="mt-5 mb-3 text-muted"><span>&copy; 2019-</span><span class="copyright-year"></span><span>&nbsp;tracktor</span></p>
+<!--        <p class="mt-5 mb-3 text-muted">&copy; 2019-2020 tracktor</p>-->
       </form>
     </div>
   </body>
@@ -51,6 +52,15 @@
               type: 'danger',
               delay: 0
           });
+
+          var initialDate = new Date();
+          $('.copyright-year').text(initialDate.getFullYear());
+      });
+  </script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          var initialDate = new Date();
+          $('.copyright-year').text(initialDate.getFullYear());
       });
   </script>
 </html>
