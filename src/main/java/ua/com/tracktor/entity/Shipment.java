@@ -29,6 +29,9 @@ public class Shipment {
     private String phone;
     private String address;
 
+    @Column(name = "main_shipment_id")
+    private UUID mainShipmentId;
+
     @Column(name = "declaration_number")
     private String declarationNumber;
 

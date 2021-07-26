@@ -147,6 +147,18 @@ public class ProxyFilterService {
             return false;
         }
 
+        JsonNode mainDocumentIdNode = documentNode.get("ВедущаяТранспортнаяНакладная");
+        UUID mainShipmentId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+        Long price = 0l;
+
+        if (mainDocumentIdNode != null && mainDocumentIdNode.get("УникальныйИдентификатор") != null && mainDocumentIdNode.get("УникальныйИдентификатор").isTextual()) {
+            mainShipmentId = UUID.fromString(mainDocumentIdNode.get("УникальныйИдентификатор").textValue());
+        }
+
+        if (mainShipmentId.equals(UUID.fromString("00000000-0000-0000-0000-000000000000"))) {
+            price = account.getPrice();
+        }
+
         if (!thisIsCreateQuery) {
             shipment = shipmentService.getShipmentById(shipmentId);
         }
@@ -155,11 +167,13 @@ public class ProxyFilterService {
             shipment = new Shipment();
             shipment.setId(shipmentId);
             shipment.setAccount(account);
-            shipment.setDeclarationPrice(account.getPrice());
-        }
+          }
+
 
         if (responseStatusCode == 200) {
             shipment.setDate(LocalDateTime.now());
+            shipment.setDeclarationPrice(price);
+            shipment.setMainShipmentId(mainShipmentId);
         }
 
         JsonNode documentSumNode = documentNode.get("ОбъявленнаяСтоимость");
