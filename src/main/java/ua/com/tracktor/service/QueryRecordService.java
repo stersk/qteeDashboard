@@ -2,12 +2,18 @@ package ua.com.tracktor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import ua.com.tracktor.data.QueryRecordRepository;
 import ua.com.tracktor.entity.QueryRecord;
+import ua.com.tracktor.util.RestUtil;
 
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,37 +52,37 @@ public class QueryRecordService {
         String password = env.getProperty("delivery-service.server.password");
         int port = Integer.parseInt(Objects.requireNonNull(env.getProperty("delivery-service.server.port")));
 
-//        HttpHeaders headers = new HttpHeaders();
-//        RestUtil.addBasicAuthorizationHeader(headers, userName, password);
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//        restTemplate.getMessageConverters()
-//                .add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8)); // for correct cyrillic symbols in string body
-//
-//        ResponseEntity<String> responseEntity;
-//
-//        List<QueryRecord> records = getTopTenQueryRecords();
-//        while (!records.isEmpty()) {
-//            for (QueryRecord record: records) {
-//                HttpEntity<QueryRecord> httpEntity = new HttpEntity<>(record, headers);
-//
-//                try {
-//                    URI uri = new URI("https", null, server, port, basePath, "", null);
-//                    responseEntity = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
-//
-//                    if (responseEntity.getStatusCode() == HttpStatus.OK) {
-//                        delete(record);
-//                    } else {
-//                        return;
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return;
-//                }
-//            }
-//
-//            records = getTopTenQueryRecords();
-//        }
+        HttpHeaders headers = new HttpHeaders();
+        RestUtil.addBasicAuthorizationHeader(headers, userName, password);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters()
+                .add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8)); // for correct cyrillic symbols in string body
+
+        ResponseEntity<String> responseEntity;
+
+        List<QueryRecord> records = getTopTenQueryRecords();
+        while (!records.isEmpty()) {
+            for (QueryRecord record: records) {
+                HttpEntity<QueryRecord> httpEntity = new HttpEntity<>(record, headers);
+
+                try {
+                    URI uri = new URI("https", null, server, port, basePath, "", null);
+                    responseEntity = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+
+                    if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                        delete(record);
+                    } else {
+                        return;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+
+            records = getTopTenQueryRecords();
+        }
     }
 }
