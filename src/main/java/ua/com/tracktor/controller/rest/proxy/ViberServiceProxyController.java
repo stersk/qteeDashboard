@@ -90,7 +90,6 @@ public class ViberServiceProxyController {
                 URI uri = new URI("https", null, server, port, path, request.getQueryString(), null);
 
                 headers.add("x-user-id", account.getId().toString());
-                headers.remove("authorization"); // Authorization on viberService is disabled by default
 
                 HttpEntity<String> httpEntity = new HttpEntity<>(body, headers);
 
