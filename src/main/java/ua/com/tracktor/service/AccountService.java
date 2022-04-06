@@ -19,7 +19,7 @@ public class AccountService {
     private UserServiceWithDetails userService;
 
     public Account getAccountById(Long id){
-        return accountRepository.getOne(id);
+        return accountRepository.getById(id);
     }
 
     @Nullable

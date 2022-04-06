@@ -28,7 +28,7 @@ public class HttpErrorController implements ErrorController {
         return "error/unknown";
     }
 
-    @Override
+//    @Override
     public String getErrorPath() {
         return null;
     }
