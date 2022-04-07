@@ -45,6 +45,12 @@ public class Shipment1CDTO {
             case "Укрпочта" :
                 shipment.setDeliveryService(DeliveryService.UKRPOSHTA);
                 break;
+            case "МистЭкспресс" :
+                shipment.setDeliveryService(DeliveryService.MEEST);
+                break;
+            case "Деливери" :
+                shipment.setDeliveryService(DeliveryService.DELIVERY);
+                break;
         }
 
         return shipment;
